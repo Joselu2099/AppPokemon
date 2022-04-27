@@ -1,24 +1,21 @@
 package controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import eu.iamgio.pokedex.Generation;
 import eu.iamgio.pokedex.pokemon.Pokemon;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.util.Pair;
 
+import java.util.Scanner;
+
 public class AppPokemon {
 	public static void main(String[] args) {
-
-		List<Pokemon> pokemons = Generation.GENERATION_I.load().getPokemonNames().stream()
-				.map(pk -> Pokemon.fromName(pk))
-				.collect(Collectors.toList());
-		
-		for (Pokemon pokemon : pokemons) {
-			if(pokemon.getName().equals("blastoise")){
-				pokemon.getMoves().forEach(mv -> System.out.println(mv.getName()));
-			}
-		}
-        
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Introduce un nombre de un pokemon: ");
+		String pokemon = sc.nextLine();
+		Pokemon pk = Pokemon.fromName(pokemon.toLowerCase());
+		Pair<PokemonType, PokemonType> types = pk.getTypes();
+		if(types.getSecond()!=null)
+			System.out.println(pk.getName() + " es de tipo " + types.getFirst() + " y " + types.getSecond());
+		else
+			System.out.println(pk.getName() + " es de tipo " + types.getFirst());
 	}
 }
