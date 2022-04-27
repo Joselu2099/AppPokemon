@@ -1,5 +1,27 @@
 package controller;
 
-public class AppPokemon {
+import java.util.List;
+import java.util.stream.Collectors;
+import eu.iamgio.pokedex.Generation;
+import eu.iamgio.pokedex.pokemon.Pokemon;
+import eu.iamgio.pokedex.pokemon.PokemonType;
+import eu.iamgio.pokedex.util.Pair;
 
+public class AppPokemon {
+	public static void main(String[] args) {
+		
+		List<Pokemon> pokemons = Generation.GENERATION_I.load().getPokemonNames().stream()
+				.map(pk -> Pokemon.fromName(pk))
+				.collect(Collectors.toList());
+		
+		for (Pokemon pokemon : pokemons) {
+			System.out.println(pokemon.getId());
+		}
+		
+		Pokemon bulbasaur = Pokemon.fromName("bulbasaur");
+        Pair<PokemonType, PokemonType> types = bulbasaur.getTypes();
+        System.out.println(types.getFirst());
+        System.out.println(types.getSecond());
+        
+	}
 }
