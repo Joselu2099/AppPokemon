@@ -14,6 +14,7 @@ public class Pokemon {
     private final int FERTILIDAD_BASE = 5;
     private final int NIVEL_BASE = 0;
 
+    private int id;
     private String nombre;
     private String mote;
     private int vitalidad;
@@ -33,7 +34,8 @@ public class Pokemon {
     private Estado estado;
     private ItemHold objeto;
 
-    public Pokemon(String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int precision, int evasion, int experiencia, Pair<PokemonType, PokemonType> tipos) {
+    public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int precision, int evasion, int experiencia, Pair<PokemonType, PokemonType> tipos) {
+        this.id = id;
         this.nombre = nombre;
         this.setMote("");
         this.vitalidad = vitalidad;
@@ -55,6 +57,7 @@ public class Pokemon {
     }
 
     public Pokemon(Pokemon pokemon){
+        this.id = pokemon.getId();
         this.nombre = pokemon.getNombre();
         this.mote = pokemon.getMote();
         this.vitalidad = pokemon.getVitalidad();
@@ -73,6 +76,14 @@ public class Pokemon {
         this.tipos = pokemon.getTipos();
         this.estado = pokemon.getEstado();
         this.objeto = pokemon.getObjeto();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Pokemon(String nombre){
@@ -222,4 +233,6 @@ public class Pokemon {
     public void setObjeto(ItemHold objeto) {
         this.objeto = objeto;
     }
+
+    
 }

@@ -7,6 +7,7 @@ import eu.iamgio.pokedex.util.Pair;
 public class ModelUtils {
     public static Pokemon parsePokemon(String nombrePk){
         eu.iamgio.pokedex.pokemon.Pokemon pk = eu.iamgio.pokedex.pokemon.Pokemon.fromName(nombrePk);
+        int id = pk.getId();
         String nombre = pk.getName();
         int vitalidad = pk.getStat(Stat.Type.HP).getBaseStat();
         int ataque = pk.getStat(Stat.Type.ATTACK).getBaseStat();
@@ -19,6 +20,6 @@ public class ModelUtils {
         int experiencia = pk.getBaseExperience();
         Pair<PokemonType, PokemonType> tipos = pk.getTypes();
 
-        return new Pokemon(nombre, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, precision, evasion, experiencia, tipos);
+        return new Pokemon(id, nombre, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, precision, evasion, experiencia, tipos);
     }
 }
