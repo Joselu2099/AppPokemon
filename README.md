@@ -2,7 +2,7 @@
 
 ## Students
 -Jose Luis Sánchez Carrasco
--[insert name]
+-Miguel Sanz Sánchez
 -[insert name]
 
 ## Description
