@@ -1,17 +1,19 @@
 package model;
 
-public class MovimientoEstado {
+public class MovimientoEstado extends Movimiento{
 	
 	Estado estado;
 	int numTurnos;
 	
 	public MovimientoEstado() {
-		this.estado = new Estado();
+		super();
+		this.estado = Estado.SIN_ESTADO;
 		this.numTurnos = 0;
 	}
 	
-	public MovimientoEstado(Estado estado, int numTurnos) {
-		this.estado = estado;
+	public MovimientoEstado(String nombre, Estado estado, int numTurnos) {
+		super(nombre);
+		this.estado = Estado.SIN_ESTADO;
 		this.numTurnos = numTurnos;
 	}
 

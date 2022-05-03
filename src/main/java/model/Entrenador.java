@@ -103,6 +103,7 @@ public class Entrenador {
 	
 	public boolean retirarPokedollars() {
 		//TODO
+		return false;
 	}
 	
 	public void addPokedollars() {
