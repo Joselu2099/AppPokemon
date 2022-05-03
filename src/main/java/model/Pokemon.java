@@ -1,6 +1,5 @@
 package model;
 
-import eu.iamgio.pokedex.item.ItemHold;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.pokemon.move.PokemonPersonalMove;
 import eu.iamgio.pokedex.util.Pair;
@@ -30,9 +29,9 @@ public class Pokemon {
     private int fertilidad;
     private Pair<PokemonType, PokemonType> tipos;
     private Estado estado;
-    private ItemHold objeto;
+    private String sprite;
 
-    public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos) {
+    public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos, String sprite) {
         this.id = id;
         this.nombre = nombre;
         this.setMote("");
@@ -49,7 +48,7 @@ public class Pokemon {
         this.setFertilidad(FERTILIDAD_BASE);
         this.tipos = tipos;
         this.setEstado(Estado.SIN_ESTADO);
-        this.setObjeto(null);
+        this.sprite = sprite;
     }
 
     public Pokemon(Pokemon pokemon){
@@ -69,7 +68,7 @@ public class Pokemon {
         this.fertilidad = pokemon.getFertilidad();
         this.tipos = pokemon.getTipos();
         this.estado = pokemon.getEstado();
-        this.objeto = pokemon.getObjeto();
+        this.sprite = pokemon.getSprite();
     }
 
     public int getId() {
@@ -204,12 +203,12 @@ public class Pokemon {
         this.estado = estado;
     }
 
-    public ItemHold getObjeto() {
-        return objeto;
+    public String getSprite() {
+        return sprite;
     }
 
-    public void setObjeto(ItemHold objeto) {
-        this.objeto = objeto;
+    public void setSprite(String sprite) {
+        this.sprite = sprite;
     }
 
     @Override
@@ -229,9 +228,8 @@ public class Pokemon {
                 ", experiencia=" + experiencia +
                 ", movimientos=" + movimientos.toString() +
                 ", fertilidad=" + fertilidad +
-                ", tipos=" + tipos.toString() +
+                ", tipos= {" + tipos.getFirst() +", "+ tipos.getSecond() +"}"+
                 ", estado=" + estado +
-               // ", objeto=" + objeto.getName() +
                 '}';
     }
 }
