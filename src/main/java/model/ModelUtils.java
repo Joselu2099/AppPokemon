@@ -1,6 +1,5 @@
 package model;
 
-import eu.iamgio.pokedex.item.ItemHold;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.pokemon.Stat;
 import eu.iamgio.pokedex.util.Pair;
@@ -22,8 +21,4 @@ public class ModelUtils {
         return new Pokemon(id, nombre, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, experiencia, tipos);
     }
 
-    public static ObjetoPokemon parseItemsPokemon(ItemHold item){
-        //TODO
-        return new ObjetoPokemon();
-    }
 }
