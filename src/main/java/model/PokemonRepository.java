@@ -10,7 +10,7 @@ public class PokemonRepository {
 
     private static PokemonRepository INSTANCE;
 
-    List<Pokemon> pokemons;
+    private List<Pokemon> pokemons;
 
     private PokemonRepository(){
         pokemons = new ArrayList<>();
@@ -27,5 +27,9 @@ public class PokemonRepository {
         pokemons = Generation.GENERATION_I.load().getPokemonNames().stream()
                 .map(ModelUtils::parsePokemon)
                 .collect(Collectors.toList());
+    }
+
+    public List<Pokemon> getPokemons() {
+        return new ArrayList<Pokemon>(pokemons);
     }
 }

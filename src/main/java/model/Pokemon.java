@@ -23,8 +23,6 @@ public class Pokemon {
     private int ataqueEspecial;
     private int defensaEspecial;
     private int velocidad;
-    private int precision;
-    private int evasion;
     private int estamina;
     private int nivel;
     private int experiencia;
@@ -34,7 +32,7 @@ public class Pokemon {
     private Estado estado;
     private ItemHold objeto;
 
-    public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int precision, int evasion, int experiencia, Pair<PokemonType, PokemonType> tipos) {
+    public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos) {
         this.id = id;
         this.nombre = nombre;
         this.setMote("");
@@ -44,8 +42,6 @@ public class Pokemon {
         this.ataqueEspecial = ataqueEspecial;
         this.defensaEspecial = defensaEspecial;
         this.velocidad = velocidad;
-        this.precision = precision;
-        this.evasion = evasion;
         this.setEstamina(ESTAMINA_BASE);
         this.setNivel(NIVEL_BASE);
         this.experiencia = experiencia;
@@ -66,8 +62,6 @@ public class Pokemon {
         this.ataqueEspecial = pokemon.getAtaqueEspecial();
         this.defensaEspecial = pokemon.getDefensaEspecial();
         this.velocidad = pokemon.getVelocidad();
-        this.precision = pokemon.getPrecision();
-        this.evasion = pokemon.getEvasion();
         this.estamina = pokemon.getEstamina();
         this.nivel = pokemon.getNivel();
         this.experiencia = pokemon.getExperiencia();
@@ -154,22 +148,6 @@ public class Pokemon {
         this.velocidad = velocidad;
     }
 
-    public int getPrecision() {
-        return precision;
-    }
-
-    public void setPrecision(int precision) {
-        this.precision = precision;
-    }
-
-    public int getEvasion() {
-        return evasion;
-    }
-
-    public void setEvasion(int evasion) {
-        this.evasion = evasion;
-    }
-
     public int getEstamina() {
         return estamina;
     }
@@ -234,5 +212,26 @@ public class Pokemon {
         this.objeto = objeto;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", mote='" + mote + '\'' +
+                ", vitalidad=" + vitalidad +
+                ", ataque=" + ataque +
+                ", defensa=" + defensa +
+                ", ataqueEspecial=" + ataqueEspecial +
+                ", defensaEspecial=" + defensaEspecial +
+                ", velocidad=" + velocidad +
+                ", estamina=" + estamina +
+                ", nivel=" + nivel +
+                ", experiencia=" + experiencia +
+                ", movimientos=" + movimientos.toString() +
+                ", fertilidad=" + fertilidad +
+                ", tipos=" + tipos.toString() +
+                ", estado=" + estado +
+               // ", objeto=" + objeto.getName() +
+                '}';
+    }
 }
