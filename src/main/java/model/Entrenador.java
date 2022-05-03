@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class Entrenador {
+
 	private static int POKEDOLLARS_BASE = 800;
 	
 	int idEntrenador;
@@ -112,4 +113,5 @@ public class Entrenador {
 	
 	
 	
+
 }
