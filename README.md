@@ -3,7 +3,7 @@
 ## Students
 -Jose Luis Sánchez Carrasco
 -Miguel Sanz Sánchez
--[insert name]
+-Pablo de Haro Belmonte
 
 ## Description
 DAW project for programming and programing enviroments subjets
