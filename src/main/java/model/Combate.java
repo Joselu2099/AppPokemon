@@ -77,8 +77,7 @@ public class Combate {
 		return this.pokemonsKOJugador;
 	}
 
-    public void setPokemonsKOJugador(ArrayList<Pokemon> pokemonsKOJugador)
-    {
+    public void setPokemonsKOJugador(ArrayList<Pokemon> pokemonsKOJugador) {
 		this.pokemonsKOJugador = pokemonsKOJugador;
 	}
 
@@ -91,19 +90,24 @@ public class Combate {
     {
 		this.pokemonsKORival = pokemonsKORival;
 	}
-    public void siguienteTurno() {
-        // TODO
+
+    public void empezarCombate() {
+        this.turnos.add(new Turno(1));
     }
+
+    public void siguienteTurno() {
+
+    }
+
     public void terminarCombate() {
         
         if (pokemonsKOJugador.size()==4){
             this.ganador = rival;
             // TODO
+
         }
-        else {
-            if (pokemonsKORival.size()==4){
-                this.ganador = jugador;
-            }
+        if (pokemonsKORival.size()==4) {
+            this.ganador = jugador;
         }
     }
 }
