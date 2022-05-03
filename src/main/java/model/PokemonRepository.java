@@ -25,8 +25,7 @@ public class PokemonRepository {
 
     private void loadRepository(){
         pokemons = Generation.GENERATION_I.load().getPokemonNames().stream()
-                .map(pk -> eu.iamgio.pokedex.pokemon.Pokemon.fromName(pk))
-                .map(pk -> ModelUtils.parsePokemon(pk))
+                .map(ModelUtils::parsePokemon)
                 .collect(Collectors.toList());
     }
 }
