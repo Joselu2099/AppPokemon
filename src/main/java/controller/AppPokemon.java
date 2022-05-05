@@ -25,9 +25,8 @@ public class AppPokemon {
 		return INSTANCE;
 	}
 
-	public boolean capturarPokemon(Pokemon pokemon){
+	public void capturarPokemon(Pokemon pokemon){
 		currentEntrenador.addPokemon(pokemon);
-		return false;
 	}
 
 	public Pokemon generarPokemonRandom(){

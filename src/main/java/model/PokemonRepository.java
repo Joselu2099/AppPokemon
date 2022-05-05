@@ -13,7 +13,7 @@ public class PokemonRepository {
     private Map<Integer, Pokemon> pokemons;
 
     private PokemonRepository(){
-        pokemons = new HashMap<Integer, Pokemon>();
+        pokemons = new HashMap<>();
         this.loadRepository();
     }
 
