@@ -70,14 +70,20 @@ public class Entrenador {
 	}
 	
 	public void addPokemon(Pokemon pokemon) {
-		//TODO
 		if(pokemons.size() == 4){
-			//Añadir pokemon a caja
+			cajaPokemon.addPokemon(pokemon);
 		}else pokemons.add(pokemon);
 	}
 	
-	public void sacarPokemon() {
-		//TODO
+	public boolean sacarPokemon(Pokemon pokemon) {
+		if(cajaPokemon.isPokemonInCaja(pokemon)){
+			if(pokemons.size() != 4){
+				pokemons.add(pokemon);
+				cajaPokemon.removePokemon(pokemon);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void entrenar() {
