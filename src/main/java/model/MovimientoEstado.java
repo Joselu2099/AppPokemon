@@ -2,8 +2,8 @@ package model;
 
 public class MovimientoEstado extends Movimiento{
 	
-	Estado estado;
-	int numTurnos;
+	private Estado estado;
+	private int numTurnos;
 	
 	public MovimientoEstado() {
 		super();
