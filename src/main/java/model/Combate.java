@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Combate {
 
-    private int idCombate;
+    private int id;
     private Entrenador jugador;
     private Entrenador rival;
     private Entrenador ganador;
@@ -15,7 +15,7 @@ public class Combate {
 
 
     public Combate() {
-        this.idCombate = 0;
+        this.id = 0;
         this.jugador = new Entrenador();
         this.rival = new Entrenador();
         this.ganador = new Entrenador();
@@ -24,7 +24,7 @@ public class Combate {
         this.pokemonsKORival = new ArrayList<>();
     }
     public Combate(Entrenador jugador, Entrenador rival) {
-        this.idCombate = 0;
+        this.id = 0;
         this.jugador = jugador;
         this.rival = rival;
         this.ganador = new Entrenador();
@@ -32,12 +32,12 @@ public class Combate {
         this.pokemonsKOJugador = new ArrayList<>();
         this.pokemonsKORival = new ArrayList<>();
     }
-    public int getIdCombate() {
-        return this.idCombate;
+    public int getId() {
+        return this.id;
     }
 
-    public void setIdCombate(int idCombate) {
-        this.idCombate = idCombate;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Entrenador getJugador() {

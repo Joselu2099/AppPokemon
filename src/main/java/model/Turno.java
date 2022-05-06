@@ -1,17 +1,21 @@
 package model;
 
 public class Turno {
+	
+	private int id;
     private int numTurno;
     private Movimiento accionRealizadaJugador;
     private Movimiento accionRealizadaRival;
 
     public Turno() {
+    	this.id = 0;
         this.numTurno =0;
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();
     }
 
     public Turno(int numTurno) {
+    	this.id = 0;
         this.numTurno =numTurno;
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();
@@ -22,6 +26,15 @@ public class Turno {
         this.accionRealizadaJugador = accionRealizadaJugador;
         this.accionRealizadaRival = accionRealizadaRival;        
     }
+    
+    public int getId() {
+		return id;
+	}
+    
+    public void setId(int id) {
+		this.id = id;
+	}
+    
     public int getNumTurno() {
         return this.numTurno;
     }

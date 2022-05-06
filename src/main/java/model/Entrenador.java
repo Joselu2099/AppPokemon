@@ -6,35 +6,35 @@ public class Entrenador {
 
 	private static int POKEDOLLARS_BASE = 800;
 	
-	int idEntrenador;
+	int id;
 	String nombre;
 	ArrayList<Pokemon> pokemons;
 	int pokedollars;
 	CajaPokemon cajaPokemon;
 	
 	public Entrenador() {
-		this.idEntrenador=0;
+		this.id=0;
 		this.nombre="";
-		this.pokemons=new ArrayList();
+		this.pokemons=new ArrayList<Pokemon>();
 		this.pokedollars=0;
 		this.cajaPokemon=new CajaPokemon();
 	}
 
 	public Entrenador(String nombre) {
-		this.idEntrenador = idEntrenador;
+		this.id = 0;
 		this.nombre = nombre;
-		this.pokemons = pokemons;
+		this.pokemons = new ArrayList<>();
 		this.pokedollars = POKEDOLLARS_BASE;
 		//TODO
-		this.cajaPokemon = cajaPokemon;
+		this.cajaPokemon = new CajaPokemon();
 	}
 
-	public int getIdEntrenador() {
-		return idEntrenador;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdEntrenador(int idEntrenador) {
-		this.idEntrenador = idEntrenador;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -69,12 +69,21 @@ public class Entrenador {
 		this.cajaPokemon = cajaPokemon;
 	}
 	
-	public void moverPokemon() {
-		//TODO
+	public void addPokemon(Pokemon pokemon) {
+		if(pokemons.size() == 4){
+			cajaPokemon.addPokemon(pokemon);
+		}else pokemons.add(pokemon);
 	}
 	
-	public void sacarPokemon() {
-		//TODO
+	public boolean sacarPokemon(Pokemon pokemon) {
+		if(cajaPokemon.isPokemonInCaja(pokemon)){
+			if(pokemons.size() != 4){
+				pokemons.add(pokemon);
+				cajaPokemon.removePokemon(pokemon);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void entrenar() {
