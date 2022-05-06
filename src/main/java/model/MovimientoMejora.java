@@ -11,8 +11,8 @@ public class MovimientoMejora extends Movimiento{
 		this.numTurnos = 0;
 	}
 
-	public MovimientoMejora(String nombre, int mejora, int numTurnos) {
-		super(nombre);
+	public MovimientoMejora(String nombre, int estamina, int mejora, int numTurnos) {
+		super(nombre, estamina);
 		this.mejora = mejora;
 		this.numTurnos = numTurnos;
 	}

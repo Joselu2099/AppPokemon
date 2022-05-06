@@ -13,8 +13,8 @@ public class MovimientoAtaque extends Movimiento{
 		tipo = PokemonType.NORMAL;
 	}
 
-	public MovimientoAtaque(String nombre, int potencia, PokemonType tipo) {
-		super(nombre);
+	public MovimientoAtaque(String nombre, int estamina, int potencia, PokemonType tipo) {
+		super(nombre, estamina);
 		this.potencia = potencia;
 		this.tipo = tipo;
 	}

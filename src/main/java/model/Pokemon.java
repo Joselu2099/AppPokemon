@@ -9,7 +9,7 @@ import static model.ModelUtils.*;
 
 public class Pokemon {
 
-    private final int ESTAMINA_BASE = 10;
+    private final int ESTAMINA_BASE = 15;
     private final int FERTILIDAD_BASE = 5;
     private final int NIVEL_BASE = 0;
 

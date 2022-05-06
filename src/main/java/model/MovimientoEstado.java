@@ -11,8 +11,8 @@ public class MovimientoEstado extends Movimiento{
 		this.numTurnos = 0;
 	}
 	
-	public MovimientoEstado(String nombre, Estado estado, int numTurnos) {
-		super(nombre);
+	public MovimientoEstado(String nombre, int estamina, Estado estado, int numTurnos) {
+		super(nombre, estamina);
 		this.estado = Estado.SIN_ESTADO;
 		this.numTurnos = numTurnos;
 	}
