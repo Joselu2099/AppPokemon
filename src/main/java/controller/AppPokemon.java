@@ -32,6 +32,7 @@ public class AppPokemon {
 	public Pokemon generarPokemonRandom(){
 		int numRandom = (int) Math.floor(Math.random()*(PokemonRepository.getINSTANCE().getNumeroPokemons()-1+1)+1);  // Valor entre M y N, ambos incluidos.
 		return PokemonRepository.getINSTANCE().getPokemon(numRandom);
+
 	}
 
 	public static void main(String[] args) {
