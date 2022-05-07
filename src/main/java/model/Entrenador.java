@@ -1,16 +1,20 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class Entrenador {
 
-    private static int POKEDOLLARS_BASE = 800;
+    private static int POKEDOLLARS_BASE = 500;
 
-    int id;
-    String nombre;
-    ArrayList<Pokemon> pokemons;
-    int pokedollars;
-    CajaPokemon cajaPokemon;
+    private int id;
+    private String nombre;
+    private ArrayList<Pokemon> pokemons;
+    private int pokedollars;
+    private CajaPokemon cajaPokemon;
+    private List<Combate> combates;
 
     public Entrenador() {
         this.id = 0;
@@ -18,6 +22,7 @@ public class Entrenador {
         this.pokemons = new ArrayList<Pokemon>();
         this.pokedollars = 0;
         this.cajaPokemon = new CajaPokemon();
+        this.combates = new LinkedList<>();
     }
 
     public Entrenador(String nombre) {
@@ -25,8 +30,26 @@ public class Entrenador {
         this.nombre = nombre;
         this.pokemons = new ArrayList<>();
         this.pokedollars = POKEDOLLARS_BASE;
-        //TODO
         this.cajaPokemon = new CajaPokemon();
+        this.combates = new LinkedList<>();
+    }
+
+    public Entrenador(String nombre, ArrayList<Pokemon> pokemons) {
+        this.id = 0;
+        this.nombre = nombre;
+        this.pokemons = pokemons;
+        this.pokedollars = POKEDOLLARS_BASE;
+        this.cajaPokemon = new CajaPokemon();
+        this.combates = new LinkedList<>();
+    }
+
+    public Entrenador(int id, String nombre, ArrayList<Pokemon> pokemons, int pokedollars, CajaPokemon cajaPokemon, LinkedList<Combate> combates) {
+        this.id = id;
+        this.nombre = nombre;
+        this.pokemons = pokemons;
+        this.pokedollars = pokedollars;
+        this.cajaPokemon = cajaPokemon;
+        this.combates = combates;
     }
 
     public int getId() {
@@ -69,6 +92,14 @@ public class Entrenador {
         this.cajaPokemon = cajaPokemon;
     }
 
+    public List<Combate> getCombates() {
+        return combates;
+    }
+
+    public void setCombates(List<Combate> combates) {
+        this.combates = combates;
+    }
+
     public void addPokemon(Pokemon pokemon) {
         if (pokemons.size() == 4) {
             cajaPokemon.addPokemon(pokemon);
@@ -90,12 +121,16 @@ public class Entrenador {
         //TODO
     }
 
-    public void capturar() {
-        //TODO
+    public void capturar(Pokemon pokemon) {
+        if(pokemons.size()<4){
+            pokemons.add(pokemon);
+        }else{
+            cajaPokemon.addPokemon(pokemon);
+        }
     }
 
-    public void combatir() {
-        //TODO
+    public void addCombate(Combate combate) {
+        combates.add(combate);
     }
 
     public void criar() {
@@ -110,14 +145,28 @@ public class Entrenador {
         //TODO
     }
 
-    public boolean retirarPokedollars() {
-        //TODO
+    public void addPokedollars(int cantidad) {
+        this.pokedollars+=cantidad;
+    }
+
+    public boolean retirarPokedollars(int cantidad) {
+        if(pokedollars-cantidad >= 0) {
+            this.pokedollars -= cantidad;
+            return true;
+        }
         return false;
     }
 
-    public void addPokedollars() {
-        //TODO
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Entrenador that = (Entrenador) o;
+        return id == that.id && pokedollars == that.pokedollars && nombre.equals(that.nombre) && Objects.equals(pokemons, that.pokemons) && Objects.equals(cajaPokemon, that.cajaPokemon);
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, pokemons, pokedollars, cajaPokemon);
+    }
 }
