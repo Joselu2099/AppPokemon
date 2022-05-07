@@ -90,16 +90,28 @@ public class Combate {
         this.pokemonsKORival = pokemonsKORival;
     }
 
+    public ArrayList<Pokemon> getPokemonsKOGanador() {
+        if(ganador.equals(jugador)) return getPokemonKOJugador();
+        else return getPokemonsKORival();
+    }
+
     public void empezarCombate() {
         this.turnos.add(new Turno(1));
     }
 
-    public void siguienteTurno() {
+    public void siguienteTurno(Movimiento mvJugador, Movimiento mvRival) {
+        turnos.getLast().setAccionRealizadaJugador(mvJugador);
+        turnos.getLast().setAccionRealizadaRival(mvRival);
+        turnos.add(new Turno(turnos.getLast().getNumTurno()+1));
+    }
 
+    public void debilitarPokemon(Entrenador entrenador, Pokemon pokemon){
+        if(entrenador.equals(jugador))
+            pokemonsKOJugador.add(pokemon);
+        else pokemonsKORival.add(pokemon);
     }
 
     public void terminarCombate() {
-
         if (pokemonsKOJugador.size() == 4) {
             this.ganador = rival;
             // TODO
