@@ -1,7 +1,6 @@
 package launcher;
 
 import model.MovimientosRepository;
-import model.Pokemon;
 import model.PokemonRepository;
 
 public class Launcher {

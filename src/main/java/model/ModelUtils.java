@@ -3,10 +3,11 @@ package model;
 import eu.iamgio.pokedex.pokemon.*;
 import eu.iamgio.pokedex.pokemon.move.*;
 import eu.iamgio.pokedex.util.Pair;
+
 import static eu.iamgio.pokedex.pokemon.move.MoveCategory.*;
 
 public class ModelUtils {
-    public static Pokemon parsePokemon(String nombrePk){
+    public static Pokemon parsePokemon(String nombrePk) {
         PokemonPokedex pk = PokemonPokedex.fromName(nombrePk);
         int id = pk.getId();
         String nombre = pk.getName();
@@ -23,30 +24,29 @@ public class ModelUtils {
         return new Pokemon(id, nombre, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, experiencia, tipos, sprite);
     }
 
-    public static Movimiento parseMovimiento(String nombreMv){
+    public static Movimiento parseMovimiento(String nombreMv) {
         PokemonMove mv = PokemonMove.fromName(nombreMv);
         int id = mv.getId();
         String nombre = mv.getName();
         /**
-        switch (mv.getCategory()){
-            case DAMAGE:
-            case DAMAGE_AND_LOWER:
-            case DAMAGE_AND_RAISE:
-            case DAMAGE_AND_HEAL:
-            case DAMAGE_AND_AILMENT:
-                int damage = mv.getPower();
-                PokemonType tipo = mv.getType();
-                return new MovimientoAtaque(nombre, damage, tipo);
-            case HEAL:
-                //int mejora =
-                //int numTurnos
+         switch (mv.getCategory()){
+         case DAMAGE:
+         case DAMAGE_AND_LOWER:
+         case DAMAGE_AND_RAISE:
+         case DAMAGE_AND_HEAL:
+         case DAMAGE_AND_AILMENT:
+         int damage = mv.getPower();
+         PokemonType tipo = mv.getType();
+         return new MovimientoAtaque(nombre, damage, tipo);
+         case HEAL:
+         //int mejora =
+         //int numTurnos
 
-                return new MovimientoNull();
+         return new MovimientoNull();
 
-        }
+         }
          **/
         return new MovimientoNull();
-
 
 
     }

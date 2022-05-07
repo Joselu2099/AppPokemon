@@ -3,9 +3,10 @@ package model;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.pokemon.move.PokemonPersonalMove;
 import eu.iamgio.pokedex.util.Pair;
+
 import java.util.ArrayList;
 
-import static model.ModelUtils.*;
+import static model.ModelUtils.parsePokemon;
 
 public class Pokemon {
 
@@ -51,7 +52,7 @@ public class Pokemon {
         this.sprite = sprite;
     }
 
-    public Pokemon(Pokemon pokemon){
+    public Pokemon(Pokemon pokemon) {
         this.id = pokemon.getId();
         this.nombre = pokemon.getNombre();
         this.mote = pokemon.getMote();
@@ -71,16 +72,16 @@ public class Pokemon {
         this.sprite = pokemon.getSprite();
     }
 
+    public Pokemon(String nombre) {
+        this(parsePokemon(nombre));
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Pokemon(String nombre){
-        this(parsePokemon(nombre));
     }
 
     public String getNombre() {
@@ -228,7 +229,7 @@ public class Pokemon {
                 ", experiencia=" + experiencia +
                 ", movimientos=" + movimientos.toString() +
                 ", fertilidad=" + fertilidad +
-                ", tipos= {" + tipos.getFirst() +", "+ tipos.getSecond() +"}"+
+                ", tipos= {" + tipos.getFirst() + ", " + tipos.getSecond() + "}" +
                 ", estado=" + estado +
                 '}';
     }

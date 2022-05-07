@@ -1,6 +1,7 @@
 package model;
 
 import eu.iamgio.pokedex.Generation;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,18 +13,18 @@ public class MovimientosRepository {
 
     private Map<Integer, Movimiento> movimientos;
 
-    private MovimientosRepository(){
+    private MovimientosRepository() {
         movimientos = new HashMap<>();
         this.loadRepository();
     }
 
-    public static MovimientosRepository getINSTANCE(){
-        if(INSTANCE == null)
+    public static MovimientosRepository getINSTANCE() {
+        if (INSTANCE == null)
             INSTANCE = new MovimientosRepository();
         return INSTANCE;
     }
 
-    private void loadRepository(){
+    private void loadRepository() {
         ArrayList<Movimiento> pks = (ArrayList<Movimiento>) Generation.GENERATION_I.load().getMoveNames().stream()
                 .map(ModelUtils::parseMovimiento)
                 .collect(Collectors.toList());
@@ -35,7 +36,7 @@ public class MovimientosRepository {
         return new ArrayList<Movimiento>(movimientos.values());
     }
 
-    public Movimiento getMovimiento(int id){
+    public Movimiento getMovimiento(int id) {
         return movimientos.get(id);
     }
 }

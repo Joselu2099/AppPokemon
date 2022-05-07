@@ -1,6 +1,7 @@
 package model;
 
 import eu.iamgio.pokedex.Generation;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,18 +13,18 @@ public class PokemonRepository {
 
     private Map<Integer, Pokemon> pokemons;
 
-    private PokemonRepository(){
+    private PokemonRepository() {
         pokemons = new HashMap<>();
         this.loadRepository();
     }
 
-    public static PokemonRepository getINSTANCE(){
-        if(INSTANCE == null)
+    public static PokemonRepository getINSTANCE() {
+        if (INSTANCE == null)
             INSTANCE = new PokemonRepository();
         return INSTANCE;
     }
 
-    private void loadRepository(){
+    private void loadRepository() {
         ArrayList<Pokemon> pks = (ArrayList<Pokemon>) Generation.GENERATION_I.load().getPokemonNames().stream()
                 .map(ModelUtils::parsePokemon)
                 .collect(Collectors.toList());
@@ -35,11 +36,11 @@ public class PokemonRepository {
         return new ArrayList<Pokemon>(pokemons.values());
     }
 
-    public Pokemon getPokemon(int id){
+    public Pokemon getPokemon(int id) {
         return pokemons.get(id);
     }
 
-    public int getNumeroPokemons(){
+    public int getNumeroPokemons() {
         return pokemons.size();
     }
 }

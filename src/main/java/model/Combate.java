@@ -19,19 +19,21 @@ public class Combate {
         this.jugador = new Entrenador();
         this.rival = new Entrenador();
         this.ganador = new Entrenador();
-        this.turnos= new LinkedList<>();
+        this.turnos = new LinkedList<>();
         this.pokemonsKOJugador = new ArrayList<>();
         this.pokemonsKORival = new ArrayList<>();
     }
+
     public Combate(Entrenador jugador, Entrenador rival) {
         this.id = 0;
         this.jugador = jugador;
         this.rival = rival;
         this.ganador = new Entrenador();
-        this.turnos= new LinkedList<>();
+        this.turnos = new LinkedList<>();
         this.pokemonsKOJugador = new ArrayList<>();
         this.pokemonsKORival = new ArrayList<>();
     }
+
     public int getId() {
         return this.id;
     }
@@ -65,31 +67,28 @@ public class Combate {
     }
 
     public LinkedList<Turno> getTurnos() {
-		return this.turnos;
-	}
+        return this.turnos;
+    }
 
-    public void setTurnos(LinkedList <Turno> turnos) {
-		this.turnos = turnos;
-	}
+    public void setTurnos(LinkedList<Turno> turnos) {
+        this.turnos = turnos;
+    }
 
-    public ArrayList<Pokemon> getPokemonKOJugador()
-    {
-		return this.pokemonsKOJugador;
-	}
+    public ArrayList<Pokemon> getPokemonKOJugador() {
+        return this.pokemonsKOJugador;
+    }
 
     public void setPokemonsKOJugador(ArrayList<Pokemon> pokemonsKOJugador) {
-		this.pokemonsKOJugador = pokemonsKOJugador;
-	}
+        this.pokemonsKOJugador = pokemonsKOJugador;
+    }
 
-    public ArrayList<Pokemon> getPokemonsKORival()
-    {
-		return this.pokemonsKORival;
-	}
+    public ArrayList<Pokemon> getPokemonsKORival() {
+        return this.pokemonsKORival;
+    }
 
-    public void setPokemonsKORival (ArrayList<Pokemon> pokemonsKORival)
-    {
-		this.pokemonsKORival = pokemonsKORival;
-	}
+    public void setPokemonsKORival(ArrayList<Pokemon> pokemonsKORival) {
+        this.pokemonsKORival = pokemonsKORival;
+    }
 
     public void empezarCombate() {
         this.turnos.add(new Turno(1));
@@ -100,13 +99,13 @@ public class Combate {
     }
 
     public void terminarCombate() {
-        
-        if (pokemonsKOJugador.size()==4){
+
+        if (pokemonsKOJugador.size() == 4) {
             this.ganador = rival;
             // TODO
 
         }
-        if (pokemonsKORival.size()==4) {
+        if (pokemonsKORival.size() == 4) {
             this.ganador = jugador;
         }
     }
