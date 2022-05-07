@@ -6,7 +6,11 @@
 
     <groupId>AppPokemon</groupId>
     <artifactId>pokemon</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+
+    </modules>
 
     <name>pokemon</name>
     <!-- FIXME change it to the project's website -->

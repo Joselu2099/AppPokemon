@@ -1,6 +1,7 @@
 package model;
 
 import eu.iamgio.pokedex.Generation;
+import model.utils.ModelUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

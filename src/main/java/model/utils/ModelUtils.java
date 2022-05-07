@@ -1,8 +1,11 @@
-package model;
+package model.utils;
 
 import eu.iamgio.pokedex.pokemon.*;
 import eu.iamgio.pokedex.pokemon.move.*;
 import eu.iamgio.pokedex.util.Pair;
+import model.Movimiento;
+import model.MovimientoNull;
+import model.Pokemon;
 
 import static eu.iamgio.pokedex.pokemon.move.MoveCategory.*;
 
