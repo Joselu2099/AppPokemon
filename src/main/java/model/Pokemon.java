@@ -1,12 +1,13 @@
 package model;
 
+import controller.AppPokemon;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.pokemon.move.PokemonPersonalMove;
 import eu.iamgio.pokedex.util.Pair;
-
 import java.util.ArrayList;
+import java.util.Objects;
 
-import static model.ModelUtils.parsePokemon;
+import static model.utils.ModelUtils.parsePokemon;
 
 public class Pokemon {
 
@@ -212,25 +213,77 @@ public class Pokemon {
         this.sprite = sprite;
     }
 
+    public void subirNivel(){
+        this.nivel++;
+        this.vitalidad+=getAumentoRandom();
+        this.ataque+=getAumentoRandom();
+        this.defensa+=getAumentoRandom();
+        this.ataqueEspecial+=getAumentoRandom();
+        this.defensaEspecial+=getAumentoRandom();
+        this.velocidad+=getAumentoRandom();
+    }
+
+    public void aumentarExperiencia(int cantidad){
+        this.experiencia = cantidad;
+        if(experiencia >= 10*nivel){
+            subirNivel();
+        }
+    }
+
+    public int getAumentoRandom(){
+        return (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
+    }
+
+    public void atacar(Pokemon pkRival, Movimiento mv){
+        if(mv.getClass().getSimpleName().equals(MovimientoAtaque.class.getSimpleName())){
+
+        }
+        if(mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())){
+
+        }
+    }
+
+    public boolean isDebil(PokemonType pkType){
+        /**
+        switch (this.getTipos().getFirst()){
+
+        }
+        switch (pkType){
+            case BUG:
+            case DARK:
+            case DRAGON:
+            case ELECTRIC:
+            case FAIRY:
+            case FIGHTING:
+            case FIRE:
+            case FLYING:
+            case GHOST:
+            case GRASS:
+            case GROUND:
+            case ICE:
+            case NORMAL:
+            case POISON:
+            case PSYCHIC:
+            case ROCK:
+            case SHADOW:
+            case STEEL:
+            case WATER:
+            case UNKNOWN:
+        }
+         **/
+        return false;
+    }
+
     @Override
-    public String toString() {
-        return "Pokemon{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", mote='" + mote + '\'' +
-                ", vitalidad=" + vitalidad +
-                ", ataque=" + ataque +
-                ", defensa=" + defensa +
-                ", ataqueEspecial=" + ataqueEspecial +
-                ", defensaEspecial=" + defensaEspecial +
-                ", velocidad=" + velocidad +
-                ", estamina=" + estamina +
-                ", nivel=" + nivel +
-                ", experiencia=" + experiencia +
-                ", movimientos=" + movimientos.toString() +
-                ", fertilidad=" + fertilidad +
-                ", tipos= {" + tipos.getFirst() + ", " + tipos.getSecond() + "}" +
-                ", estado=" + estado +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pokemon pokemon = (Pokemon) o;
+        return id == pokemon.id && vitalidad == pokemon.vitalidad && ataque == pokemon.ataque && defensa == pokemon.defensa && ataqueEspecial == pokemon.ataqueEspecial && defensaEspecial == pokemon.defensaEspecial && velocidad == pokemon.velocidad && estamina == pokemon.estamina && nivel == pokemon.nivel && experiencia == pokemon.experiencia && fertilidad == pokemon.fertilidad && nombre.equals(pokemon.nombre) && Objects.equals(mote, pokemon.mote) && Objects.equals(movimientos, pokemon.movimientos) && Objects.equals(tipos, pokemon.tipos) && estado == pokemon.estado;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, mote, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, estamina, nivel, experiencia, movimientos, fertilidad, tipos, estado);
     }
 }
