@@ -43,4 +43,32 @@ public class PokemonRepository {
     public int getNumeroPokemons() {
         return pokemons.size();
     }
+
+    public int generarNumRandom(int M, int N){
+        return (int) Math.floor(Math.random()*(N-M+1)+M);
+    }
+
+    public Pokemon generarPokemonRandom() {
+        return getPokemon(generarNumRandom(1,getNumeroPokemons()));
+    }
+
+    public Pokemon generarPokemon(String nombre, int nivel) {
+        Pokemon pk = ModelUtils.parsePokemon(nombre);
+        for (int i = 0; i < nivel; i++) {
+            pk.subirNivel();
+        }
+        return pk;
+    }
+
+    public ArrayList<Pokemon> generarEquipoPokemon(int nivel){
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            Pokemon pk = generarPokemonRandom();
+            for (int j = 0; j < nivel; j++) {
+                pk.subirNivel();
+            }
+            pokemons.add(generarPokemonRandom());
+        }
+        return pokemons;
+    }
 }

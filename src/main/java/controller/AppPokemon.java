@@ -2,6 +2,7 @@ package controller;
 
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import model.*;
+import model.utils.ModelUtils;
 import model.utils.NombresEntrenador;
 import model.utils.TablaTipos;
 
@@ -19,7 +20,7 @@ public class AppPokemon {
         //Hacer load de todos los repositorios
     }
 
-    public AppPokemon getINSTANCE() {
+    public static AppPokemon getINSTANCE() {
         if (INSTANCE == null)
             INSTANCE = new AppPokemon();
         return INSTANCE;
@@ -43,20 +44,12 @@ public class AppPokemon {
         pk.setMote(mote);
     }
 
-    public int generarNumRandom(int M, int N){
-        return (int) Math.floor(Math.random()*(N-M+1)+M);
-    }
-
-    public Pokemon generarPokemonRandom() {
-        return PokemonRepository.getINSTANCE().getPokemon(generarNumRandom(1,PokemonRepository.getINSTANCE().getNumeroPokemons()));
-    }
-
     public void crearCombate(Entrenador rival){
         Combate combate = new Combate(currentEntrenador, rival);
     }
 
     public void crearCombateRandom(){
-        Combate combate = new Combate(currentEntrenador, generarEntrenador());
+        Combate combate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom());
     }
 
     public boolean ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){
@@ -89,22 +82,6 @@ public class AppPokemon {
     public void finalizarCombate(Combate combate){
         combate.terminarCombate();
         this.currentEntrenador.addCombate(combate);
-    }
-
-    public Entrenador generarEntrenador(){
-        return new Entrenador(NombresEntrenador.fromId(generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), generarEquipoPokemon(5));
-    }
-
-    public ArrayList<Pokemon> generarEquipoPokemon(int nivel){
-        ArrayList<Pokemon> pokemons = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            Pokemon pk = generarPokemonRandom();
-            for (int j = 0; j < nivel; j++) {
-                pk.subirNivel();
-            }
-            pokemons.add(generarPokemonRandom());
-        }
-        return pokemons;
     }
 
     /*

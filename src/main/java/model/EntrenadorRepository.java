@@ -1,7 +1,9 @@
 package model;
 
+import controller.AppPokemon;
 import eu.iamgio.pokedex.Generation;
 import model.utils.ModelUtils;
+import model.utils.NombresEntrenador;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ public class EntrenadorRepository {
 
     private static EntrenadorRepository INSTANCE;
 
+    private Map<String, Entrenador> altosMando;
     private Map<Integer, Entrenador> entrenadores;
 
     private EntrenadorRepository() {
@@ -26,7 +29,8 @@ public class EntrenadorRepository {
     }
 
     private void loadRepository() {
-        //TODO
+        //Pokemon pk1 = ModelUtils.parsePokemon("charizard");
+        //Entrenador knekro = new Entrenador("Knekro", )
 
     }
 
@@ -48,5 +52,13 @@ public class EntrenadorRepository {
 
     public void addEntrenadores(ArrayList<Entrenador> entrenadoresIn){
         entrenadoresIn.forEach(e -> entrenadores.put(e.getId(), e));
+    }
+
+    public int generarNumRandom(int M, int N){
+        return (int) Math.floor(Math.random()*(N-M+1)+M);
+    }
+
+    public Entrenador generarEntrenadorRandom(){
+        return new Entrenador(NombresEntrenador.fromId(generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(5));
     }
 }

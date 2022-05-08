@@ -237,6 +237,7 @@ public class Pokemon {
 
     public void subirNivel(){
         this.nivel++;
+        this.estamina+=getAumentoRandom();
         this.vitalidad+=getAumentoRandom();
         this.ataque+=getAumentoRandom();
         this.defensa+=getAumentoRandom();
