@@ -10,7 +10,7 @@ public enum NombresEntrenador {
     DAMIAN(8, "Damian"),
     DENIS(9, "Denis"),
     DANI(10, "Dani"),
-    PABLO(11, "Paco"),
+    PABLO(11, "Pablo"),
     MIGUEL(12, "Miguel"),
     BRYAN(13, "Bryan"),
     JOSE(14, "Jose Andres");

@@ -4,6 +4,8 @@ import controller.AppPokemon;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.pokemon.move.PokemonPersonalMove;
 import eu.iamgio.pokedex.util.Pair;
+import model.utils.TablaTipos;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,7 +13,7 @@ import static model.utils.ModelUtils.parsePokemon;
 
 public class Pokemon {
 
-    private final int ESTAMINA_BASE = 15;
+    private final int ESTAMINA_BASE = 50;
     private final int FERTILIDAD_BASE = 5;
     private final int NIVEL_BASE = 0;
 
@@ -27,7 +29,7 @@ public class Pokemon {
     private int estamina;
     private int nivel;
     private int experiencia;
-    private ArrayList<PokemonPersonalMove> movimientos;
+    private ArrayList<Movimiento> movimientos;
     private int fertilidad;
     private Pair<PokemonType, PokemonType> tipos;
     private Estado estado;
@@ -50,6 +52,26 @@ public class Pokemon {
         this.setFertilidad(FERTILIDAD_BASE);
         this.tipos = tipos;
         this.setEstado(Estado.SIN_ESTADO);
+        this.sprite = sprite;
+    }
+
+    public Pokemon(int id, String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, ArrayList<Movimiento> movimientos, int fertilidad, Pair<PokemonType, PokemonType> tipos, Estado estado, String sprite) {
+        this.id = id;
+        this.nombre = nombre;
+        this.mote = mote;
+        this.vitalidad = vitalidad;
+        this.ataque = ataque;
+        this.defensa = defensa;
+        this.ataqueEspecial = ataqueEspecial;
+        this.defensaEspecial = defensaEspecial;
+        this.velocidad = velocidad;
+        this.estamina = estamina;
+        this.nivel = nivel;
+        this.experiencia = experiencia;
+        this.movimientos = movimientos;
+        this.fertilidad = fertilidad;
+        this.tipos = tipos;
+        this.estado = estado;
         this.sprite = sprite;
     }
 
@@ -173,11 +195,11 @@ public class Pokemon {
         this.experiencia = experiencia;
     }
 
-    public ArrayList<PokemonPersonalMove> getMovimientos() {
+    public ArrayList<Movimiento> getMovimientos() {
         return movimientos;
     }
 
-    public void setMovimientos(ArrayList<PokemonPersonalMove> movimientos) {
+    public void setMovimientos(ArrayList<Movimiento> movimientos) {
         this.movimientos = movimientos;
     }
 
@@ -235,43 +257,33 @@ public class Pokemon {
     }
 
     public void atacar(Pokemon pkRival, Movimiento mv){
-        if(mv.getClass().getSimpleName().equals(MovimientoAtaque.class.getSimpleName())){
 
-        }
-        if(mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())){
-
-        }
     }
 
-    public boolean isDebil(PokemonType pkType){
-        /**
-        switch (this.getTipos().getFirst()){
+    public void descansar(){
+        if(estamina <= ESTAMINA_BASE-5)
+            this.estamina+=5;
+    }
 
-        }
-        switch (pkType){
-            case BUG:
-            case DARK:
-            case DRAGON:
-            case ELECTRIC:
-            case FAIRY:
-            case FIGHTING:
-            case FIRE:
-            case FLYING:
-            case GHOST:
-            case GRASS:
-            case GROUND:
-            case ICE:
-            case NORMAL:
-            case POISON:
-            case PSYCHIC:
-            case ROCK:
-            case SHADOW:
-            case STEEL:
-            case WATER:
-            case UNKNOWN:
-        }
-         **/
-        return false;
+    public void aprenderAtaque(){
+
+    }
+
+    public VentajaDesventaja tieneVentaja(Pokemon rival){
+        double e1 = TablaTipos.getEfectividad(tipos.getFirst(), rival.getTipos().getFirst());
+        double e2 = TablaTipos.getEfectividad(tipos.getFirst(), rival.getTipos().getSecond());
+        double e3 = TablaTipos.getEfectividad(tipos.getSecond(), rival.getTipos().getFirst());
+        double e4 = TablaTipos.getEfectividad(tipos.getSecond(), rival.getTipos().getSecond());
+        if(e1 == 2.0 || e2 == 2.0 || e3 == 2.0 || e4 == 2.0) return VentajaDesventaja.VENTAJA;
+        if(e1 == 1.0 || e2 == 1.0 || e3 == 1.0 || e4 == 1.0) return VentajaDesventaja.NEUTRO;
+        if(e1 == 0.5 || e2 == 0.5 || e3 == 0.5 || e4 == 0.5) return  VentajaDesventaja.DESVENTAJA;
+        throw new IllegalArgumentException();
+    }
+
+    public boolean isInmune(MovimientoAtaque mv){
+        double e1 = TablaTipos.getEfectividad(tipos.getFirst(), mv.getTipo());
+        double e2 = TablaTipos.getEfectividad(tipos.getFirst(), mv.getTipo());
+        return (e1==0 || e2==0);
     }
 
     @Override
