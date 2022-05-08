@@ -38,7 +38,7 @@ public class Pokemon {
     public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos, String sprite) {
         this.id = id;
         this.nombre = nombre;
-        this.setMote("");
+        this.mote = nombre;
         this.vitalidad = vitalidad;
         this.ataque = ataque;
         this.defensa = defensa;
@@ -256,8 +256,43 @@ public class Pokemon {
         return (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
     }
 
-    public void atacar(Pokemon pkRival, Movimiento mv){
+    public boolean atacar(Pokemon rival, MovimientoAtaque mvA, String msg){
+        if(this.getEstamina()-mvA.consumoEstamina() >= 0) {
+                int potenciaTotal = 0;
+                if(rival.isInmune(mvA)){
+                    msg = rival.getNombre() + " es inmune a " + mvA.getNombre();
+                    return false;
+                }
+                potenciaTotal = (int) (this.getAtaque() * mvA.getPotencia() - rival.getDefensa());
+                if(this.isTipo(mvA.getTipo()))
+                    potenciaTotal = (int) (this.getAtaque() * 1.5 * mvA.getPotencia() - rival.getDefensa());
+                if(TablaTipos.getEfectividad(mvA.getTipo(), rival.getTipos().getFirst())==0.5
+                        || TablaTipos.getEfectividad(mvA.getTipo(), rival.getTipos().getSecond())==0.5)
+                    potenciaTotal = (int) (this.getAtaque() * 0.5 * mvA.getPotencia() - rival.getDefensa());
 
+                msg = this.getNombre() + " ejecuta " + mvA.getNombre() + " haciendo " + potenciaTotal + "de daño a " + rival.getNombre();
+                switch (this.tieneVentaja(rival)) {
+                    case VENTAJA:
+                        potenciaTotal = 2*potenciaTotal;
+                        msg = this.getNombre() + " ejecuta " + mvA.getNombre() + " haciendo " + potenciaTotal + "de daño a " + rival.getNombre() + " [Es muy efectivo]";
+                        break;
+                    case DESVENTAJA:
+                        msg = this.getNombre() + " ejecuta " + mvA.getNombre() + " haciendo " + potenciaTotal + "de daño a " + rival.getNombre() + " [Es poco efectivo]";
+                        break;
+                    case NEUTRO:
+                    default:
+                        break;
+                }
+                rival.setVitalidad(rival.getVitalidad()-potenciaTotal);
+                return true;
+        }else{
+            msg = this.getNombre() + "no tiene suficiente estamina para hacer " + mvA.getNombre();
+            return false;
+        }
+    }
+
+    public void aplicarMejora(MovimientoMejora mvM, String msg){
+        //TODO
     }
 
     public void descansar(){
@@ -266,7 +301,11 @@ public class Pokemon {
     }
 
     public void aprenderAtaque(){
+        //TODO
+    }
 
+    public boolean isTipo(PokemonType type){
+        return (tipos.getFirst().equals(type) || tipos.getSecond().equals(type));
     }
 
     public VentajaDesventaja tieneVentaja(Pokemon rival){
@@ -280,7 +319,7 @@ public class Pokemon {
         throw new IllegalArgumentException();
     }
 
-    public boolean isInmune(MovimientoAtaque mv){
+    public boolean isInmune(Movimiento mv){
         double e1 = TablaTipos.getEfectividad(tipos.getFirst(), mv.getTipo());
         double e2 = TablaTipos.getEfectividad(tipos.getFirst(), mv.getTipo());
         return (e1==0 || e2==0);

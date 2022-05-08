@@ -3,6 +3,7 @@ package controller;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import model.*;
 import model.utils.NombresEntrenador;
+import model.utils.TablaTipos;
 
 import java.util.ArrayList;
 
@@ -26,12 +27,20 @@ public class AppPokemon {
 
     public void registrarEntrenador(String nombre){
         Entrenador entrenador = new Entrenador(nombre);
-        //TODO
-        //Añadir entrenador al Repo
+        EntrenadorRepository.getINSTANCE().addEntrenador(entrenador);
     }
 
     public void capturarPokemon(Pokemon pokemon) {
         currentEntrenador.capturar(pokemon);
+    }
+
+    public void capturarPokemon(Pokemon pokemon, String mote) {
+        asignarMote(mote, pokemon);
+        currentEntrenador.capturar(pokemon);
+    }
+
+    public void asignarMote(String mote, Pokemon pk){
+        pk.setMote(mote);
     }
 
     public int generarNumRandom(int M, int N){
@@ -50,22 +59,26 @@ public class AppPokemon {
         Combate combate = new Combate(currentEntrenador, generarEntrenador());
     }
 
-    public void atacarPokemon(Pokemon atacante, Pokemon rival, Movimiento mv){
-        if(mv.getClass().getSimpleName().equals(MovimientoAtaque.class.getSimpleName())){
+    public boolean ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){
+        if (mv.getClass().getSimpleName().equals(MovimientoAtaque.class.getSimpleName())) {
             MovimientoAtaque mvA = (MovimientoAtaque) mv;
-            if(mvA.getTipo().equals(atacante.getTipos().getFirst()) || mvA.getTipo().equals(atacante.getTipos().getSecond())){
-                int potenciaTotal = (int) (atacante.getAtaque()*1.5*mvA.getPotencia()-rival.getDefensa());
+            return atacante.atacar(rival, mvA, msg);
+        }
+        if (mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())) {
+            MovimientoEstado mvE = (MovimientoEstado) mv;
+            if(rival.isInmune(mvE)){
+                msg = rival.getNombre() + " es inmune a " + mvE.getNombre();
+                return false;
             }else{
-                int potenciaTotal = atacante.getAtaque()*mvA.getPotencia()-rival.getDefensa();
-            }
-
-            if(!rival.isDebil(mvA.getTipo())){
-
+                rival.setEstado(mvE.getEstado());
+                return true;
             }
         }
-        if(mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())){
-
+        if (mv.getClass().getSimpleName().equals(MovimientoMejora.class.getSimpleName())) {
+            MovimientoMejora mvM = (MovimientoMejora) mv;
+            return true;
         }
+        return false;
     }
 
     public void debilitarPokemon(Combate co, Entrenador entrenadorKO, Pokemon pokemonKO, Pokemon pokemonRival){
