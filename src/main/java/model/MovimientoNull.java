@@ -7,6 +7,7 @@ public class MovimientoNull extends Movimiento {
     }
 
     @Override
-    public void consumoEstamina() {
+    public int consumoEstamina() {
+        return 0;
     }
 }

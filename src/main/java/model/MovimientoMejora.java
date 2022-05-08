@@ -1,5 +1,7 @@
 package model;
 
+import eu.iamgio.pokedex.pokemon.PokemonType;
+
 public class MovimientoMejora extends Movimiento {
 
     private int mejora;
@@ -11,8 +13,8 @@ public class MovimientoMejora extends Movimiento {
         this.numTurnos = 0;
     }
 
-    public MovimientoMejora(String nombre, int estamina, int mejora, int numTurnos) {
-        super(nombre, estamina);
+    public MovimientoMejora(String nombre, PokemonType tipo, int mejora, int numTurnos) {
+        super(nombre, tipo);
         this.mejora = mejora;
         this.numTurnos = numTurnos;
     }
@@ -33,8 +35,8 @@ public class MovimientoMejora extends Movimiento {
         this.numTurnos = numTurnos;
     }
 
-    public void consumoEstamina() {
-        //TODO
+    public int consumoEstamina() {
+        return numTurnos*10;
     }
 
 }
