@@ -335,4 +335,28 @@ public class Pokemon {
     public int hashCode() {
         return Objects.hash(id, nombre, mote, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, estamina, nivel, experiencia, movimientos, fertilidad, tipos, estado);
     }
+
+    @Override
+    public String toString() {
+        return "Pokemon{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", mote='" + mote + '\'' +
+                ", vitalidad=" + vitalidad +
+                ", ataque=" + ataque +
+                ", defensa=" + defensa +
+                ", ataqueEspecial=" + ataqueEspecial +
+                ", defensaEspecial=" + defensaEspecial +
+                ", velocidad=" + velocidad +
+                ", estamina=" + estamina +
+                ", nivel=" + nivel +
+                ", experiencia=" + experiencia +
+                ", movimientos=" + movimientos +
+                ", fertilidad=" + fertilidad +
+                ", tipo1=" + tipos.getFirst() +
+                ", tipo2=" + tipos.getSecond() +
+                ", estado=" + estado +
+                ", sprite='" + sprite + '\'' +
+                '}';
+    }
 }
