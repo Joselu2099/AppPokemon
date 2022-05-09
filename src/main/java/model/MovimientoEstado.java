@@ -1,22 +1,20 @@
 package model;
 
 import eu.iamgio.pokedex.pokemon.PokemonType;
+import model.utils.ModelUtils;
 
 public class MovimientoEstado extends Movimiento {
 
     private Estado estado;
-    private int numTurnos;
 
     public MovimientoEstado() {
         super();
         this.estado = Estado.SIN_ESTADO;
-        this.numTurnos = 0;
     }
 
     public MovimientoEstado(String nombre, PokemonType tipo, Estado estado, int numTurnos) {
         super(nombre, tipo);
         this.estado = Estado.SIN_ESTADO;
-        this.numTurnos = numTurnos;
     }
 
     public Estado getEstado() {
@@ -27,16 +25,16 @@ public class MovimientoEstado extends Movimiento {
         this.estado = estado;
     }
 
+    /**
+     * Num_turnos es una propiedad calculada, de forma random una mejora podra durar entre 1 o 5 turnos.
+     * @return numero de turnos que dura la mejora o que se realiza la mejora
+     */
     public int getNumTurnos() {
-        return numTurnos;
-    }
-
-    public void setNumTurnos(int numTurnos) {
-        this.numTurnos = numTurnos;
+        return ModelUtils.generarNumRandom(1,5);
     }
 
     public int consumoEstamina() {
-        return numTurnos*10;
+        return getNumTurnos()*10;
     }
 
 }
