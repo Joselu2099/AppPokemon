@@ -127,14 +127,18 @@ public class Combate {
             rival.retirarPokedollars(cantidad);
         }
     }
-    public void retirarse(Entrenador entrenador) {
-            if(entrenador.equals(rival)) {
-                this.ganador = jugador;
-            }
-                
-            else {
-                this.ganador = rival;
-            }
-
+    
+    public void retirarse(Entrenador entrenador){
+        if (entrenador.getId()==jugador.getId()){
+            this.ganador = rival;
+            int cantidad= jugador.getPokedollars()/3;
+            rival.addPokedollars(cantidad);
+            jugador.retirarPokedollars(cantidad);
+        }else{ 
+            ganador = jugador; 
+            int cantidad= rival.getPokedollars()/3;
+            jugador.addPokedollars(cantidad);
+            rival.retirarPokedollars(cantidad);
+        }
     }
 }
