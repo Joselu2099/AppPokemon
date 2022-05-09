@@ -1,12 +1,6 @@
 package controller;
 
-import eu.iamgio.pokedex.pokemon.PokemonType;
 import model.*;
-import model.utils.ModelUtils;
-import model.utils.NombresEntrenador;
-import model.utils.TablaTipos;
-
-import java.util.ArrayList;
 
 public class AppPokemon {
 
