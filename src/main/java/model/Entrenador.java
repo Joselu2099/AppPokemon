@@ -133,8 +133,27 @@ public class Entrenador {
         combates.add(combate);
     }
 
-    public void criar() {
+    public void criar(Pokemon padre, Pokemon madre) {
+    	String nombres[] = new String[2];
+    	String nombre;
+    	
+    	nombres[0] = padre.getNombre().substring(0, (int)(padre.getNombre().length())/2);
+    	nombres[1] = madre.getNombre().substring(0, (int)(madre.getNombre().length())/2);
+    	/*
+    	if ((generarNumRandom(0, 1)) == 0)
+    		nombre = nombres[0]+=nombres[1];
+    	else
+    		nombre = nombres[1]+=nombres[0];
+    	
+    	padre.getTipos()
+    	madre.getTipos()
+    	
+    	
+    	Pokemon hijo= new Pokemon();
         //TODO
+         * */
+         
+    	
     }
 
     public void retirar() {
