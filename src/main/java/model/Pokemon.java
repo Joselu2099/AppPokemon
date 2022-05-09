@@ -289,6 +289,16 @@ public class Pokemon {
         }
     }
 
+    public boolean aplicarEstado(MovimientoEstado mvE, String msg){
+        if(this.isInmune(mvE)){ 
+            msg = this.getNombre() + " es inmune a " + mvE.getNombre();
+            return false;
+        }
+        this.estado=mvE.getEstado();
+        msg = this.getNombre() + " ha sido " + mvE.getEstado();
+        return true;
+    }
+    
     public void aplicarMejora(MovimientoMejora mvM, String msg){
         switch (mvM.getTipoMejora()){
             case ATAQUE:
