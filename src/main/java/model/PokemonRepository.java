@@ -44,12 +44,8 @@ public class PokemonRepository {
         return pokemons.size();
     }
 
-    public int generarNumRandom(int M, int N){
-        return (int) Math.floor(Math.random()*(N-M+1)+M);
-    }
-
     public Pokemon generarPokemonRandom() {
-        return getPokemon(generarNumRandom(1,getNumeroPokemons()));
+        return getPokemon(ModelUtils.generarNumRandom(1,getNumeroPokemons()));
     }
 
     public Pokemon generarPokemon(String nombre, int nivel) {

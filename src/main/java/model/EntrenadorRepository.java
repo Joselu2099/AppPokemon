@@ -31,7 +31,6 @@ public class EntrenadorRepository {
     private void loadRepository() {
         //Pokemon pk1 = ModelUtils.parsePokemon("charizard");
         //Entrenador knekro = new Entrenador("Knekro", )
-
     }
 
     public ArrayList<Entrenador> getEntrenadores() {
@@ -54,11 +53,7 @@ public class EntrenadorRepository {
         entrenadoresIn.forEach(e -> entrenadores.put(e.getId(), e));
     }
 
-    public int generarNumRandom(int M, int N){
-        return (int) Math.floor(Math.random()*(N-M+1)+M);
-    }
-
     public Entrenador generarEntrenadorRandom(){
-        return new Entrenador(NombresEntrenador.fromId(generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(5));
+        return new Entrenador(NombresEntrenador.fromId(ModelUtils.generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(5));
     }
 }
