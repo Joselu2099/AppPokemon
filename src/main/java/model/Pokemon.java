@@ -290,7 +290,30 @@ public class Pokemon {
     }
 
     public void aplicarMejora(MovimientoMejora mvM, String msg){
-        //TODO
+        switch (mvM.getTipoMejora()){
+            case ATAQUE:
+                this.ataque+= mvM.getMejora();
+                msg = "";
+                break;
+            case DEFENSA:
+                this.defensa+= mvM.getMejora();
+                break;
+            case ATAQUE_ESP:
+                this.ataqueEspecial+= mvM.getMejora();
+                break;
+            case DEFENSA_ESP:
+                this.defensaEspecial+= mvM.getMejora();
+                break;
+            case VELOCIDAD:
+                this.velocidad+= mvM.getMejora();
+                break;
+            case VITALIDAD:
+                this.vitalidad+= mvM.getMejora();
+                break;
+            case UNKNOWN:
+            default:
+                break;
+        }
     }
 
     public void descansar(){
@@ -298,8 +321,12 @@ public class Pokemon {
             this.estamina+=5;
     }
 
-    public void aprenderAtaque(){
-        //TODO
+    public boolean aprenderAtaque(Movimiento mv) {
+        if (movimientos.size() < 4){
+            movimientos.add(mv);
+            return true;
+        }
+        return false;
     }
 
     public boolean isTipo(PokemonType type){
