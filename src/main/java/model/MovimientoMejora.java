@@ -6,15 +6,18 @@ import model.utils.ModelUtils;
 public class MovimientoMejora extends Movimiento {
 
     private int mejora;
+    private TipoMejora tipoMejora;
 
     public MovimientoMejora() {
         super();
         this.mejora = 0;
+        this.tipoMejora = TipoMejora.UNKNOWN;
     }
 
-    public MovimientoMejora(String nombre, PokemonType tipo, int mejora) {
+    public MovimientoMejora(String nombre, PokemonType tipo, int mejora, TipoMejora tipoMejora) {
         super(nombre, tipo);
         this.mejora = mejora;
+        this.tipoMejora = tipoMejora;
     }
 
     public int getMejora() {
@@ -23,6 +26,14 @@ public class MovimientoMejora extends Movimiento {
 
     public void setMejora(int mejora) {
         this.mejora = mejora;
+    }
+
+    public TipoMejora getTipoMejora() {
+        return tipoMejora;
+    }
+
+    public void setTipoMejora(TipoMejora tipoMejora) {
+        this.tipoMejora = tipoMejora;
     }
 
     /**

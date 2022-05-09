@@ -23,4 +23,12 @@ public class CajaPokemon {
     public void removePokemon(Pokemon pokemon) {
         pokemons.remove(pokemon);
     }
+
+    @Override
+    public String toString() {
+        return "CajaPokemon{" +
+                "id=" + id +
+                ", pokemons=" + pokemons +
+                '}';
+    }
 }

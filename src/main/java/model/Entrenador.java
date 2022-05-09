@@ -188,4 +188,16 @@ public class Entrenador {
     public int hashCode() {
         return Objects.hash(id, nombre, pokemons, pokedollars, cajaPokemon);
     }
+
+    @Override
+    public String toString() {
+        return "Entrenador{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", pokemons=" + pokemons +
+                ", pokedollars=" + pokedollars +
+                ", cajaPokemon=" + cajaPokemon +
+                ", combates=" + combates +
+                '}';
+    }
 }

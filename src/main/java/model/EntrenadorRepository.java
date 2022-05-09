@@ -53,7 +53,7 @@ public class EntrenadorRepository {
         entrenadoresIn.forEach(e -> entrenadores.put(e.getId(), e));
     }
 
-    public Entrenador generarEntrenadorRandom(){
-        return new Entrenador(NombresEntrenador.fromId(ModelUtils.generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(5));
+    public Entrenador generarEntrenadorRandom(int nivelEquipo){
+        return new Entrenador(NombresEntrenador.fromId(ModelUtils.generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(nivelEquipo));
     }
 }

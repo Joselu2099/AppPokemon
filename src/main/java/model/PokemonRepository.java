@@ -58,7 +58,7 @@ public class PokemonRepository {
     }
 
     public Pokemon generarPokemon(String nombre, int nivel) {
-        Pokemon pk = ModelUtils.parsePokemon(nombre);
+        Pokemon pk = getPokemon(nombre);
         for (int i = 0; i < nivel; i++) {
             pk.subirNivel();
         }
