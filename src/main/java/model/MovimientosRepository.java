@@ -26,7 +26,7 @@ public class MovimientosRepository {
     }
 
     private void loadRepository() {
-        
+
     }
 
     public ArrayList<Movimiento> getMovimientos() {

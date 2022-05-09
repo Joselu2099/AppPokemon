@@ -40,6 +40,15 @@ public class PokemonRepository {
         return pokemons.get(id);
     }
 
+    public Pokemon getPokemon(String nombre) {
+        for (Pokemon pk: getPokemons()) {
+            if(pk.getNombre().equals(nombre.toLowerCase())) {
+                return pk;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
     public int getNumeroPokemons() {
         return pokemons.size();
     }
