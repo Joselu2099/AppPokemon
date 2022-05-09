@@ -1,11 +1,13 @@
 package model;
 
-public class MovimientoNull extends Movimiento{
+public class MovimientoNull extends Movimiento {
 
-    public MovimientoNull(){
+    public MovimientoNull() {
         super();
     }
 
     @Override
-    public void consumoEstamina() {}
+    public int consumoEstamina() {
+        return 0;
+    }
 }

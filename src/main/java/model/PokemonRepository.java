@@ -1,6 +1,7 @@
 package model;
 
 import eu.iamgio.pokedex.Generation;
+import model.utils.ModelUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,18 +13,18 @@ public class PokemonRepository {
 
     private Map<Integer, Pokemon> pokemons;
 
-    private PokemonRepository(){
+    private PokemonRepository() {
         pokemons = new HashMap<>();
         this.loadRepository();
     }
 
-    public static PokemonRepository getINSTANCE(){
-        if(INSTANCE == null)
+    public static PokemonRepository getINSTANCE() {
+        if (INSTANCE == null)
             INSTANCE = new PokemonRepository();
         return INSTANCE;
     }
 
-    private void loadRepository(){
+    private void loadRepository() {
         ArrayList<Pokemon> pks = (ArrayList<Pokemon>) Generation.GENERATION_I.load().getPokemonNames().stream()
                 .map(ModelUtils::parsePokemon)
                 .collect(Collectors.toList());
@@ -35,11 +36,39 @@ public class PokemonRepository {
         return new ArrayList<Pokemon>(pokemons.values());
     }
 
-    public Pokemon getPokemon(int id){
+    public Pokemon getPokemon(int id) {
         return pokemons.get(id);
     }
 
-    public int getNumeroPokemons(){
+    public int getNumeroPokemons() {
         return pokemons.size();
+    }
+
+    public int generarNumRandom(int M, int N){
+        return (int) Math.floor(Math.random()*(N-M+1)+M);
+    }
+
+    public Pokemon generarPokemonRandom() {
+        return getPokemon(generarNumRandom(1,getNumeroPokemons()));
+    }
+
+    public Pokemon generarPokemon(String nombre, int nivel) {
+        Pokemon pk = ModelUtils.parsePokemon(nombre);
+        for (int i = 0; i < nivel; i++) {
+            pk.subirNivel();
+        }
+        return pk;
+    }
+
+    public ArrayList<Pokemon> generarEquipoPokemon(int nivel){
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            Pokemon pk = generarPokemonRandom();
+            for (int j = 0; j < nivel; j++) {
+                pk.subirNivel();
+            }
+            pokemons.add(generarPokemonRandom());
+        }
+        return pokemons;
     }
 }

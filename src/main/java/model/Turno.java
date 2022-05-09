@@ -1,40 +1,40 @@
 package model;
 
 public class Turno {
-	
-	private int id;
+
+    private int id;
     private int numTurno;
     private Movimiento accionRealizadaJugador;
     private Movimiento accionRealizadaRival;
 
     public Turno() {
-    	this.id = 0;
-        this.numTurno =0;
+        this.id = 0;
+        this.numTurno = 0;
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();
     }
 
     public Turno(int numTurno) {
-    	this.id = 0;
-        this.numTurno =numTurno;
+        this.id = 0;
+        this.numTurno = numTurno;
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();
     }
 
-    public Turno(int numTurno, Movimiento accionRealizadaJugador, Movimiento accionRealizadaRival ) {
-        this.numTurno =numTurno;
+    public Turno(int numTurno, Movimiento accionRealizadaJugador, Movimiento accionRealizadaRival) {
+        this.numTurno = numTurno;
         this.accionRealizadaJugador = accionRealizadaJugador;
-        this.accionRealizadaRival = accionRealizadaRival;        
+        this.accionRealizadaRival = accionRealizadaRival;
     }
-    
+
     public int getId() {
-		return id;
-	}
-    
+        return id;
+    }
+
     public void setId(int id) {
-		this.id = id;
-	}
-    
+        this.id = id;
+    }
+
     public int getNumTurno() {
         return this.numTurno;
     }
@@ -58,7 +58,8 @@ public class Turno {
     public void setAccionRealizadaRival(Movimiento accionRealizadaRival) {
         this.accionRealizadaRival = accionRealizadaRival;
     }
-    public void next(){
+
+    public void next() {
         numTurno++;
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();

@@ -1,40 +1,42 @@
 package model;
 
-public class MovimientoMejora extends Movimiento{
+import eu.iamgio.pokedex.pokemon.PokemonType;
 
-	private int mejora;
-	private int numTurnos;
+public class MovimientoMejora extends Movimiento {
 
-	public MovimientoMejora() {
-		super();
-		this.mejora = 0;
-		this.numTurnos = 0;
-	}
+    private int mejora;
+    private int numTurnos;
 
-	public MovimientoMejora(String nombre, int estamina, int mejora, int numTurnos) {
-		super(nombre, estamina);
-		this.mejora = mejora;
-		this.numTurnos = numTurnos;
-	}
+    public MovimientoMejora() {
+        super();
+        this.mejora = 0;
+        this.numTurnos = 0;
+    }
 
-	public int getMejora() {
-		return mejora;
-	}
+    public MovimientoMejora(String nombre, PokemonType tipo, int mejora, int numTurnos) {
+        super(nombre, tipo);
+        this.mejora = mejora;
+        this.numTurnos = numTurnos;
+    }
 
-	public void setMejora(int mejora) {
-		this.mejora = mejora;
-	}
+    public int getMejora() {
+        return mejora;
+    }
 
-	public int getNumTurnos() {
-		return numTurnos;
-	}
+    public void setMejora(int mejora) {
+        this.mejora = mejora;
+    }
 
-	public void setNumTurnos(int numTurnos) {
-		this.numTurnos = numTurnos;
-	}
+    public int getNumTurnos() {
+        return numTurnos;
+    }
 
-	public void consumoEstamina() {
-		//TODO
-	}
+    public void setNumTurnos(int numTurnos) {
+        this.numTurnos = numTurnos;
+    }
+
+    public int consumoEstamina() {
+        return numTurnos*10;
+    }
 
 }

@@ -1,20 +1,22 @@
 package model;
 
+import eu.iamgio.pokedex.pokemon.PokemonType;
+
 public abstract class Movimiento {
     private int id;
     private String nombre;
-    private int estamina;
+    private PokemonType tipo;
 
     public Movimiento() {
         this.id = 0;
         this.nombre = "";
-        this.estamina = 0;
+        this.tipo = PokemonType.UNKNOWN;
     }
 
-    public Movimiento(String nombre, int estamina) {
+    public Movimiento(String nombre, PokemonType tipo) {
         this.id = 0;
         this.nombre = nombre;
-        this.estamina = estamina;
+        this.tipo = tipo;
     }
 
     public int getId() {
@@ -33,13 +35,13 @@ public abstract class Movimiento {
         this.nombre = nombre;
     }
 
-    public int getEstamina() {
-        return estamina;
+    public PokemonType getTipo() {
+        return tipo;
     }
 
-    public void setEstamina(int estamina) {
-        this.estamina = estamina;
+    public void setTipo(PokemonType tipo) {
+        this.tipo = tipo;
     }
 
-    public abstract void consumoEstamina();
+    public abstract int consumoEstamina();
 }
