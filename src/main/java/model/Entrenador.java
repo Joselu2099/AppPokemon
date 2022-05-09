@@ -117,6 +117,18 @@ public class Entrenador {
         return false;
     }
 
+    public boolean movePokemon(Pokemon pokemonCaja , Pokemon pokemonEquipo){
+    
+        if(cajaPokemon.isPokemonInCaja(pokemonCaja) && pokemons.contains(pokemonEquipo)){
+            cajaPokemon.addPokemon(pokemonEquipo)
+            pokemons.add(pokemonCaja)
+            return true;
+        }
+        return false;
+
+        
+    }
+
     public void entrenar() {
         //TODO
     }
