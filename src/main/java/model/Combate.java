@@ -117,8 +117,6 @@ public class Combate {
             int cantidad = (int) jugador.getPokedollars()/3;
             rival.addPokedollars(cantidad);
             jugador.retirarPokedollars(cantidad);
-
-
         }
         if (pokemonsKORival.size() == 4) {
             this.ganador = jugador;

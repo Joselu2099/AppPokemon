@@ -156,14 +156,6 @@ public class Entrenador {
     	
     }
 
-    public void retirar() {
-        //TODO
-    }
-
-    public void generar() {
-        //TODO
-    }
-
     public void addPokedollars(int cantidad) {
         this.pokedollars+=cantidad;
     }
