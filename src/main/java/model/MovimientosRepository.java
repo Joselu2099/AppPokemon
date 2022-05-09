@@ -26,11 +26,7 @@ public class MovimientosRepository {
     }
 
     private void loadRepository() {
-        ArrayList<Movimiento> pks = (ArrayList<Movimiento>) Generation.GENERATION_I.load().getMoveNames().stream()
-                .map(ModelUtils::parseMovimiento)
-                .collect(Collectors.toList());
-
-        pks.forEach(mv -> movimientos.put(mv.getId(), mv));
+        
     }
 
     public ArrayList<Movimiento> getMovimientos() {

@@ -114,11 +114,27 @@ public class Combate {
     public void terminarCombate() {
         if (pokemonsKOJugador.size() == 4) {
             this.ganador = rival;
-            // TODO
+            int cantidad = (int) jugador.getPokedollars()/3;
+            rival.addPokedollars(cantidad);
+            jugador.retirarPokedollars(cantidad);
+
 
         }
         if (pokemonsKORival.size() == 4) {
             this.ganador = jugador;
+            int cantidad = (int) rival.getPokedollars()/3;
+            jugador.addPokedollars(cantidad);
+            rival.retirarPokedollars(cantidad);
         }
+    }
+    public void retirarse(Entrenador entrenador) {
+            if(entrenador.equals(rival)) {
+                this.ganador = jugador;
+            }
+                
+            else {
+                this.ganador = rival;
+            }
+
     }
 }
