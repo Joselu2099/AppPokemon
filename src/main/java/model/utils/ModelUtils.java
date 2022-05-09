@@ -26,4 +26,8 @@ public class ModelUtils {
 
         return new Pokemon(id, nombre, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, experiencia, tipos, sprite);
     }
+
+    public static int generarNumRandom(int M, int N){
+        return (int) Math.floor(Math.random()*(N-M+1)+M);
+    }
 }

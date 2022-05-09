@@ -4,6 +4,7 @@ import controller.AppPokemon;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.pokemon.move.PokemonPersonalMove;
 import eu.iamgio.pokedex.util.Pair;
+import model.utils.ModelUtils;
 import model.utils.TablaTipos;
 
 import java.util.ArrayList;
@@ -237,13 +238,13 @@ public class Pokemon {
 
     public void subirNivel(){
         this.nivel++;
-        this.estamina+=getAumentoRandom();
-        this.vitalidad+=getAumentoRandom();
-        this.ataque+=getAumentoRandom();
-        this.defensa+=getAumentoRandom();
-        this.ataqueEspecial+=getAumentoRandom();
-        this.defensaEspecial+=getAumentoRandom();
-        this.velocidad+=getAumentoRandom();
+        this.estamina+=ModelUtils.generarNumRandom(1,5);
+        this.vitalidad+=ModelUtils.generarNumRandom(1,5);
+        this.ataque+=ModelUtils.generarNumRandom(1,5);
+        this.defensa+=ModelUtils.generarNumRandom(1,5);
+        this.ataqueEspecial+=ModelUtils.generarNumRandom(1,5);
+        this.defensaEspecial+=ModelUtils.generarNumRandom(1,5);
+        this.velocidad+=ModelUtils.generarNumRandom(1,5);
     }
 
     public void aumentarExperiencia(int cantidad){
@@ -251,10 +252,6 @@ public class Pokemon {
         if(experiencia >= 10*nivel){
             subirNivel();
         }
-    }
-
-    public int getAumentoRandom(){
-        return (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
     }
 
     public boolean atacar(Pokemon rival, MovimientoAtaque mvA, String msg){
