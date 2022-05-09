@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import eu.iamgio.pokedex.pokemon.PokemonType;
+import eu.iamgio.pokedex.util.Pair;
+import model.utils.ModelUtils;
+
 public class Entrenador {
 
     private static int POKEDOLLARS_BASE = 500;
@@ -134,24 +138,47 @@ public class Entrenador {
     }
 
     public void criar(Pokemon padre, Pokemon madre) {
+    	//Nombre
     	String nombres[] = new String[2];
-    	String nombre;
     	
     	nombres[0] = padre.getNombre().substring(0, (int)(padre.getNombre().length())/2);
     	nombres[1] = madre.getNombre().substring(0, (int)(madre.getNombre().length())/2);
-    	/*
-    	if ((generarNumRandom(0, 1)) == 0)
-    		nombre = nombres[0]+=nombres[1];
+    	
+    	Pokemon hijo;
+		if (ModelUtils.generarNumRandom(0, 1) == 0)
+    		hijo = new Pokemon(nombres[0]+nombres[1]);
     	else
-    		nombre = nombres[1]+=nombres[0];
+    		hijo = new Pokemon(nombres[1]+nombres[0]);
     	
-    	padre.getTipos()
-    	madre.getTipos()
+		//Ataques
+		ArrayList<Movimiento> movimientosHijo = new ArrayList<Movimiento>();
+		for (int i = 0; i < 2; i++) {
+			movimientosHijo.add(padre.getMovimientos().get(i));
+			movimientosHijo.add(madre.getMovimientos().get(i));
+		}
+		hijo.setMovimientos(movimientosHijo);
     	
+		//Tipos
+		PokemonType tipo1;
+		PokemonType tipo2;
+		Pair<PokemonType, PokemonType> tipos;
+		
+		tipo1 = padre.getTipoAleatorio();
+		tipo2 = madre.getTipoAleatorio();
+		
+		while(tipo1.equals(tipo2)){
+		    if(ModelUtils.generarNumRandom(0,1)==0)
+		        tipo2 = padre.getTipoAleatorio();
+		    else tipo2 = madre.getTipoAleatorio();
+		}
+		
+		tipos = new Pair<PokemonType, PokemonType>(tipo1, tipo2);
+		hijo.setTipos(tipos);
+				
+		//Características
     	
-    	Pokemon hijo= new Pokemon();
-        //TODO
-         * */
+    	//TODO
+        
          
     	
     }
