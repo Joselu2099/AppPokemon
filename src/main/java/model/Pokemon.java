@@ -215,6 +215,11 @@ public class Pokemon {
     public Pair<PokemonType, PokemonType> getTipos() {
         return tipos;
     }
+    
+    public PokemonType getTipoAleatorio() {
+    	if(ModelUtils.generarNumRandom(0, 1) == 0) return tipos.getFirst();
+    	else return tipos.getSecond();
+    }
 
     public void setTipos(Pair<PokemonType, PokemonType> tipos) {
         this.tipos = tipos;

@@ -5,9 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import eu.iamgio.pokedex.pokemon.PokemonType;
+import eu.iamgio.pokedex.util.Pair;
+import model.utils.ModelUtils;
+
 public class Entrenador {
 
-    private static int POKEDOLLARS_BASE = 500;
+    private static int POKEDOLLARS_BASE = ModelUtils.generarNumRandom(800, 1000);
 
     private int id;
     private String nombre;
@@ -133,25 +137,69 @@ public class Entrenador {
         combates.add(combate);
     }
 
-    public void criar(Pokemon padre, Pokemon madre) {
-        String nombres[] = new String[2];
-        String nombre;
-
-        nombres[0] = padre.getNombre().substring(0, (int)(padre.getNombre().length())/2);
-        nombres[1] = madre.getNombre().substring(0, (int)(madre.getNombre().length())/2);
-    	/*
-    	if ((generarNumRandom(0, 1)) == 0)
-    		nombre = nombres[0]+=nombres[1];
+    public Pokemon criar(Pokemon padre, Pokemon madre) {
+    	//Nombre
+    	String nombres[] = new String[2];
+    	
+    	nombres[0] = padre.getNombre().substring(0, (int)(padre.getNombre().length())/2);
+    	nombres[1] = madre.getNombre().substring(0, (int)(madre.getNombre().length())/2);
+    	
+    	Pokemon hijo;
+		if (ModelUtils.generarNumRandom(0, 1) == 0)
+    		hijo = new Pokemon(nombres[0]+nombres[1]);
     	else
-    		nombre = nombres[1]+=nombres[0];
-
-    	padre.getTipos()
-    	madre.getTipos()
-
-
-    	Pokemon hijo= new Pokemon();
-        //TODO
-         * */
+    		hijo = new Pokemon(nombres[1]+nombres[0]);
+    	
+		//Ataques
+		ArrayList<Movimiento> movimientosHijo = new ArrayList<Movimiento>();
+		for (int i = 0; i < 2; i++) {
+			movimientosHijo.add(padre.getMovimientos().get(i));
+			movimientosHijo.add(madre.getMovimientos().get(i));
+		}
+		hijo.setMovimientos(movimientosHijo);
+    	
+		//Tipos
+		PokemonType tipo1;
+		PokemonType tipo2;
+		Pair<PokemonType, PokemonType> tipos;
+		
+		tipo1 = padre.getTipoAleatorio();
+		tipo2 = madre.getTipoAleatorio();
+		
+		while(tipo1.equals(tipo2)){
+		    if(ModelUtils.generarNumRandom(0,1)==0)
+		        tipo2 = padre.getTipoAleatorio();
+		    else tipo2 = madre.getTipoAleatorio();
+		}
+		
+		tipos = new Pair<PokemonType, PokemonType>(tipo1, tipo2);
+		hijo.setTipos(tipos);
+				
+		//Caracter�sticas
+    	if (padre.getAtaque() >= madre.getAtaque()) hijo.setAtaque(padre.getAtaque());
+    	else hijo.setAtaque(madre.getAtaque());
+    	
+    	if (padre.getVitalidad() >= madre.getVitalidad()) hijo.setVitalidad(padre.getVitalidad());
+    	else hijo.setVitalidad(madre.getVitalidad());
+    	
+    	if (padre.getDefensa() >= madre.getDefensa()) hijo.setDefensa(padre.getDefensa());
+    	else hijo.setDefensa(madre.getDefensa());
+    	
+    	if (padre.getAtaqueEspecial() >= madre.getAtaqueEspecial()) hijo.setAtaqueEspecial(padre.getAtaqueEspecial());
+    	else hijo.setAtaqueEspecial(madre.getAtaqueEspecial());
+    	
+    	if (padre.getDefensaEspecial() >= madre.getDefensaEspecial()) hijo.setDefensaEspecial(padre.getDefensaEspecial());
+    	else hijo.setDefensaEspecial(madre.getDefensaEspecial());
+    	
+    	if (padre.getVelocidad() >= madre.getVelocidad()) hijo.setVelocidad(padre.getVelocidad());
+    	else hijo.setVelocidad(madre.getVelocidad());
+    	
+    	if (padre.getEstamina() >= madre.getEstamina()) hijo.setEstamina(padre.getEstamina());
+    	else hijo.setEstamina(madre.getEstamina());
+    	
+    	return hijo;
+        
+    }
 
 
     }
