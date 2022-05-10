@@ -8,7 +8,7 @@ import java.util.List;
 public interface EntrenadorDAO {
     void create(Entrenador assistant) throws SQLException;
 
-    boolean delete(Entrenador assistant) throws SQLException;
+    void delete(Entrenador assistant) throws SQLException;
 
     void updateProfile(Entrenador assistant) throws SQLException;
 

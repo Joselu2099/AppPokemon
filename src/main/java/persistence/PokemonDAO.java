@@ -8,7 +8,7 @@ import java.util.List;
 public interface PokemonDAO {
     void create(Pokemon assistant) throws SQLException;
 
-    boolean delete(Pokemon assistant) throws SQLException;
+    void delete(Pokemon assistant) throws SQLException;
 
     void updateProfile(Pokemon assistant) throws SQLException;
 

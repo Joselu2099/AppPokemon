@@ -13,6 +13,8 @@ import java.util.Objects;
 public class Launcher {
     public static void main(String[] args) {
         AppPokemon.getINSTANCE();
+
+        System.out.println(EntrenadorRepository.getINSTANCE().getEntrenadores());
         /*
         String URL = "jdbc:mysql://localhost:3306/pokemon";
         String LOGIN = "root";
@@ -49,7 +51,7 @@ public class Launcher {
                 e.printStackTrace();
             }
         }
-        */
+
         //DAOFactory daoFactory = new AppPokemonDAOFactory();
         //daoFactory.cerrarConexion();
 
@@ -60,6 +62,8 @@ public class Launcher {
             e.printStackTrace();
         }
         DAOFactory.getINSTANCE().cerrarConexion();
+        */
+
         //System.out.println(EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(50));
 
 

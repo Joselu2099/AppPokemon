@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 
 public class UtilsDAO {
     public static void crearModificar(String query) throws SQLException {
-        Statement statement = DAOFactory.getConnection().createStatement();
+        Statement statement = DAOFactory.getINSTANCE().getConnection().createStatement();
         statement.executeUpdate(query);
         statement.close();
     }
 
     public static void inserts(List<String> querys) throws SQLException {
-        Statement statement = DAOFactory.getConnection().createStatement();
+        Statement statement = DAOFactory.getINSTANCE().getConnection().createStatement();
         for(String query: querys){
             statement.executeUpdate(query);
         }
@@ -27,7 +27,7 @@ public class UtilsDAO {
     }
 
     public static ResultSet consultar(String query) throws SQLException {
-        Statement statement = DAOFactory.getConnection().createStatement();
+        Statement statement = DAOFactory.getINSTANCE().getConnection().createStatement();
         ResultSet rs = statement.executeQuery(query);
         statement.close();
         return rs;

@@ -8,7 +8,7 @@ import java.util.List;
 public interface TurnoDAO {
     void create(Turno assistant) throws SQLException;
 
-    boolean delete(Turno assistant) throws SQLException;
+    void delete(Turno assistant) throws SQLException;
 
     void updateProfile(Turno assistant) throws SQLException;
 

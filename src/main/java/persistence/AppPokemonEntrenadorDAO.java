@@ -1,14 +1,14 @@
 package persistence;
 
 import model.Entrenador;
-import model.utils.ModelUtils;
-
+import model.Pokemon;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
 
@@ -46,6 +46,7 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
                 rs.getString("pokemons") + "\n" +
                 rs.getString("pokemons_caja"));
         */
+        //TODO
         return new Entrenador(rs.getInt("id_entrenador"),
                 rs.getString("nombre"));
     }
@@ -57,13 +58,14 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
 
     @Override
     public void create(Entrenador assistant) throws SQLException {
-        //TODO
+        statement.executeUpdate("INSERT INTO ENTRENADOR(NOMBRE,POKEDOLLARS)" +
+                " VALUES(" + assistant.getNombre() + ", " + assistant.getPokedollars() +")");
+        assistant = get(assistant.getNombre());
     }
 
     @Override
-    public boolean delete(Entrenador assistant) throws SQLException {
+    public void delete(Entrenador assistant) throws SQLException {
         //TODO
-        return false;
     }
 
     @Override
@@ -71,13 +73,26 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
         statement.executeUpdate("UPDATE ENTRENADOR" +
                 " SET NOMBRE=" + assistant.getNombre() +
                 " WHERE codEquipo = " + assistant.getId());
+        statement.executeUpdate("UPDATE ENTRENADOR" +
+                " SET POKEDOLLARS=" + assistant.getPokedollars() +
+                " WHERE codEquipo = " + assistant.getId());
+        statement.executeUpdate("UPDATE ENTRENADOR" +
+                " SET POKEMONS=" + UtilsDAO.listToString(assistant.getPokemons().stream().map(Pokemon::getId).collect(Collectors.toList())) +
+                " WHERE codEquipo = " + assistant.getId());
+        statement.executeUpdate("UPDATE ENTRENADOR" +
+                " SET POKEMONS_CAJA=" + UtilsDAO.listToString(assistant.getCajaPokemon().stream().map(Pokemon::getId).collect(Collectors.toList())) +
+                " WHERE codEquipo = " + assistant.getId());
     }
 
     @Override
     public Entrenador get(int id) throws SQLException {
         ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR WHERE ID_ENTRENADOR="+id);
-        Entrenador e = resultToEntrenador(rs);
-        return e;
+        return resultToEntrenador(rs);
+    }
+
+    public Entrenador get(String nombre) throws SQLException {
+        ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR WHERE ID_ENTRENADOR="+nombre);
+        return resultToEntrenador(rs);
     }
 
     @Override

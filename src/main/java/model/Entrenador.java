@@ -17,7 +17,7 @@ public class Entrenador {
     private String nombre;
     private ArrayList<Pokemon> pokemons;
     private int pokedollars;
-    private CajaPokemon cajaPokemon;
+    private List<Pokemon> cajaPokemon;
     private List<Combate> combates;
 
     public Entrenador() {
@@ -25,7 +25,7 @@ public class Entrenador {
         this.nombre = "";
         this.pokemons = new ArrayList<Pokemon>();
         this.pokedollars = 0;
-        this.cajaPokemon = new CajaPokemon();
+        this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
 
@@ -34,7 +34,7 @@ public class Entrenador {
         this.nombre = nombre;
         this.pokemons = new ArrayList<>();
         this.pokedollars = POKEDOLLARS_BASE;
-        this.cajaPokemon = new CajaPokemon();
+        this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
 
@@ -43,7 +43,7 @@ public class Entrenador {
         this.nombre = nombre;
         this.pokemons = new ArrayList<>();
         this.pokedollars = POKEDOLLARS_BASE;
-        this.cajaPokemon = new CajaPokemon();
+        this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
 
@@ -52,11 +52,11 @@ public class Entrenador {
         this.nombre = nombre;
         this.pokemons = pokemons;
         this.pokedollars = POKEDOLLARS_BASE;
-        this.cajaPokemon = new CajaPokemon();
+        this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
 
-    public Entrenador(int id, String nombre, ArrayList<Pokemon> pokemons, int pokedollars, CajaPokemon cajaPokemon, LinkedList<Combate> combates) {
+    public Entrenador(int id, String nombre, ArrayList<Pokemon> pokemons, int pokedollars, List<Pokemon> cajaPokemon, LinkedList<Combate> combates) {
         this.id = id;
         this.nombre = nombre;
         this.pokemons = pokemons;
@@ -97,11 +97,11 @@ public class Entrenador {
         this.pokedollars = pokedollars;
     }
 
-    public CajaPokemon getCajaPokemon() {
+    public List<Pokemon> getCajaPokemon() {
         return cajaPokemon;
     }
 
-    public void setCajaPokemon(CajaPokemon cajaPokemon) {
+    public void setCajaPokemon(List<Pokemon> cajaPokemon) {
         this.cajaPokemon = cajaPokemon;
     }
 
@@ -115,15 +115,15 @@ public class Entrenador {
 
     public void addPokemon(Pokemon pokemon) {
         if (pokemons.size() == 4) {
-            cajaPokemon.addPokemon(pokemon);
+            cajaPokemon.add(pokemon);
         } else pokemons.add(pokemon);
     }
 
     public boolean sacarPokemon(Pokemon pokemon) {
-        if (cajaPokemon.isPokemonInCaja(pokemon)) {
+        if (cajaPokemon.contains(pokemon)) {
             if (pokemons.size() != 4) {
                 pokemons.add(pokemon);
-                cajaPokemon.removePokemon(pokemon);
+                cajaPokemon.remove(pokemon);
                 return true;
             }
         }
@@ -146,7 +146,7 @@ public class Entrenador {
         if(pokemons.size()<4){
             pokemons.add(pokemon);
         }else{
-            cajaPokemon.addPokemon(pokemon);
+            cajaPokemon.add(pokemon);
         }
     }
 

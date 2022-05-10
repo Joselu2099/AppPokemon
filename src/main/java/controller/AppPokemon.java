@@ -7,15 +7,17 @@ public class AppPokemon {
 
     private static AppPokemon INSTANCE;
 
+    private DAOFactory factory;
     private Entrenador currentEntrenador;
 
     private AppPokemon() {
         //Cargar entrenador logueado registrado en BD
         currentEntrenador = new Entrenador();
+        factory = DAOFactory.getINSTANCE();
         PokemonRepository.getINSTANCE();
         MovimientosRepository.getINSTANCE();
-        DAOFactory.getINSTANCE().cerrarStatment();
-        DAOFactory.getINSTANCE().cerrarConexion();
+        //DAOFactory.getINSTANCE().cerrarStatment();
+        //DAOFactory.getINSTANCE().cerrarConexion();
         //Hacer load de todos los repositorios
     }
 
