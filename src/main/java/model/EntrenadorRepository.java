@@ -1,14 +1,11 @@
 package model;
 
-import controller.AppPokemon;
-import eu.iamgio.pokedex.Generation;
 import model.utils.ModelUtils;
 import model.utils.NombresEntrenador;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class EntrenadorRepository {
 
@@ -55,5 +52,9 @@ public class EntrenadorRepository {
 
     public Entrenador generarEntrenadorRandom(int nivelEquipo){
         return new Entrenador(NombresEntrenador.fromId(ModelUtils.generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(nivelEquipo));
+    }
+
+    public void generarAltosMando(){
+
     }
 }
