@@ -14,7 +14,6 @@ import static model.utils.ModelUtils.parsePokemon;
 
 public class Pokemon {
 
-    private final int ESTAMINA_BASE = 50;
     private final int FERTILIDAD_BASE = 5;
     private final int NIVEL_BASE = 0;
 
@@ -27,6 +26,7 @@ public class Pokemon {
     private int ataqueEspecial;
     private int defensaEspecial;
     private int velocidad;
+    private int estaminaBase;
     private int estamina;
     private int nivel;
     private int experiencia;
@@ -46,7 +46,8 @@ public class Pokemon {
         this.ataqueEspecial = ataqueEspecial;
         this.defensaEspecial = defensaEspecial;
         this.velocidad = velocidad;
-        this.setEstamina(ESTAMINA_BASE);
+        this.estaminaBase = 50;
+        this.estamina = estaminaBase;
         this.setNivel(NIVEL_BASE);
         this.experiencia = experiencia;
         this.movimientos = new ArrayList<>();
@@ -66,6 +67,7 @@ public class Pokemon {
         this.ataqueEspecial = ataqueEspecial;
         this.defensaEspecial = defensaEspecial;
         this.velocidad = velocidad;
+        this.estaminaBase = estamina;
         this.estamina = estamina;
         this.nivel = nivel;
         this.experiencia = experiencia;
@@ -87,6 +89,7 @@ public class Pokemon {
         this.defensaEspecial = pokemon.getDefensaEspecial();
         this.velocidad = pokemon.getVelocidad();
         this.estamina = pokemon.getEstamina();
+        this.estaminaBase = pokemon.getEstaminaBase();
         this.nivel = pokemon.getNivel();
         this.experiencia = pokemon.getExperiencia();
         this.movimientos = pokemon.getMovimientos();
@@ -170,6 +173,14 @@ public class Pokemon {
 
     public void setVelocidad(int velocidad) {
         this.velocidad = velocidad;
+    }
+
+    public int getEstaminaBase() {
+        return estaminaBase;
+    }
+
+    public void setEstaminaBase(int estaminaBase) {
+        this.estaminaBase = estaminaBase;
     }
 
     public int getEstamina() {
@@ -330,8 +341,7 @@ public class Pokemon {
     }
 
     public void descansar(){
-        if(estamina <= ESTAMINA_BASE-5)
-            this.estamina+=5;
+        this.estamina=estaminaBase;
     }
 
     public boolean aprenderAtaque(Movimiento mv) {
