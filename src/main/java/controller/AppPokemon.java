@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import persistence.DAOFactory;
 
 public class AppPokemon {
 
@@ -13,6 +14,8 @@ public class AppPokemon {
         currentEntrenador = new Entrenador();
         PokemonRepository.getINSTANCE();
         MovimientosRepository.getINSTANCE();
+        DAOFactory.getINSTANCE().cerrarStatment();
+        DAOFactory.getINSTANCE().cerrarConexion();
         //Hacer load de todos los repositorios
     }
 
@@ -45,7 +48,12 @@ public class AppPokemon {
     }
 
     public void crearCombateRandom(int nivelCombate){
-        Combate combate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(nivelCombate));
+        Combate combate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(currentEntrenador.getNivelEquipo()));
+    }
+
+    public void empezarCombate(Combate co){
+        co.empezarCombate();
+        //TODO
     }
 
     public boolean ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){

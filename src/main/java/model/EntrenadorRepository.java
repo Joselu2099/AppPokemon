@@ -2,7 +2,10 @@ package model;
 
 import model.utils.ModelUtils;
 import model.utils.NombresEntrenador;
+import persistence.DAOFactory;
+import persistence.EntrenadorDAO;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +16,11 @@ public class EntrenadorRepository {
 
     private Map<String, Entrenador> altosMando;
     private Map<Integer, Entrenador> entrenadores;
+    private EntrenadorDAO entrenadorDAO;
 
     private EntrenadorRepository() {
         entrenadores = new HashMap<>();
+        entrenadorDAO = DAOFactory.getINSTANCE().getEntrenadorDAO();
         this.loadRepository();
     }
 
@@ -26,8 +31,11 @@ public class EntrenadorRepository {
     }
 
     private void loadRepository() {
-        //Pokemon pk1 = ModelUtils.parsePokemon("charizard");
-        //Entrenador knekro = new Entrenador("Knekro", )
+        try {
+            entrenadorDAO.getAll().forEach(e -> entrenadores.put(e.getId(), e));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Entrenador> getEntrenadores() {

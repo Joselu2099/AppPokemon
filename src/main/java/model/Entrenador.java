@@ -38,6 +38,15 @@ public class Entrenador {
         this.combates = new LinkedList<>();
     }
 
+    public Entrenador(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+        this.pokemons = new ArrayList<>();
+        this.pokedollars = POKEDOLLARS_BASE;
+        this.cajaPokemon = new CajaPokemon();
+        this.combates = new LinkedList<>();
+    }
+
     public Entrenador(String nombre, ArrayList<Pokemon> pokemons) {
         this.id = 0;
         this.nombre = nombre;
@@ -119,6 +128,14 @@ public class Entrenador {
             }
         }
         return false;
+    }
+
+    public int getNivelEquipo(){
+        int nivel=0;
+        for(Pokemon pk: pokemons){
+            nivel+=pk.getNivel();
+        }
+        return (int)(nivel/4);
     }
 
     public void entrenar() {

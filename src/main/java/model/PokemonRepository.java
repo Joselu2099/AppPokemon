@@ -11,11 +11,13 @@ public class PokemonRepository {
 
     private static PokemonRepository INSTANCE;
 
+    private ArrayList<String> nombresPokemon;
     private Map<Integer, Pokemon> pokemons;
 
     private PokemonRepository() {
         pokemons = new HashMap<>();
-        this.loadRepository();
+        nombresPokemon = (ArrayList<String>) Generation.GENERATION_I.load().getPokemonNames();
+        //this.loadRepository();
     }
 
     public static PokemonRepository getINSTANCE() {
@@ -23,7 +25,7 @@ public class PokemonRepository {
             INSTANCE = new PokemonRepository();
         return INSTANCE;
     }
-
+    /*
     private void loadRepository() {
         ArrayList<Pokemon> pks = (ArrayList<Pokemon>) Generation.GENERATION_I.load().getPokemonNames().stream()
                 .map(ModelUtils::parsePokemon)
@@ -31,22 +33,24 @@ public class PokemonRepository {
 
         pks.forEach(pk -> pokemons.put(pk.getId(), pk));
     }
-
+    */
     public ArrayList<Pokemon> getPokemons() {
         return new ArrayList<Pokemon>(pokemons.values());
     }
 
     public Pokemon getPokemon(int id) {
-        return pokemons.get(id);
+        if(pokemons.containsKey(id))
+            return pokemons.get(id);
+        Pokemon pk = ModelUtils.parsePokemon(id);
+        pokemons.put(pk.getId(), pk);
+        return pk;
     }
 
     public Pokemon getPokemon(String nombre) {
-        for (Pokemon pk: getPokemons()) {
-            if(pk.getNombre().equals(nombre.toLowerCase())) {
-                return pk;
-            }
-        }
-        throw new IllegalArgumentException();
+        Pokemon pk = ModelUtils.parsePokemon(nombre);
+        if(pokemons.containsValue(pk)) return pk;
+        pokemons.put(pk.getId(), pk);
+        return pk;
     }
 
     public int getNumeroPokemons() {
@@ -55,6 +59,14 @@ public class PokemonRepository {
 
     public Pokemon generarPokemonRandom() {
         return getPokemon(ModelUtils.generarNumRandom(1,getNumeroPokemons()));
+    }
+
+    public Pokemon generarPokemonRandom(int nivel) {
+        Pokemon pk = getPokemon(ModelUtils.generarNumRandom(1,getNumeroPokemons()));
+        for (int i = 0; i < nivel; i++) {
+            pk.subirNivel();
+        }
+        return pk;
     }
 
     public Pokemon generarPokemon(String nombre, int nivel) {
@@ -68,11 +80,7 @@ public class PokemonRepository {
     public ArrayList<Pokemon> generarEquipoPokemon(int nivel){
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            Pokemon pk = generarPokemonRandom();
-            for (int j = 0; j < nivel; j++) {
-                pk.subirNivel();
-            }
-            pokemons.add(generarPokemonRandom());
+            pokemons.add(generarPokemonRandom(nivel));
         }
         return pokemons;
     }
