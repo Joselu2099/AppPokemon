@@ -3,7 +3,9 @@ package persistence;
 import model.Entrenador;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -11,12 +13,17 @@ import java.util.List;
  */
 public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
 
-    Connection connection;
     private static AppPokemonEntrenadorDAO INSTANCE = null;
+
+    Connection connection;
 
     // Se obtiene la instancia del servicio de persistencia
     private AppPokemonEntrenadorDAO() {
-        //connection = ConexionBD.getINSTANCE().getConnection();
+        try {
+            connection = DAOFactory.getINSTANCE().getConnection();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Aplicamos el patron Singleton.
@@ -55,7 +62,13 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
 
     @Override
     public Entrenador get(int id) throws SQLException {
-        return null;
+        //SELECT * FROM ENTRENADOR WHERE ID_ENTRENADOR=ID
+        String query = "SELECT * FROM ENTRENADOR WHERE ID_ENTRENADOR="+id;
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(query);
+        String nombre = rs.getString("nombre");
+        return new Entrenador(nombre);
+
     }
 
     @Override

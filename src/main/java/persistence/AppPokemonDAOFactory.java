@@ -7,6 +7,7 @@ package persistence;
 public final class AppPokemonDAOFactory extends DAOFactory {
 
     public AppPokemonDAOFactory() {
+        super();
     }
 
     @Override

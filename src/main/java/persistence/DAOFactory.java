@@ -13,15 +13,20 @@ public abstract class DAOFactory {
     public static final String DAO = "dao.AppPokemonDAOFactory";
 
     private static DAOFactory INSTANCE = null;
-    private final String URL = "jdbc:mysql://localhost::3306/pokemon";
+    private final String URL = "jdbc:mysql://localhost:3306/pokemon";
     private final String LOGIN = "root";
+    private final String PASSWORD = "";
     private Connection connection;
 
 
     protected DAOFactory() {
         try {
-            connection = DriverManager.getConnection(URL,LOGIN,"");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(URL,LOGIN,PASSWORD);
+            System.out.println("Conexion establecida");
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -43,6 +48,19 @@ public abstract class DAOFactory {
 
     public static DAOFactory getINSTANCE() throws DAOException {
         return getInstance(DAOFactory.DAO);
+    }
+
+    public void cerrarConexion(){
+        try {
+            connection.close();
+            System.out.println("Conexion cerrada");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     // Metodos factoria para obtener adaptadores
