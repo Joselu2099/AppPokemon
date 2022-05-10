@@ -11,7 +11,7 @@ import model.utils.ModelUtils;
 
 public class Entrenador {
 
-    private static int POKEDOLLARS_BASE = 500;
+    private static int POKEDOLLARS_BASE = ModelUtils.generarNumRandom(800, 1000);
 
     private int id;
     private String nombre;
@@ -137,7 +137,7 @@ public class Entrenador {
         combates.add(combate);
     }
 
-    public void criar(Pokemon padre, Pokemon madre) {
+    public Pokemon criar(Pokemon padre, Pokemon madre) {
     	//Nombre
     	String nombres[] = new String[2];
     	
@@ -176,11 +176,29 @@ public class Entrenador {
 		hijo.setTipos(tipos);
 				
 		//Características
+    	if (padre.getAtaque() >= madre.getAtaque()) hijo.setAtaque(padre.getAtaque());
+    	else hijo.setAtaque(madre.getAtaque());
     	
-    	//TODO
+    	if (padre.getVitalidad() >= madre.getVitalidad()) hijo.setVitalidad(padre.getVitalidad());
+    	else hijo.setVitalidad(madre.getVitalidad());
+    	
+    	if (padre.getDefensa() >= madre.getDefensa()) hijo.setDefensa(padre.getDefensa());
+    	else hijo.setDefensa(madre.getDefensa());
+    	
+    	if (padre.getAtaqueEspecial() >= madre.getAtaqueEspecial()) hijo.setAtaqueEspecial(padre.getAtaqueEspecial());
+    	else hijo.setAtaqueEspecial(madre.getAtaqueEspecial());
+    	
+    	if (padre.getDefensaEspecial() >= madre.getDefensaEspecial()) hijo.setDefensaEspecial(padre.getDefensaEspecial());
+    	else hijo.setDefensaEspecial(madre.getDefensaEspecial());
+    	
+    	if (padre.getVelocidad() >= madre.getVelocidad()) hijo.setVelocidad(padre.getVelocidad());
+    	else hijo.setVelocidad(madre.getVelocidad());
+    	
+    	if (padre.getEstamina() >= madre.getEstamina()) hijo.setEstamina(padre.getEstamina());
+    	else hijo.setEstamina(madre.getEstamina());
+    	
+    	return hijo;
         
-         
-    	
     }
 
     public void retirar() {
