@@ -1,10 +1,34 @@
 package launcher;
 
-import model.MovimientosRepository;
-import model.PokemonRepository;
+import controller.AppPokemon;
+
+import javax.management.Query;
+import java.sql.*;
 
 public class Launcher {
     public static void main(String[] args) {
-        MovimientosRepository.getINSTANCE().getMovimientos().forEach(mv -> System.out.println(mv.getNombre()));
+        AppPokemon.getINSTANCE();
+        Connection connection = null;
+        try {
+            String url = "jdbc:mysql://localhost::3306/pokemon";
+            String login = "root";
+
+            connection = DriverManager.getConnection("jdbc:odbc:bd");
+            Statement stmt = connection.createStatement();
+            String query = "SELECT ";
+            ResultSet resultSet = stmt.executeQuery(query);
+            while (resultSet.next()){
+                //Leer datos
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

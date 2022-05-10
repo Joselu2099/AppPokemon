@@ -11,6 +11,8 @@ public class AppPokemon {
     private AppPokemon() {
         //Cargar entrenador logueado registrado en BD
         currentEntrenador = new Entrenador();
+        PokemonRepository.getINSTANCE();
+        MovimientosRepository.getINSTANCE();
         //Hacer load de todos los repositorios
     }
 
@@ -42,8 +44,8 @@ public class AppPokemon {
         Combate combate = new Combate(currentEntrenador, rival);
     }
 
-    public void crearCombateRandom(){
-        Combate combate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom());
+    public void crearCombateRandom(int nivelCombate){
+        Combate combate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(nivelCombate));
     }
 
     public boolean ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){

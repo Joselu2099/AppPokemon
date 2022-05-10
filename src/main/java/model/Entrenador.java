@@ -175,7 +175,7 @@ public class Entrenador {
 		tipos = new Pair<PokemonType, PokemonType>(tipo1, tipo2);
 		hijo.setTipos(tipos);
 				
-		//Características
+		//Caracterï¿½sticas
     	if (padre.getAtaque() >= madre.getAtaque()) hijo.setAtaque(padre.getAtaque());
     	else hijo.setAtaque(madre.getAtaque());
     	
@@ -201,12 +201,7 @@ public class Entrenador {
         
     }
 
-    public void retirar() {
-        //TODO
-    }
 
-    public void generar() {
-        //TODO
     }
 
     public void addPokedollars(int cantidad) {
@@ -232,5 +227,17 @@ public class Entrenador {
     @Override
     public int hashCode() {
         return Objects.hash(id, nombre, pokemons, pokedollars, cajaPokemon);
+    }
+
+    @Override
+    public String toString() {
+        return "Entrenador{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", pokemons=" + pokemons +
+                ", pokedollars=" + pokedollars +
+                ", cajaPokemon=" + cajaPokemon +
+                ", combates=" + combates +
+                '}';
     }
 }
