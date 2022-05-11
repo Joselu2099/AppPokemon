@@ -18,7 +18,6 @@ public abstract class DAOFactory {
     private Connection connection;
     private Statement statement;
 
-
     protected DAOFactory() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

@@ -1,8 +1,6 @@
 package model;
 
-import controller.AppPokemon;
 import eu.iamgio.pokedex.pokemon.PokemonType;
-import eu.iamgio.pokedex.pokemon.move.PokemonPersonalMove;
 import eu.iamgio.pokedex.util.Pair;
 import model.utils.ModelUtils;
 import model.utils.TablaTipos;

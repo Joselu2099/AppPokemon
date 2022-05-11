@@ -27,22 +27,20 @@ public class AppPokemon {
         return INSTANCE;
     }
 
-    public void registrarEntrenador(String nombre){
+    public boolean registrarEntrenador(String nombre){
         Entrenador entrenador = new Entrenador(nombre);
-        EntrenadorRepository.getINSTANCE().addEntrenador(entrenador);
+        return EntrenadorRepository.getINSTANCE().addEntrenador(entrenador);
     }
 
     public void capturarPokemon(Pokemon pokemon) {
+        PokemonRepository.getINSTANCE().generarPokemonRandom(1);
+        //TODO
         currentEntrenador.capturar(pokemon);
     }
 
     public void capturarPokemon(Pokemon pokemon, String mote) {
-        asignarMote(mote, pokemon);
-        currentEntrenador.capturar(pokemon);
-    }
-
-    public void asignarMote(String mote, Pokemon pk){
-        pk.setMote(mote);
+        pokemon.setMote(mote);
+        capturarPokemon(pokemon);
     }
 
     public void crearCombate(Entrenador rival){

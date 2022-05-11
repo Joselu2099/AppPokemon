@@ -31,6 +31,7 @@ public class EntrenadorRepository {
     }
 
     private void loadRepository() {
+        getEntrenador(1);
         try {
             entrenadorDAO.getAll().forEach(e -> entrenadores.put(e.getId(), e));
         } catch (SQLException e) {
@@ -47,11 +48,26 @@ public class EntrenadorRepository {
     }
 
     public Entrenador getEntrenador(int id) {
-        return entrenadores.get(id);
+        Entrenador e = null;
+        try {
+            e = entrenadorDAO.get(id);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if(!entrenadores.containsValue(e))
+            entrenadores.put(e.getId(), e);
+        return e;
     }
 
-    public void addEntrenador(Entrenador entrenador){
-        entrenadores.put(entrenador.getId(), entrenador);
+    public boolean addEntrenador(Entrenador entrenador){
+        try {
+            entrenadorDAO.create(entrenador);
+            entrenadores.put(entrenador.getId(), entrenador);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void addEntrenadores(ArrayList<Entrenador> entrenadoresIn){
