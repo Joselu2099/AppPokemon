@@ -27,6 +27,13 @@ public class AppPokemon {
         return INSTANCE;
     }
 
+    public boolean login(String nombre){
+        Entrenador e = EntrenadorRepository.getINSTANCE().getEntrenador(nombre);
+        if(e==null) return false;
+        currentEntrenador = e;
+        return true;
+    }
+
     public boolean registrarEntrenador(String nombre){
         Entrenador entrenador = new Entrenador(nombre);
         return EntrenadorRepository.getINSTANCE().addEntrenador(entrenador);

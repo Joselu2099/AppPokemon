@@ -59,6 +59,18 @@ public class EntrenadorRepository {
         return e;
     }
 
+    public Entrenador getEntrenador(String nombre) {
+        Entrenador e = null;
+        try {
+            e = entrenadorDAO.get(nombre);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        if(!entrenadores.containsValue(e))
+            entrenadores.put(e.getId(), e);
+        return e;
+    }
+
     public boolean addEntrenador(Entrenador entrenador){
         try {
             entrenadorDAO.create(entrenador);

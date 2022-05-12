@@ -13,5 +13,7 @@ public interface EntrenadorDAO {
 
     Entrenador get(int id) throws SQLException;
 
+    Entrenador get(String nombre) throws SQLException;
+
     List<Entrenador> getAll() throws SQLException;
 }
