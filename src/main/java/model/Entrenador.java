@@ -5,15 +5,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import eu.iamgio.pokedex.pokemon.PokemonType;
+import eu.iamgio.pokedex.util.Pair;
+import model.utils.ModelUtils;
+
 public class Entrenador {
 
-    private static int POKEDOLLARS_BASE = 500;
+    private static int POKEDOLLARS_BASE = ModelUtils.generarNumRandom(800, 1000);
 
     private int id;
     private String nombre;
     private ArrayList<Pokemon> pokemons;
     private int pokedollars;
-    private CajaPokemon cajaPokemon;
+    private List<Pokemon> cajaPokemon;
     private List<Combate> combates;
 
     public Entrenador() {
@@ -21,7 +25,7 @@ public class Entrenador {
         this.nombre = "";
         this.pokemons = new ArrayList<Pokemon>();
         this.pokedollars = 0;
-        this.cajaPokemon = new CajaPokemon();
+        this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
 
@@ -30,7 +34,16 @@ public class Entrenador {
         this.nombre = nombre;
         this.pokemons = new ArrayList<>();
         this.pokedollars = POKEDOLLARS_BASE;
-        this.cajaPokemon = new CajaPokemon();
+        this.cajaPokemon = new LinkedList<>();
+        this.combates = new LinkedList<>();
+    }
+
+    public Entrenador(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+        this.pokemons = new ArrayList<>();
+        this.pokedollars = POKEDOLLARS_BASE;
+        this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
 
@@ -39,11 +52,11 @@ public class Entrenador {
         this.nombre = nombre;
         this.pokemons = pokemons;
         this.pokedollars = POKEDOLLARS_BASE;
-        this.cajaPokemon = new CajaPokemon();
+        this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
 
-    public Entrenador(int id, String nombre, ArrayList<Pokemon> pokemons, int pokedollars, CajaPokemon cajaPokemon, LinkedList<Combate> combates) {
+    public Entrenador(int id, String nombre, ArrayList<Pokemon> pokemons, int pokedollars, List<Pokemon> cajaPokemon, LinkedList<Combate> combates) {
         this.id = id;
         this.nombre = nombre;
         this.pokemons = pokemons;
@@ -84,11 +97,11 @@ public class Entrenador {
         this.pokedollars = pokedollars;
     }
 
-    public CajaPokemon getCajaPokemon() {
+    public List<Pokemon> getCajaPokemon() {
         return cajaPokemon;
     }
 
-    public void setCajaPokemon(CajaPokemon cajaPokemon) {
+    public void setCajaPokemon(List<Pokemon> cajaPokemon) {
         this.cajaPokemon = cajaPokemon;
     }
 
@@ -102,31 +115,27 @@ public class Entrenador {
 
     public void addPokemon(Pokemon pokemon) {
         if (pokemons.size() == 4) {
-            cajaPokemon.addPokemon(pokemon);
+            cajaPokemon.add(pokemon);
         } else pokemons.add(pokemon);
     }
 
     public boolean sacarPokemon(Pokemon pokemon) {
-        if (cajaPokemon.isPokemonInCaja(pokemon)) {
+        if (cajaPokemon.contains(pokemon)) {
             if (pokemons.size() != 4) {
                 pokemons.add(pokemon);
-                cajaPokemon.removePokemon(pokemon);
+                cajaPokemon.remove(pokemon);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean movePokemon(Pokemon pokemonCaja , Pokemon pokemonEquipo){
-    
-        if(cajaPokemon.isPokemonInCaja(pokemonCaja) && pokemons.contains(pokemonEquipo)){
-            cajaPokemon.addPokemon(pokemonEquipo)
-            pokemons.add(pokemonCaja)
-            return true;
+    public int getNivelEquipo(){
+        int nivel=0;
+        for(Pokemon pk: pokemons){
+            nivel+=pk.getNivel();
         }
-        return false;
-
-        
+        return (int)(nivel/4);
     }
 
     public void entrenar() {
@@ -137,7 +146,7 @@ public class Entrenador {
         if(pokemons.size()<4){
             pokemons.add(pokemon);
         }else{
-            cajaPokemon.addPokemon(pokemon);
+            cajaPokemon.add(pokemon);
         }
     }
 
@@ -145,35 +154,60 @@ public class Entrenador {
         combates.add(combate);
     }
 
-    public void criar(Pokemon padre, Pokemon madre) {
+    public Pokemon criar(Pokemon padre, Pokemon madre) {
     	String nombres[] = new String[2];
-    	String nombre;
-    	
     	nombres[0] = padre.getNombre().substring(0, (int)(padre.getNombre().length())/2);
     	nombres[1] = madre.getNombre().substring(0, (int)(madre.getNombre().length())/2);
-    	/*
-    	if ((generarNumRandom(0, 1)) == 0)
-    		nombre = nombres[0]+=nombres[1];
+    	
+    	Pokemon hijo;
+		if (ModelUtils.generarNumRandom(0, 1) == 0)
+    		hijo = new Pokemon(nombres[0]+nombres[1]);
     	else
-    		nombre = nombres[1]+=nombres[0];
-    	
-    	padre.getTipos()
-    	madre.getTipos()
-    	
-    	
-    	Pokemon hijo= new Pokemon();
-        //TODO
-         * */
-         
-    	
-    }
+    		hijo = new Pokemon(nombres[1]+nombres[0]);
 
-    public void retirar() {
-        //TODO
-    }
+		ArrayList<Movimiento> movimientosHijo = new ArrayList<Movimiento>();
+		for (int i = 0; i < 2; i++) {
+			movimientosHijo.add(padre.getMovimientos().get(i));
+			movimientosHijo.add(madre.getMovimientos().get(i));
+		}
+		hijo.setMovimientos(movimientosHijo);
 
-    public void generar() {
-        //TODO
+		PokemonType tipo1;
+		PokemonType tipo2;
+		Pair<PokemonType, PokemonType> tipos;
+		
+		tipo1 = padre.getTipoAleatorio();
+		tipo2 = madre.getTipoAleatorio();
+		while(tipo1.equals(tipo2)){
+		    if(ModelUtils.generarNumRandom(0,1)==0)
+		        tipo2 = padre.getTipoAleatorio();
+		    else tipo2 = madre.getTipoAleatorio();
+		}
+		tipos = new Pair<PokemonType, PokemonType>(tipo1, tipo2);
+		hijo.setTipos(tipos);
+
+    	if (padre.getAtaque() >= madre.getAtaque()) hijo.setAtaque(padre.getAtaque());
+    	else hijo.setAtaque(madre.getAtaque());
+    	
+    	if (padre.getVitalidad() >= madre.getVitalidad()) hijo.setVitalidad(padre.getVitalidad());
+    	else hijo.setVitalidad(madre.getVitalidad());
+    	
+    	if (padre.getDefensa() >= madre.getDefensa()) hijo.setDefensa(padre.getDefensa());
+    	else hijo.setDefensa(madre.getDefensa());
+    	
+    	if (padre.getAtaqueEspecial() >= madre.getAtaqueEspecial()) hijo.setAtaqueEspecial(padre.getAtaqueEspecial());
+    	else hijo.setAtaqueEspecial(madre.getAtaqueEspecial());
+    	
+    	if (padre.getDefensaEspecial() >= madre.getDefensaEspecial()) hijo.setDefensaEspecial(padre.getDefensaEspecial());
+    	else hijo.setDefensaEspecial(madre.getDefensaEspecial());
+    	
+    	if (padre.getVelocidad() >= madre.getVelocidad()) hijo.setVelocidad(padre.getVelocidad());
+    	else hijo.setVelocidad(madre.getVelocidad());
+    	
+    	if (padre.getEstamina() >= madre.getEstamina()) hijo.setEstamina(padre.getEstamina());
+    	else hijo.setEstamina(madre.getEstamina());
+    	
+    	return hijo;
     }
 
     public void addPokedollars(int cantidad) {

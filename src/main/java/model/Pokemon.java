@@ -14,7 +14,6 @@ import static model.utils.ModelUtils.parsePokemon;
 
 public class Pokemon {
 
-    private final int ESTAMINA_BASE = 50;
     private final int FERTILIDAD_BASE = 5;
     private final int NIVEL_BASE = 0;
 
@@ -27,6 +26,7 @@ public class Pokemon {
     private int ataqueEspecial;
     private int defensaEspecial;
     private int velocidad;
+    private int estaminaBase;
     private int estamina;
     private int nivel;
     private int experiencia;
@@ -46,7 +46,8 @@ public class Pokemon {
         this.ataqueEspecial = ataqueEspecial;
         this.defensaEspecial = defensaEspecial;
         this.velocidad = velocidad;
-        this.setEstamina(ESTAMINA_BASE);
+        this.estaminaBase = 50;
+        this.estamina = estaminaBase;
         this.setNivel(NIVEL_BASE);
         this.experiencia = experiencia;
         this.movimientos = new ArrayList<>();
@@ -66,6 +67,7 @@ public class Pokemon {
         this.ataqueEspecial = ataqueEspecial;
         this.defensaEspecial = defensaEspecial;
         this.velocidad = velocidad;
+        this.estaminaBase = estamina;
         this.estamina = estamina;
         this.nivel = nivel;
         this.experiencia = experiencia;
@@ -87,6 +89,7 @@ public class Pokemon {
         this.defensaEspecial = pokemon.getDefensaEspecial();
         this.velocidad = pokemon.getVelocidad();
         this.estamina = pokemon.getEstamina();
+        this.estaminaBase = pokemon.getEstaminaBase();
         this.nivel = pokemon.getNivel();
         this.experiencia = pokemon.getExperiencia();
         this.movimientos = pokemon.getMovimientos();
@@ -172,6 +175,14 @@ public class Pokemon {
         this.velocidad = velocidad;
     }
 
+    public int getEstaminaBase() {
+        return estaminaBase;
+    }
+
+    public void setEstaminaBase(int estaminaBase) {
+        this.estaminaBase = estaminaBase;
+    }
+
     public int getEstamina() {
         return estamina;
     }
@@ -214,6 +225,11 @@ public class Pokemon {
 
     public Pair<PokemonType, PokemonType> getTipos() {
         return tipos;
+    }
+    
+    public PokemonType getTipoAleatorio() {
+    	if(ModelUtils.generarNumRandom(0, 1) == 0) return tipos.getFirst();
+    	else return tipos.getSecond();
     }
 
     public void setTipos(Pair<PokemonType, PokemonType> tipos) {
@@ -300,25 +316,33 @@ public class Pokemon {
     }
     
     public void aplicarMejora(MovimientoMejora mvM, String msg){
+        if(mvM.getMejora()>0)
+            msg = this.getNombre() + " aumenta su";
+        else msg = this.getNombre() + " disminuye su";
         switch (mvM.getTipoMejora()){
             case ATAQUE:
                 this.ataque+= mvM.getMejora();
-                msg = "";
+                msg += "ataque: " + mvM.getMejora();
                 break;
             case DEFENSA:
                 this.defensa+= mvM.getMejora();
+                msg += "defensa: " + mvM.getMejora();
                 break;
             case ATAQUE_ESP:
                 this.ataqueEspecial+= mvM.getMejora();
+                msg += "ataque_esp: " + mvM.getMejora();
                 break;
             case DEFENSA_ESP:
                 this.defensaEspecial+= mvM.getMejora();
+                msg += "defensa_esp: " + mvM.getMejora();
                 break;
             case VELOCIDAD:
                 this.velocidad+= mvM.getMejora();
+                msg += "velocidad: " + mvM.getMejora();
                 break;
             case VITALIDAD:
                 this.vitalidad+= mvM.getMejora();
+                msg += "vitalidad: " + mvM.getMejora();
                 break;
             case UNKNOWN:
             default:
@@ -327,8 +351,7 @@ public class Pokemon {
     }
 
     public void descansar(){
-        if(estamina <= ESTAMINA_BASE-5)
-            this.estamina+=5;
+        this.estamina=estaminaBase;
     }
 
     public boolean aprenderAtaque(Movimiento mv) {
