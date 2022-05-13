@@ -47,8 +47,9 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
                 rs.getString("pokemons_caja"));
         */
         //TODO
-        return new Entrenador(rs.getInt("id_entrenador"),
+        Entrenador  ent = new Entrenador(rs.getInt("id_entrenador"),
                 rs.getString("nombre"));
+        return ent;
     }
 
     private String entrenadorToInsert(Entrenador entrenador) throws SQLException{
@@ -57,42 +58,51 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
     }
 
     @Override
-    public void create(Entrenador assistant) throws SQLException {
+    public Entrenador create(Entrenador assistant) throws SQLException {
         statement.executeUpdate("INSERT INTO ENTRENADOR(NOMBRE,POKEDOLLARS)" +
-                " VALUES(" + assistant.getNombre() + ", " + assistant.getPokedollars() +")");
-        assistant = get(assistant.getNombre());
+                " VALUES('" + assistant.getNombre() + "', " + assistant.getPokedollars() +")");
+        return get(assistant.getNombre());
     }
 
     @Override
     public void delete(Entrenador assistant) throws SQLException {
-        //TODO
+        statement.executeUpdate("DELETE FROM ENTRENADOR WHERE ID_ENTRENADOR ="+ assistant.getId());
     }
 
     @Override
     public void updateProfile(Entrenador assistant) throws SQLException {
         statement.executeUpdate("UPDATE ENTRENADOR" +
-                " SET NOMBRE=" + assistant.getNombre() +
-                " WHERE codEquipo = " + assistant.getId());
+                " SET NOMBRE='" + assistant.getNombre() +"'"+
+                " WHERE ID_ENTRENADOR = " + assistant.getId());
         statement.executeUpdate("UPDATE ENTRENADOR" +
                 " SET POKEDOLLARS=" + assistant.getPokedollars() +
-                " WHERE codEquipo = " + assistant.getId());
+                " WHERE ID_ENTRENADOR = " + assistant.getId());
         statement.executeUpdate("UPDATE ENTRENADOR" +
-                " SET POKEMONS=" + UtilsDAO.listToString(assistant.getPokemons().stream().map(Pokemon::getId).collect(Collectors.toList())) +
-                " WHERE codEquipo = " + assistant.getId());
+                " SET POKEMONS='" + UtilsDAO.listToString(assistant.getPokemons().stream().map(Pokemon::getId).collect(Collectors.toList())) +"'"+
+                " WHERE ID_ENTRENADOR = " + assistant.getId());
         statement.executeUpdate("UPDATE ENTRENADOR" +
-                " SET POKEMONS_CAJA=" + UtilsDAO.listToString(assistant.getCajaPokemon().stream().map(Pokemon::getId).collect(Collectors.toList())) +
-                " WHERE codEquipo = " + assistant.getId());
+                " SET POKEMONS_CAJA='" + UtilsDAO.listToString(assistant.getCajaPokemon().stream().map(Pokemon::getId).collect(Collectors.toList())) +"'"+
+                " WHERE ID_ENTRENADOR = " + assistant.getId());
     }
 
     @Override
     public Entrenador get(int id) throws SQLException {
+        ArrayList<Entrenador> entrenadores = new ArrayList<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR WHERE ID_ENTRENADOR="+id);
-        return resultToEntrenador(rs);
+        while (rs.next()){
+            entrenadores.add(resultToEntrenador(rs));
+        }
+        entrenadores.forEach(e-> System.out.println(e));
+        return entrenadores.get(0);
     }
 
     public Entrenador get(String nombre) throws SQLException {
-        ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR WHERE ID_ENTRENADOR="+nombre);
-        return resultToEntrenador(rs);
+        ArrayList<Entrenador> entrenadores = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR WHERE NOMBRE='"+nombre+"'");
+        while (rs.next()){
+            entrenadores.add(resultToEntrenador(rs));
+        }
+        return entrenadores.get(0);
     }
 
     @Override
@@ -102,7 +112,6 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
         while (rs.next()){
             entrenadores.add(resultToEntrenador(rs));
         }
-        statement.close();
         return entrenadores;
     }
 
