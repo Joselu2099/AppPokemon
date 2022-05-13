@@ -74,7 +74,7 @@ public class Combate {
         this.turnos = turnos;
     }
 
-    public ArrayList<Pokemon> getPokemonKOJugador() {
+    public ArrayList<Pokemon> getPokemonsKOJugador() {
         return this.pokemonsKOJugador;
     }
 
@@ -91,7 +91,7 @@ public class Combate {
     }
 
     public ArrayList<Pokemon> getPokemonsKOGanador() {
-        if(ganador.equals(jugador)) return getPokemonKOJugador();
+        if(ganador.equals(jugador)) return getPokemonsKOJugador();
         else return getPokemonsKORival();
     }
 
