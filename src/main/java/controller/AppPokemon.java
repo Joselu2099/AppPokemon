@@ -1,6 +1,5 @@
 package controller;
 
-import model.*;
 import model.combate.*;
 import model.entrenador.*;
 import model.movimiento.*;
@@ -78,16 +77,11 @@ public class AppPokemon {
         }
         if (mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())) {
             MovimientoEstado mvE = (MovimientoEstado) mv;
-            if(rival.isInmune(mvE)){
-                msg = rival.getNombre() + " es inmune a " + mvE.getNombre();
-                return false;
-            }else{
-                rival.setEstado(mvE.getEstado());
-                return true;
-            }
+            return rival.aplicarEstado(mvE, msg);
         }
         if (mv.getClass().getSimpleName().equals(MovimientoMejora.class.getSimpleName())) {
             MovimientoMejora mvM = (MovimientoMejora) mv;
+            atacante.aplicarMejora(mvM, msg);
             return true;
         }
         return false;

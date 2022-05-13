@@ -9,14 +9,12 @@ import java.util.Map;
 public class PokemonRepository {
 
     private static PokemonRepository INSTANCE;
+    private static final int NUM_POKEMONS = Generation.GENERATION_I.load().getPokemonNames().size();
 
-    private ArrayList<String> nombresPokemon;
     private Map<Integer, Pokemon> pokemons;
 
     private PokemonRepository() {
         pokemons = new HashMap<>();
-        nombresPokemon = (ArrayList<String>) Generation.GENERATION_I.load().getPokemonNames();
-        //this.loadRepository();
     }
 
     public static PokemonRepository getINSTANCE() {
@@ -24,6 +22,7 @@ public class PokemonRepository {
             INSTANCE = new PokemonRepository();
         return INSTANCE;
     }
+    
     /*
     private void loadRepository() {
         ArrayList<Pokemon> pks = (ArrayList<Pokemon>) Generation.GENERATION_I.load().getPokemonNames().stream()
@@ -33,6 +32,7 @@ public class PokemonRepository {
         pks.forEach(pk -> pokemons.put(pk.getId(), pk));
     }
     */
+    
     public ArrayList<Pokemon> getPokemons() {
         return new ArrayList<Pokemon>(pokemons.values());
     }
@@ -52,16 +52,12 @@ public class PokemonRepository {
         return pk;
     }
 
-    public int getNumeroPokemons() {
-        return pokemons.size();
-    }
-
     public Pokemon generarPokemonRandom() {
-        return getPokemon(ModelUtils.generarNumRandom(1,getNumeroPokemons()));
+        return getPokemon(ModelUtils.generarNumRandom(1,NUM_POKEMONS));
     }
 
     public Pokemon generarPokemonRandom(int nivel) {
-        Pokemon pk = getPokemon(ModelUtils.generarNumRandom(1,getNumeroPokemons()));
+        Pokemon pk = getPokemon(ModelUtils.generarNumRandom(1,NUM_POKEMONS));
         for (int i = 0; i < nivel; i++) {
             pk.subirNivel();
         }

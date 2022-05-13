@@ -4,7 +4,6 @@ import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.util.Pair;
 import model.movimiento.*;
 import model.utils.ModelUtils;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -303,6 +302,17 @@ public class Pokemon {
         }
     }
 
+    public boolean aplicarEstado(MovimientoEstado mvE, String msg) {
+    	if(this.isInmune(mvE)){
+            msg = this.getNombre() + " es inmune a " + mvE.getNombre();
+            return false;
+        }else{
+        	this.setEstado(mvE.getEstado());
+            msg = this.getNombre() + " ha sido " + mvE.getNombre();
+            return true;
+        }
+    }
+    
     public void aplicarMejora(MovimientoMejora mvM, String msg){
         if(mvM.getMejora()>0)
             msg = this.getNombre() + " aumenta su";
