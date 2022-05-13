@@ -11,6 +11,5 @@ public class Launcher {
     	ControladorGUI.getINSTANCE().launchController();
        
     	AppPokemon.getINSTANCE().closeConnections();
-
     }
 }
