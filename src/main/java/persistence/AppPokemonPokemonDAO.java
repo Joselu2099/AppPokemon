@@ -51,10 +51,9 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
     }
 
     @Override
-    public Pokemon create(Pokemon assistant) throws SQLException {
-        statement.executeUpdate("INSERT INTO POKEMON(NOMBRE,POKEDOLLARS)" +
-        " VALUES('" + assistant.getNombre() + "', " + assistant.getPokedollars() +")");
-        return get(assistant.getNombre());    
+    public void create(Pokemon assistant) throws SQLException {
+        statement.executeUpdate("INSERT INTO POKEMON(NOMBRE, MOTE, VITALIDAD, ATAQUE, DEFENSA, ATAQUE_ESP, DEFENSA_ESP, VELOCIDAD, ESTAMINA, NIVEL, EXPERIENCIA, MOVIMIENTOS, FERTILIDAD, TIPO1,TIPO2, ESTADO,SPRITE)" +
+        " VALUES('" + assistant.getNombre() + "', " + assistant.getMote() +", " + assistant.getVitalidad() +", " + assistant.getAtaque() +", " + assistant.getDefensa() +", " + assistant.getAtaqueEspecial() +", " + assistant.getDefensaEspecial() +", " + assistant.getVelocidad() +", " + assistant.getEstamina() +", " + assistant.getNivel() +", " + assistant.getExperiencia() +", " + assistant.getMovimientos() +", " + assistant.getFertilidad() +", " + assistant.getTipos().getFirst() +", " + assistant.getTipos().getSecond() +", " + assistant.getEstado() +", " + assistant.getSprite() +")");
     }
 
     @Override
@@ -69,8 +68,57 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
         " SET NOMBRE='" + assistant.getNombre() +"'"+
         " WHERE ID_POKEMON = " + assistant.getId());
     statement.executeUpdate("UPDATE POKEMON" +
-        " SET POKEDOLLARS=" + assistant.getPokedollars() +
+        " SET MOTE=" + assistant.getMote() +
         " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET VITALIDAD=" + assistant.getVitalidad() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET ATAQUE=" + assistant.getAtaque() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET DEFENSA=" + assistant.getDefensa() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET ATAQUE_ESP=" + assistant.getAtaqueEspecial() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET DEFENSA_ESP=" + assistant.getDefensaEspecial() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET VELOCIDAD=" + assistant.getVelocidad() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET ESTADO=" + assistant.getEstamina() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET NIVEL=" + assistant.getNivel() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET EXPERIENCIA=" + assistant.getExperiencia() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET MOVIMIENTOS=" + UtilsDAO.listToString(assistant.getPs().stream().map(Pokemon::getId).collect(Collectors.toList())) +"'"+
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET FERTILIDAD=" + assistant.getFertilidad() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET TIPO1=" + assistant.getTipos().getFirst() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET TIPO2=" + assistant.getTipos().getSecond() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET ESTADO=" + assistant.getEstado() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+    statement.executeUpdate("UPDATE POKEMON" +
+        " SET SPRITE=" + assistant.getSprite() +
+        " WHERE ID_POKEMON = " + assistant.getId());
+
+
+
+
     statement.executeUpdate("UPDATE POKEMON" +
         " SET POKEMONS='" + UtilsDAO.listToString(assistant.getPokemons().stream().map(Pokemon::getId).collect(Collectors.toList())) +"'"+
         " WHERE ID_POKEMON = " + assistant.getId());
@@ -81,33 +129,23 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 
     @Override
     public Pokemon get(int id) throws SQLException {
-        ArrayList<Pokemon>  = new ArrayList<>();
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ID_POKEMON="+id);
         while (rs.next()){
-            .add(resultToPokemon(rs));
+            pokemons.add(resultToPokemon(rs));
         }
-        .forEach(e-> System.out.println(e));
-        return .get(0);    
+        return pokemons.get(0);    
     }
 
-    @Override
-    public Pokemon get(String nombre) throws SQLException {
-        ArrayList<Pokemon>  = new ArrayList<>();
-        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE NOMBRE='"+nombre+"'");
-        while (rs.next()){
-            .add(resultToPokemon(rs));
-        }
-        return .get(0);    
-    }
-
+  
     @Override
     public List<Pokemon> getAll() throws SQLException {
-        public List<Pokemon> getAll() throws SQLException {
+        public List<Pokemon> pokemons getAll() throws SQLException {
             ArrayList<Pokemon>  = new ArrayList<>();
             ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON");
             while (rs.next()){
-                .add(resultToPokemon(rs));
+                pokemons.add(resultToPokemon(rs));
             }
-            return ;    
+            return pokemons;    
     }
 }
