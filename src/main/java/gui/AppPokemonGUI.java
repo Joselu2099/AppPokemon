@@ -7,6 +7,6 @@ public class AppPokemonGUI {
 
     @FXML
     private void switchToSecondary() throws IOException {
-        App.setRoot("AppPokemonGUI");
+        ControladorGUI.setRoot("AppPokemonGUI");
     }
 }

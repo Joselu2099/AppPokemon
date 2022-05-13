@@ -1,7 +1,6 @@
 package persistence;
 
-import model.Pokemon;
-
+import model.pokemon.Pokemon;
 import java.sql.SQLException;
 import java.util.List;
 

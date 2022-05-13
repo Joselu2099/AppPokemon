@@ -2,6 +2,7 @@ package model.utils;
 
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import junit.framework.TestCase;
+import model.pokemon.TablaTipos;
 
 public class TablaTiposTest extends TestCase {
 

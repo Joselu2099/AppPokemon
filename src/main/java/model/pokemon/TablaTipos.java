@@ -1,4 +1,4 @@
-package model.utils;
+package model.pokemon;
 
 import eu.iamgio.pokedex.pokemon.PokemonType;
 

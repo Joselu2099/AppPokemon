@@ -1,7 +1,6 @@
 package persistence;
 
-import model.Combate;
-
+import model.combate.Combate;
 import java.sql.SQLException;
 import java.util.List;
 

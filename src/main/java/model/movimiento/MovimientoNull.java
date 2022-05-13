@@ -1,4 +1,4 @@
-package model;
+package model.movimiento;
 
 public class MovimientoNull extends Movimiento {
 

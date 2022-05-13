@@ -1,4 +1,4 @@
-package model.utils;
+package model.entrenador;
 
 public enum NombresEntrenador {
     ANTONIO(1, "Antonio"),

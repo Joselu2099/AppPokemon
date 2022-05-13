@@ -1,7 +1,10 @@
-package model;
+package model.combate;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import model.entrenador.Entrenador;
+import model.movimiento.Movimiento;
+import model.pokemon.Pokemon;
 
 public class Combate {
 

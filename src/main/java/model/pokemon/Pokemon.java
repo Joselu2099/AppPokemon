@@ -1,9 +1,9 @@
-package model;
+package model.pokemon;
 
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.util.Pair;
+import model.movimiento.*;
 import model.utils.ModelUtils;
-import model.utils.TablaTipos;
 
 import java.util.ArrayList;
 import java.util.Objects;

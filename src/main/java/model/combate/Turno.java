@@ -1,4 +1,6 @@
-package model;
+package model.combate;
+
+import model.movimiento.*;
 
 public class Turno {
 

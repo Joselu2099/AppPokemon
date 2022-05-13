@@ -1,17 +1,12 @@
 package launcher;
 
-import controller.AppPokemon;
-import gui.AppPokemonGUI;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.sql.*;
+import gui.ControladorGUI;
+
 
 public class Launcher {
     public static void main(String[] args) {
         //AppPokemon.getINSTANCE();
+    	ControladorGUI.getINSTANCE().launchController();
        
 
         /*

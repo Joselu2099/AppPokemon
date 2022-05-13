@@ -1,7 +1,7 @@
 package persistence;
 
-import model.Entrenador;
-import model.Pokemon;
+import model.entrenador.*;
+import model.pokemon.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,28 +33,10 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
     }
 
     private Entrenador resultToEntrenador(ResultSet rs) throws SQLException{
-        /*
-        System.out.println(rs.getMetaData().getColumnName(1) + " - " + rs.getMetaData().getColumnType(1) + "\n" +
-                rs.getMetaData().getColumnName(2) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(3) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(4) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(5) + " - " + rs.getMetaData().getColumnType(2));
-
-        System.out.println(rs.getInt("id_entrenador") + "\n" +
-                rs.getString("nombre") + "\n" +
-                rs.getInt("pokedollars") + "\n" +
-                rs.getString("pokemons") + "\n" +
-                rs.getString("pokemons_caja"));
-        */
         //TODO
         Entrenador  ent = new Entrenador(rs.getInt("id_entrenador"),
                 rs.getString("nombre"));
         return ent;
-    }
-
-    private String entrenadorToInsert(Entrenador entrenador) throws SQLException{
-        //TODO
-        return "";
     }
 
     @Override

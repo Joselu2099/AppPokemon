@@ -1,4 +1,4 @@
-package model;
+package model.movimiento;
 
 import eu.iamgio.pokedex.pokemon.PokemonType;
 

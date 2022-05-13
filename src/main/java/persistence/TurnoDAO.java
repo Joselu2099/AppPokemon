@@ -1,7 +1,6 @@
 package persistence;
 
-import model.Turno;
-
+import model.combate.Turno;
 import java.sql.SQLException;
 import java.util.List;
 

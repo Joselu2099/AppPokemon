@@ -1,7 +1,7 @@
 package persistence;
 
 import junit.framework.TestCase;
-import model.Entrenador;
+import model.entrenador.Entrenador;
 import org.junit.Assert;
 
 import java.sql.SQLException;

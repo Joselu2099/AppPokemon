@@ -1,4 +1,4 @@
-package model;
+package model.movimiento;
 
 import eu.iamgio.pokedex.Generation;
 import model.utils.ModelUtils;

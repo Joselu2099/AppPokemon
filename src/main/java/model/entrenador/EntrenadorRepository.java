@@ -1,10 +1,9 @@
-package model;
+package model.entrenador;
 
+import model.pokemon.PokemonRepository;
 import model.utils.ModelUtils;
-import model.utils.NombresEntrenador;
 import persistence.DAOFactory;
 import persistence.EntrenadorDAO;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;

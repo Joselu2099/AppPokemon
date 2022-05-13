@@ -1,12 +1,14 @@
-package model;
+package model.entrenador;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.util.Pair;
+import model.combate.Combate;
+import model.movimiento.Movimiento;
+import model.pokemon.Pokemon;
 import model.utils.ModelUtils;
 
 public class Entrenador {

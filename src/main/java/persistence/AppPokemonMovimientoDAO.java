@@ -1,8 +1,6 @@
 package persistence;
 
-import model.Movimiento;
-import model.MovimientoAtaque;
-
+import model.movimiento.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

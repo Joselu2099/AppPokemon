@@ -1,4 +1,4 @@
-package model;
+package model.movimiento;
 
 public enum TipoMejora {
     ATAQUE,

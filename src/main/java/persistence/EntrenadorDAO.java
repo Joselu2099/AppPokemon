@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Entrenador;
+import model.entrenador.Entrenador;
 import java.sql.SQLException;
 import java.util.List;
 

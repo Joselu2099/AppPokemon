@@ -1,11 +1,10 @@
-package model;
+package model.pokemon;
 
 import eu.iamgio.pokedex.Generation;
 import model.utils.ModelUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class PokemonRepository {
 
