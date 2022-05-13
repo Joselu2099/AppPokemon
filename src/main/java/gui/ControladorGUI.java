@@ -13,8 +13,8 @@ import java.io.IOException;
  */
 public class ControladorGUI extends Application {
 
-	private static final int WIDTH = 750;
-	private static final int HEIGHT = 500;
+	private static final int WIDTH = 640;
+	private static final int HEIGHT = 420;
 	private static ControladorGUI INSTANCE;
     private static Scene scene;
 
@@ -24,8 +24,13 @@ public class ControladorGUI extends Application {
     }
     
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        scene = new Scene(loadFXML("AppPokemonGUI"), WIDTH, HEIGHT);
+    public void start(Stage primaryStage) {
+        try {
+			scene = new Scene(loadFXML("login"), WIDTH, HEIGHT);
+		} catch (IOException e) {
+			System.err.println("Carga incorrecta del FXML");
+			e.printStackTrace();
+		}
         
         primaryStage.setTitle("AppPokemon");
         primaryStage.setResizable(false);
@@ -35,8 +40,12 @@ public class ControladorGUI extends Application {
         primaryStage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    static void setRoot(String fxml) {
+        try {
+			scene.setRoot(loadFXML(fxml));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

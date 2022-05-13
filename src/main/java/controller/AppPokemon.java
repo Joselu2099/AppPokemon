@@ -34,16 +34,19 @@ public class AppPokemon {
         DAOFactory.getINSTANCE().cerrarConexion();
     }
 
-    public boolean login(String nombre){
-        Entrenador e = EntrenadorRepository.getINSTANCE().getEntrenador(nombre);
-        if(e==null) return false;
-        currentEntrenador = e;
-        return true;
+    public boolean isEntrenadorRegistrado(String nombre) {
+    	return EntrenadorRepository.getINSTANCE().getEntrenador(nombre)!=null;
+    }
+    
+    public void login(String nombre){
+    	if(isEntrenadorRegistrado(nombre)) 
+    		this.currentEntrenador = EntrenadorRepository.getINSTANCE().getEntrenador(nombre);
+    	else registrarEntrenador(nombre);
     }
 
     public boolean registrarEntrenador(String nombre){
-        Entrenador entrenador = new Entrenador(nombre);
-        return EntrenadorRepository.getINSTANCE().addEntrenador(entrenador);
+    	this.currentEntrenador = new Entrenador(nombre);
+        return EntrenadorRepository.getINSTANCE().addEntrenador(currentEntrenador);
     }
 
     public void capturarPokemon(Pokemon pokemon) {

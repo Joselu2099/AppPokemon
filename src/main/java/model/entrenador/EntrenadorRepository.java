@@ -47,26 +47,30 @@ public class EntrenadorRepository {
     }
 
     public Entrenador getEntrenador(int id) {
+    	if(entrenadores.containsKey(id)) return entrenadores.get(id);
         Entrenador e = null;
         try {
             e = entrenadorDAO.get(id);
+            entrenadores.put(e.getId(), e);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        if(!entrenadores.containsValue(e))
-            entrenadores.put(e.getId(), e);
         return e;
     }
 
     public Entrenador getEntrenador(String nombre) {
+    	if(!entrenadores.isEmpty()) {
+    		for(Entrenador entrenador: entrenadores.values()) {
+        		if(entrenador.getNombre().equals(nombre)) return entrenador;
+        	}
+    	}
         Entrenador e = null;
         try {
             e = entrenadorDAO.get(nombre);
+            entrenadores.put(e.getId(), e);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        if(!entrenadores.containsValue(e))
-            entrenadores.put(e.getId(), e);
         return e;
     }
 

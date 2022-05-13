@@ -13,3 +13,4 @@ public class Launcher {
     	AppPokemon.getINSTANCE().closeConnections();
     }
 }
+ 
