@@ -18,6 +18,12 @@ public abstract class Movimiento {
         this.nombre = nombre;
         this.tipo = tipo;
     }
+    
+    public Movimiento(int id, String nombre, PokemonType tipo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tipo = tipo;
+    }
 
     public int getId() {
         return id;

@@ -1,9 +1,5 @@
 package persistence;
 
-/**
- * Factoria concreta DAO para el Servidor de Persistencia de la asignatura TDS.
- */
-
 public final class AppPokemonDAOFactory extends DAOFactory {
 
     public AppPokemonDAOFactory() {
@@ -17,21 +13,24 @@ public final class AppPokemonDAOFactory extends DAOFactory {
 
     @Override
     public PokemonDAO getPokemonDAO() {
+    	//TODO
         return null;
     }
 
     @Override
     public MovimientoDAO getMovimientoDAO() {
-        return null;
+        return AppPokemonMovimientoDAO.getInstance();
     }
 
     @Override
     public CombateDAO getCombateDAO() {
+    	//TODO
         return null;
     }
 
     @Override
     public TurnoDAO getTurnoDAO() {
+    	//TODO
         return null;
     }
 

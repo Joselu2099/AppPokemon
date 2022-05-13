@@ -1,6 +1,7 @@
 package persistence;
 
-import model.pokemon.Pokemon;
+import model.movimiento.*;
+import model.pokemon.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import eu.iamgio.pokedex.pokemon.PokemonType;
 
 public class UtilsDAO {
     public static void crearModificar(String query) throws SQLException {
@@ -57,10 +60,109 @@ public class UtilsDAO {
     }
 
     public List<Pokemon> idsToPokemons(List<Integer> ids){
+    	PokemonDAO pokemonDAO = DAOFactory.getINSTANCE().getPokemonDAO();
         ArrayList<Pokemon> pokemons = new ArrayList<>();
-        for(Integer i: ids){
-            //TODO
+        for(Integer id: ids){
+        	//TODO
+        	//pokemons.add(pokemonDAO.get(id));
         }
         return pokemons;
     }
+    
+    public static PokemonType stringToPokemonType(String str) {
+    	switch (str.toUpperCase()){
+	        case "STEEL":
+	            return PokemonType.STEEL;
+	        case "WATER":
+	            return PokemonType.WATER;
+	        case "BUG":
+	            return PokemonType.BUG;
+	        case "DRAGON":
+	            return PokemonType.DRAGON;
+	        case "ELECTRIC":
+	            return PokemonType.ELECTRIC;
+	        case "GHOST":
+	            return PokemonType.GHOST;
+	        case "FIRE":
+	            return PokemonType.FIRE;
+	        case "FAIRY":
+	            return PokemonType.FAIRY;
+	        case "ICE":
+	            return PokemonType.ICE;
+	        case "FIGHTING":
+	            return PokemonType.FIGHTING;
+	        case "NORMAL":
+	            return PokemonType.NORMAL;
+	        case "GRASS":
+	            return PokemonType.GRASS;
+	        case "PSYCHIC":
+	            return PokemonType.PSYCHIC;
+	        case "ROCK":
+	            return PokemonType.ROCK;
+	        case "DARK":
+	            return PokemonType.DARK;
+	        case "GROUND":
+	            return PokemonType.GROUND;
+	        case "POISON":
+	            return PokemonType.POISON;
+	        case "FLYING":
+	            return PokemonType.FLYING;
+	        case "UNKNOWN":
+	        default:
+	            return PokemonType.UNKNOWN;
+    	}
+    }
+    
+    public static String pokemonTypeToString(PokemonType type) {
+    	return type.toString();
+    }
+    
+    public static Estado stringToEstado(String str) {
+    	switch(str.toUpperCase()) {
+	    	case "PARALIZADO":
+	    		return Estado.PARALIZADO;
+	    	case "DORMIDO":
+	    		return Estado.DORMIDO;
+	    	case "QUEMADO":
+	    		return Estado.QUEMADO;
+	    	case "ENVENENADO":
+	    		return Estado.ENVENENADO;
+	    	case "CONFUSO":
+	    		return Estado.CONFUSO;
+	    	case "CONGELADO":
+	    		return Estado.CONGELADO;
+	    	case "SIN_ESTADO":
+	    	default:
+	    		return Estado.SIN_ESTADO;
+    	}
+    }
+    
+    public static String estadoToString(Estado estado) {
+    	return estado.toString();
+    }
+    
+    public static TipoMejora stringToTipoMejora(String str) {
+    	switch(str.toUpperCase()) {
+	    	case "ATAQUE":
+	    		return TipoMejora.ATAQUE;
+	    	case "DEFENSA":
+	    		return TipoMejora.DEFENSA;
+	    	case "ATAQUE_ESP":
+	    		return TipoMejora.ATAQUE_ESP;
+	    	case "DEFENSA_ESP":
+	    		return TipoMejora.DEFENSA_ESP;
+	    	case "VELOCIDAD":
+	    		return TipoMejora.VELOCIDAD;
+	    	case "VITALIDAD":
+	    		return TipoMejora.VITALIDAD;
+	    	case "UNKNOWN":
+	    	default:
+	    		return TipoMejora.UNKNOWN;
+    	}
+    }
+    
+    public static String tipoMejoraToString(TipoMejora tipoMejora) {
+    	return tipoMejora.toString();
+    }
+ 
 }

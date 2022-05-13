@@ -29,21 +29,6 @@ public abstract class DAOFactory {
         }
     }
 
-    /**
-     * Crea un tipo de factoria DAO.
-     * Solo existe el tipo FactoriaDAO
-
-    public static synchronized DAOFactory getInstance(String type) throws DAOException {
-        if (INSTANCE == null)
-            try {
-                INSTANCE = (DAOFactory) Class.forName(type).newInstance();
-            } catch (Exception e) {
-                throw new DAOException(e.getMessage());
-            }
-        return INSTANCE;
-    }
-     */
-
     public static DAOFactory getINSTANCE(){
         if (INSTANCE == null) INSTANCE = new AppPokemonDAOFactory();
         return INSTANCE;

@@ -19,6 +19,12 @@ public class MovimientoMejora extends Movimiento {
         this.mejora = mejora;
         this.tipoMejora = tipoMejora;
     }
+    
+    public MovimientoMejora(int id, String nombre, PokemonType tipo, int mejora, TipoMejora tipoMejora) {
+        super(id, nombre, tipo);
+        this.mejora = mejora;
+        this.tipoMejora = tipoMejora;
+    }
 
     public int getMejora() {
         return mejora;

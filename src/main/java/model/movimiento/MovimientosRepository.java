@@ -1,21 +1,23 @@
 package model.movimiento;
 
-import eu.iamgio.pokedex.Generation;
-import model.utils.ModelUtils;
-
+import persistence.DAOFactory;
+import persistence.MovimientoDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
+
 
 public class MovimientosRepository {
 
     private static MovimientosRepository INSTANCE;
 
-    private Map<Integer, Movimiento> movimientos;
+    private Map<Integer, Movimiento> movimientosID;
+    private MovimientoDAO movimientoDAO;
 
     private MovimientosRepository() {
-        movimientos = new HashMap<>();
+    	movimientosID = new HashMap<>();
+        movimientoDAO = DAOFactory.getINSTANCE().getMovimientoDAO();
         this.loadRepository();
     }
 
@@ -26,14 +28,26 @@ public class MovimientosRepository {
     }
 
     private void loadRepository() {
-
+        try {
+            movimientoDAO.getAll().forEach(mv -> movimientosID.put(mv.getId(), mv));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Movimiento> getMovimientos() {
-        return new ArrayList<Movimiento>(movimientos.values());
+        return new ArrayList<Movimiento>(movimientosID.values());
     }
 
     public Movimiento getMovimiento(int id) {
-        return movimientos.get(id);
+        return movimientosID.get(id);
+    }
+    
+    public Movimiento getMovimiento(String nombre) {
+        for(Movimiento mv: movimientosID.values()) {
+        	if(mv.getNombre().equals(nombre))
+        		return mv;
+        }
+        return new MovimientoNull();
     }
 }

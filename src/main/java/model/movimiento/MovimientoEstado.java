@@ -12,11 +12,17 @@ public class MovimientoEstado extends Movimiento {
         this.estado = Estado.SIN_ESTADO;
     }
 
-    public MovimientoEstado(String nombre, PokemonType tipo, Estado estado, int numTurnos) {
+    public MovimientoEstado(String nombre, PokemonType tipo, Estado estado) {
         super(nombre, tipo);
         this.estado = Estado.SIN_ESTADO;
     }
 
+    public MovimientoEstado(int id, String nombre, PokemonType tipo, Estado estado) {
+        super(id, nombre, tipo);
+        this.estado = Estado.SIN_ESTADO;
+    }
+
+    
     public Estado getEstado() {
         return estado;
     }

@@ -16,6 +16,11 @@ public class MovimientoAtaque extends Movimiento {
         this.potencia = potencia;
     }
 
+    public MovimientoAtaque(int id, String nombre, PokemonType tipo, int potencia) {
+        super(id, nombre, tipo);
+        this.potencia = potencia;
+    }
+    
     public int getPotencia() {
         return potencia;
     }
