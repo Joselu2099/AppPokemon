@@ -223,7 +223,7 @@ public class Pokemon {
     public Pair<PokemonType, PokemonType> getTipos() {
         return tipos;
     }
-    
+
     public PokemonType getTipoAleatorio() {
     	if(ModelUtils.generarNumRandom(0, 1) == 0) return tipos.getFirst();
     	else return tipos.getSecond();
@@ -302,15 +302,14 @@ public class Pokemon {
         }
     }
 
-    public boolean aplicarEstado(MovimientoEstado mvE, String msg) {
-    	if(this.isInmune(mvE)){
+    public boolean aplicarEstado(MovimientoEstado mvE, String msg){
+        if(this.isInmune(mvE)){
             msg = this.getNombre() + " es inmune a " + mvE.getNombre();
             return false;
-        }else{
-        	this.setEstado(mvE.getEstado());
-            msg = this.getNombre() + " ha sido " + mvE.getNombre();
-            return true;
         }
+        this.estado=mvE.getEstado();
+        msg = this.getNombre() + " ha sido " + mvE.getEstado();
+        return true;
     }
     
     public void aplicarMejora(MovimientoMejora mvM, String msg){
