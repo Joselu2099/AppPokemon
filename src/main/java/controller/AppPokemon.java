@@ -9,8 +9,6 @@ import persistence.DAOFactory;
 public class AppPokemon {
 
     private static AppPokemon INSTANCE;
-
-    private DAOFactory factory;
     private Entrenador currentEntrenador;
     private Combate currentCombate;
 
@@ -18,7 +16,6 @@ public class AppPokemon {
         //Cargar entrenador logueado registrado en BD
         this.currentEntrenador = new Entrenador();
         this.currentCombate = new Combate();
-        this.factory = DAOFactory.getINSTANCE();
         PokemonRepository.getINSTANCE();
         MovimientosRepository.getINSTANCE();
     }

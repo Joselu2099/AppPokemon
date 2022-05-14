@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.scene.image.Image;
 import java.io.IOException;
 
 /**
@@ -13,10 +13,11 @@ import java.io.IOException;
  */
 public class ControladorGUI extends Application {
 
-	private static final int WIDTH = 640;
-	private static final int HEIGHT = 420;
+	private static final int START_WIDTH = 640;
+	private static final int START_HEIGHT = 420;
 	private static ControladorGUI INSTANCE;
     private static Scene scene;
+    private static Stage stage;
 
     public static ControladorGUI getINSTANCE() {
     	if(INSTANCE==null) INSTANCE = new ControladorGUI();
@@ -24,23 +25,34 @@ public class ControladorGUI extends Application {
     }
     
     @Override
-    public void start(Stage primaryStage) {
+    public void start(@SuppressWarnings("exports") Stage primaryStage) {
+    	ControladorGUI.stage = primaryStage;
         try {
-			scene = new Scene(loadFXML("login"), WIDTH, HEIGHT);
+			scene = new Scene(loadFXML("login"), START_WIDTH, START_HEIGHT);
 		} catch (IOException e) {
 			System.err.println("Carga incorrecta del FXML");
 			e.printStackTrace();
 		}
         
-        primaryStage.setTitle("AppPokemon");
-        primaryStage.setResizable(false);
-        primaryStage.setWidth(WIDTH);
-        primaryStage.setHeight(HEIGHT);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setTitle("AppPokemon");
+        //ControladorGUI.class.getResourceAsStream("icon.png")
+        stage.getIcons().add(new Image(ControladorGUI.class.getResourceAsStream("/images/icon.png"))); 
+        stage.setResizable(false);
+        setStageSize(START_WIDTH, START_HEIGHT);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public static void setStageSize(int width, int height) {
+    	stage.setWidth(width);
+        stage.setHeight(height);
+    }
+    
+    public static void close() {
+    	stage.close();
     }
 
-    static void setRoot(String fxml) {
+    public static void setRoot(String fxml) {
         try {
 			scene.setRoot(loadFXML(fxml));
 		} catch (IOException e) {

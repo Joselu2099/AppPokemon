@@ -8,19 +8,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
-      <ImageView fitHeight="469.0" fitWidth="792.0" layoutX="86.0" layoutY="-147.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="469.0" fitWidth="792.0" layoutX="86.0" layoutY="-118.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/logoAppPokemon.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnLogin" layoutX="298.0" layoutY="310.0" mnemonicParsing="false" text="Login" />
+      <Button fx:id="btnLogin" layoutX="298.0" layoutY="310.0" mnemonicParsing="false" onAction="#login" text="Login" />
       <TextField fx:id="txtField" layoutX="217.0" layoutY="241.0" prefHeight="25.0" prefWidth="203.0" />
       <Label layoutX="215.0" layoutY="216.0" prefHeight="19.0" prefWidth="211.0" text="Introduce tu nombre de entrenador">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
+      <Label fx:id="lblWarning" layoutX="215.0" layoutY="341.0" prefHeight="19.0" prefWidth="211.0" textFill="#eb0909" />
    </children>
 </Pane>

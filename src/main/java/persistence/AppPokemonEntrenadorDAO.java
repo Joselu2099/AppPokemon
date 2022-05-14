@@ -34,9 +34,8 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
 
     private Entrenador resultToEntrenador(ResultSet rs) throws SQLException{
         //TODO
-        Entrenador  ent = new Entrenador(rs.getInt("id_entrenador"),
+        return new Entrenador(rs.getInt("id_entrenador"),
                 rs.getString("nombre"));
-        return ent;
     }
 
     @Override
@@ -74,8 +73,8 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
         while (rs.next()){
             entrenadores.add(resultToEntrenador(rs));
         }
-        entrenadores.forEach(e-> System.out.println(e));
-        return entrenadores.get(0);
+        if(entrenadores.size()>0) return entrenadores.get(0);
+        return null;
     }
 
     public Entrenador get(String nombre) throws SQLException {
@@ -84,7 +83,8 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
         while (rs.next()){
             entrenadores.add(resultToEntrenador(rs));
         }
-        return entrenadores.get(0);
+        if(entrenadores.size()>0) return entrenadores.get(0);
+        return null;
     }
 
     @Override
