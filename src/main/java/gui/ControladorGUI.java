@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class ControladorGUI extends Application {
 
-	private static final int START_WIDTH = 640;
+	private static final int START_WIDTH = 600;
 	private static final int START_HEIGHT = 420;
 	private static ControladorGUI INSTANCE;
     private static Scene scene;
@@ -35,10 +35,9 @@ public class ControladorGUI extends Application {
 		}
         
         stage.setTitle("AppPokemon");
-        //ControladorGUI.class.getResourceAsStream("icon.png")
         stage.getIcons().add(new Image(ControladorGUI.class.getResourceAsStream("/images/icon.png"))); 
         stage.setResizable(false);
-        setStageSize(START_WIDTH, START_HEIGHT);
+        //scene.getStylesheets().addAll(this.getClass().getResource("/images/style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

@@ -32,11 +32,17 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AppPokemonController">
   <children>
@@ -50,6 +56,61 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS" />
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" styleClass="root" stylesheets="@../images/appPokemonStyle.css" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox layoutX="55.0" layoutY="47.0" prefHeight="695.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Pane prefHeight="695.0" prefWidth="430.0">
+                     <children>
+                        <ImageView fx:id="pk1" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pk2" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pk4" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pk3" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pk5" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pk6" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="103.0" layoutY="80.0" text="EQUIPO POKEMON" textFill="WHITE">
+                           <font>
+                              <Font name="Rockwell" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="695.0" prefWidth="458.0" />
+                  <Pane prefHeight="695.0" prefWidth="430.0">
+                     <children>
+                        <Label layoutX="129.0" layoutY="82.0" text="ENTRENADOR" textFill="WHITE">
+                           <font>
+                              <Font name="Rockwell" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </children></AnchorPane>
   </children>
 </VBox>
