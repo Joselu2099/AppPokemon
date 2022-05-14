@@ -13,8 +13,11 @@ import java.io.IOException;
  */
 public class ControladorGUI extends Application {
 
-	private static final int START_WIDTH = 600;
-	private static final int START_HEIGHT = 420;
+	public static final int LOGIN_WIDTH = 600;
+	public static final int LOGIN_HEIGHT = 420;
+	public static final int APP_WIDTH = 1280;
+	public static final int APP_HEIGHT = 720;
+	
 	private static ControladorGUI INSTANCE;
     private static Scene scene;
     private static Stage stage;
@@ -27,17 +30,15 @@ public class ControladorGUI extends Application {
     @Override
     public void start(@SuppressWarnings("exports") Stage primaryStage) {
     	ControladorGUI.stage = primaryStage;
-        try {
-			scene = new Scene(loadFXML("login"), START_WIDTH, START_HEIGHT);
-		} catch (IOException e) {
-			System.err.println("Carga incorrecta del FXML");
-			e.printStackTrace();
-		}
-        
+    	try {
+ 			scene = new Scene(loadFXML("login"), LOGIN_WIDTH, LOGIN_HEIGHT);
+ 		} catch (IOException e) {
+ 			System.err.println("Carga incorrecta del FXML");
+ 			e.printStackTrace();
+ 		}
         stage.setTitle("AppPokemon");
         stage.getIcons().add(new Image(ControladorGUI.class.getResourceAsStream("/images/icon.png"))); 
         stage.setResizable(false);
-        //scene.getStylesheets().addAll(this.getClass().getResource("/images/style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }
@@ -50,7 +51,7 @@ public class ControladorGUI extends Application {
     public static void close() {
     	stage.close();
     }
-
+    
     public static void setRoot(String fxml) {
         try {
 			scene.setRoot(loadFXML(fxml));

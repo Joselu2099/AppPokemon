@@ -16,7 +16,7 @@ public class AppPokemonController implements Initializable{
 	
 	@FXML
     private void exit(ActionEvent event) {
-		ControladorGUI.setStageSize(640, 420);
+		ControladorGUI.setStageSize(ControladorGUI.LOGIN_WIDTH, ControladorGUI.LOGIN_HEIGHT);
         ControladorGUI.setRoot("login");
 	}
 	

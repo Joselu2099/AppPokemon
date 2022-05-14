@@ -24,7 +24,7 @@ public class LoginController implements Initializable{
     private void login(ActionEvent event) {
     	if(txtField.getText().length()!=0) {
     		AppPokemon.getINSTANCE().login(txtField.getText());
-    		ControladorGUI.setStageSize(1280, 720);
+    		ControladorGUI.setStageSize(ControladorGUI.APP_WIDTH, ControladorGUI.APP_HEIGHT);
             ControladorGUI.setRoot("appPokemon");
     	}else {
     		lblWarning.setText("El nombre del entrenador es incorrecto");
