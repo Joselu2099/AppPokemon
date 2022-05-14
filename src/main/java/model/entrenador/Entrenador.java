@@ -17,8 +17,8 @@ public class Entrenador {
 
     private int id;
     private String nombre;
-    private ArrayList<Pokemon> pokemons;
     private int pokedollars;
+    private ArrayList<Pokemon> pokemons;
     private List<Pokemon> cajaPokemon;
     private List<Combate> combates;
 
@@ -40,11 +40,11 @@ public class Entrenador {
         this.combates = new LinkedList<>();
     }
 
-    public Entrenador(int id, String nombre) {
+    public Entrenador(int id, String nombre, int pokedollars) {
         this.id = id;
         this.nombre = nombre;
         this.pokemons = new ArrayList<>();
-        this.pokedollars = POKEDOLLARS_BASE;
+        this.pokedollars = pokedollars;
         this.cajaPokemon = new LinkedList<>();
         this.combates = new LinkedList<>();
     }
@@ -58,7 +58,7 @@ public class Entrenador {
         this.combates = new LinkedList<>();
     }
 
-    public Entrenador(int id, String nombre, ArrayList<Pokemon> pokemons, int pokedollars, List<Pokemon> cajaPokemon, LinkedList<Combate> combates) {
+    public Entrenador(int id, String nombre, int pokedollars, ArrayList<Pokemon> pokemons, List<Pokemon> cajaPokemon, LinkedList<Combate> combates) {
         this.id = id;
         this.nombre = nombre;
         this.pokemons = pokemons;

@@ -14,7 +14,5 @@ public interface PokemonDAO {
 
     Pokemon get(int id) throws SQLException;
 
-    Pokemon get(String nombre) throws SQLException;
-
     List<Pokemon> getAll() throws SQLException;
 }

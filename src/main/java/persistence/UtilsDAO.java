@@ -59,17 +59,31 @@ public class UtilsDAO {
         return list == null ? "" : String.join(",", list);
     }
 
-    public List<Pokemon> idsToPokemons(List<Integer> ids){
+    public static List<Pokemon> idsToPokemons(String ids){
+    	List<Integer> listIds = stringToList(ids);
     	PokemonDAO pokemonDAO = DAOFactory.getINSTANCE().getPokemonDAO();
         ArrayList<Pokemon> pokemons = new ArrayList<>();
-        for(Integer id: ids){
-        	//TODO
-        	//pokemons.add(pokemonDAO.get(id));
+        for(Integer id: listIds){
+        	try {
+				pokemons.add(pokemonDAO.get(id));
+			} catch (SQLException e) {
+				System.err.println("Pokemon no encontrado (idsToPokemons:UtilsDAO)");
+			}
         }
         return pokemons;
     }
     
+    public static List<Movimiento> idsToMovimientos(String ids){
+    	List<Integer> listIds = stringToList(ids); 
+    	ArrayList<Movimiento> movimientos = new ArrayList<Movimiento>();
+    	for(Integer id: listIds) {
+    		movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id));
+    	}
+    	return movimientos;
+    }
+    
     public static PokemonType stringToPokemonType(String str) {
+    	if(str==null) return PokemonType.UNKNOWN;
     	switch (str.toUpperCase()){
 	        case "STEEL":
 	            return PokemonType.STEEL;

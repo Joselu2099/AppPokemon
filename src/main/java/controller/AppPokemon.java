@@ -13,7 +13,6 @@ public class AppPokemon {
     private Combate currentCombate;
 
     private AppPokemon() {
-        //Cargar entrenador logueado registrado en BD
         this.currentEntrenador = new Entrenador();
         this.currentCombate = new Combate();
         PokemonRepository.getINSTANCE();

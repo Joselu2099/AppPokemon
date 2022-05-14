@@ -1,5 +1,6 @@
 package persistence;
 
+import model.combate.Combate;
 import model.entrenador.*;
 import model.pokemon.*;
 import java.sql.Connection;
@@ -7,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,15 +36,26 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
 
     private Entrenador resultToEntrenador(ResultSet rs) throws SQLException{
         //TODO
-        return new Entrenador(rs.getInt("id_entrenador"),
-                rs.getString("nombre"));
+    	String pokemons = rs.getString("pokemons");
+    	String pokemons_caja = rs.getString("pokemons_caja");
+    	String combates = rs.getString("combates");
+    	if(pokemons!=null && pokemons_caja!=null && combates!=null)
+	        return new Entrenador(rs.getInt("id_entrenador"),
+	                rs.getString("nombre"),
+	                rs.getInt("pokedollars"),
+	                (ArrayList<Pokemon>)UtilsDAO.idsToPokemons(rs.getString("pokemons")),
+	                (LinkedList<Pokemon>)UtilsDAO.idsToPokemons(rs.getString("pokemons_caja")),
+	                new LinkedList<Combate>());
+    	return new Entrenador(rs.getInt("id_entrenador"),
+                rs.getString("nombre"),
+                rs.getInt("pokedollars"));
     }
 
     @Override
     public Entrenador create(Entrenador assistant) throws SQLException {
         statement.executeUpdate("INSERT INTO ENTRENADOR(NOMBRE,POKEDOLLARS)" +
                 " VALUES('" + assistant.getNombre() + "', " + assistant.getPokedollars() +")");
-        return get(assistant.getNombre());
+        return ((LinkedList<Entrenador>) getAll()).getLast();
     }
 
     @Override
@@ -77,19 +90,9 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
         return null;
     }
 
-    public Entrenador get(String nombre) throws SQLException {
-        ArrayList<Entrenador> entrenadores = new ArrayList<>();
-        ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR WHERE NOMBRE='"+nombre+"'");
-        while (rs.next()){
-            entrenadores.add(resultToEntrenador(rs));
-        }
-        if(entrenadores.size()>0) return entrenadores.get(0);
-        return null;
-    }
-
     @Override
     public List<Entrenador> getAll() throws SQLException {
-        ArrayList<Entrenador> entrenadores = new ArrayList<>();
+        LinkedList<Entrenador> entrenadores = new LinkedList<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR");
         while (rs.next()){
             entrenadores.add(resultToEntrenador(rs));
