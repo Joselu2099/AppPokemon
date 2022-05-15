@@ -62,37 +62,27 @@
                <children>
                   <Pane prefHeight="695.0" prefWidth="430.0">
                      <children>
-                        <ImageView fx:id="pk1" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="pk1" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="pk2" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="pk2" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="pk4" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="pk4" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="pk3" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="304.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="pk3" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/icon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="pk5" fitHeight="83.0" fitWidth="109.0" layoutX="80.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icon.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="pk6" fitHeight="83.0" fitWidth="109.0" layoutX="254.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icon.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="103.0" layoutY="80.0" text="EQUIPO POKEMON" textFill="WHITE">
+                        <Label layoutX="103.0" layoutY="82.0" text="EQUIPO POKEMON" textFill="WHITE">
                            <font>
                               <Font name="Rockwell" size="24.0" />
                            </font>

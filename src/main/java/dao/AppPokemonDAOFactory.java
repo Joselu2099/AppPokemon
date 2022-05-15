@@ -13,8 +13,7 @@ public final class AppPokemonDAOFactory extends DAOFactory {
 
     @Override
     public PokemonDAO getPokemonDAO() {
-    	//TODO
-        return null;
+        return AppPokemonPokemonDAO.getInstance();
     }
 
     @Override

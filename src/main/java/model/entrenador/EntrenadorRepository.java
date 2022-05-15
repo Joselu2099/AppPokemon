@@ -19,6 +19,7 @@ public class EntrenadorRepository {
 
     private EntrenadorRepository() {
         entrenadores = new HashMap<>();
+        altosMando = new HashMap<>();
         entrenadorDAO = DAOFactory.getINSTANCE().getEntrenadorDAO();
         this.loadRepository();
     }
@@ -31,7 +32,11 @@ public class EntrenadorRepository {
 
     private void loadRepository() {
         try {
-            entrenadorDAO.getAll().forEach(e -> entrenadores.put(e.getId(), e));
+            entrenadorDAO.getAll().forEach(e -> {
+            	if(e.getNombre().equals("Knekro") || e.getNombre().equals("Red") || e.getNombre().equals("Blue"))
+            		altosMando.put(e.getNombre(), e);
+            	else entrenadores.put(e.getId(), e);
+            });
         } catch (SQLException e) {
             e.printStackTrace();
         }

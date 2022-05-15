@@ -2,6 +2,7 @@ package model.pokemon;
 
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.util.Pair;
+import model.entrenador.Entrenador;
 import model.movimiento.*;
 import model.utils.ModelUtils;
 import java.util.ArrayList;
@@ -32,6 +33,9 @@ public class Pokemon {
     private Pair<PokemonType, PokemonType> tipos;
     private Estado estado;
     private String sprite;
+    private Entrenador entrenador;
+    private String equipoCaja;
+    
 
     public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos, String sprite) {
         this.id = id;
@@ -52,9 +56,11 @@ public class Pokemon {
         this.tipos = tipos;
         this.setEstado(Estado.SIN_ESTADO);
         this.sprite = sprite;
+        this.entrenador = null;
+        this.equipoCaja = "";
     }
 
-    public Pokemon(int id, String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, ArrayList<Movimiento> movimientos, int fertilidad, Pair<PokemonType, PokemonType> tipos, Estado estado, String sprite) {
+    public Pokemon(int id, String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, ArrayList<Movimiento> movimientos, int fertilidad, Pair<PokemonType, PokemonType> tipos, Estado estado, String sprite, String equipoCaja) {
         this.id = id;
         this.nombre = nombre;
         this.mote = mote;
@@ -73,6 +79,8 @@ public class Pokemon {
         this.tipos = tipos;
         this.estado = estado;
         this.sprite = sprite;
+        this.entrenador = null;
+        this.equipoCaja = equipoCaja;
     }
 
     public Pokemon(Pokemon pokemon) {
@@ -249,7 +257,23 @@ public class Pokemon {
         this.sprite = sprite;
     }
 
-    public void subirNivel(){
+    public String getEquipoCaja() {
+		return equipoCaja;
+	}
+
+	public void setEquipoCaja(String equipoCaja) {
+		this.equipoCaja = equipoCaja;
+	}
+
+	public Entrenador getEntrenador() {
+		return entrenador;
+	}
+	
+	public void setEntrenador(Entrenador entrenador) {
+		this.entrenador = entrenador;
+	}
+
+	public void subirNivel(){
         this.nivel++;
         this.estamina+=ModelUtils.generarNumRandom(1,5);
         this.vitalidad+=ModelUtils.generarNumRandom(1,5);
@@ -362,7 +386,7 @@ public class Pokemon {
     public boolean isTipo(PokemonType type){
         return (tipos.getFirst().equals(type) || tipos.getSecond().equals(type));
     }
-
+  
     public VentajaDesventaja tieneVentaja(Pokemon rival){
         double e1 = TablaTipos.getEfectividad(tipos.getFirst(), rival.getTipos().getFirst());
         double e2 = TablaTipos.getEfectividad(tipos.getFirst(), rival.getTipos().getSecond());

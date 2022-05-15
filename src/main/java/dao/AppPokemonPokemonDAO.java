@@ -1,5 +1,6 @@
 package dao;
 
+import model.entrenador.Entrenador;
 import model.movimiento.Movimiento;
 import model.pokemon.Pokemon;
 import java.sql.Connection;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.util.Pair;
 
@@ -31,8 +31,7 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 
     public static synchronized AppPokemonPokemonDAO getInstance() {
         if (INSTANCE == null)
-            INSTANCE = new AppPokemonPokemonDAO
-    ();
+            INSTANCE = new AppPokemonPokemonDAO();
         return INSTANCE;
     }
     private Pokemon resultToPokemon(ResultSet rs) throws SQLException{  
@@ -49,17 +48,18 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 	            rs.getInt("estamina"),
 	            rs.getInt("nivel"),
 	            rs.getInt("experiencia"),
-	            (ArrayList<Movimiento>)UtilsDAO.idsToMovimientos(rs.getString("movimientos")),
+	            (ArrayList<Movimiento>)UtilsDAO.idsToMovimientos(rs.getInt("movimiento1"), rs.getInt("movimiento2"), rs.getInt("movimiento3"), rs.getInt("movimiento4")),
 	            rs.getInt("fertilidad"),
 	            tipos,
 	            UtilsDAO.stringToEstado(rs.getString("estado")),
-	            rs.getString("sprite"));
+	            rs.getString("sprite"),
+	            rs.getString("equipo_caja"));
     }
 
     @Override
     public Pokemon create(Pokemon assistant) throws SQLException {
-        statement.executeUpdate("INSERT INTO POKEMON(NOMBRE, MOTE, VITALIDAD, ATAQUE, DEFENSA, ATAQUE_ESP, DEFENSA_ESP, VELOCIDAD, ESTAMINA, NIVEL, EXPERIENCIA, MOVIMIENTOS, FERTILIDAD, TIPO1,TIPO2, ESTADO,SPRITE)" +
-        " VALUES('" + assistant.getNombre() + "', " + assistant.getMote() +", " + assistant.getVitalidad() +", " + assistant.getAtaque() +", " + assistant.getDefensa() +", " + assistant.getAtaqueEspecial() +", " + assistant.getDefensaEspecial() +", " + assistant.getVelocidad() +", " + assistant.getEstamina() +", " + assistant.getNivel() +", " + assistant.getExperiencia() +", " + assistant.getMovimientos() +", " + assistant.getFertilidad() +", " + assistant.getTipos().getFirst() +", " + assistant.getTipos().getSecond() +", " + assistant.getEstado() +", " + assistant.getSprite() +")");
+        statement.executeUpdate("INSERT INTO POKEMON(NOMBRE, MOTE, VITALIDAD, ATAQUE, DEFENSA, ATAQUE_ESP, DEFENSA_ESP, VELOCIDAD, ESTAMINA, NIVEL, MOVIMIENTO1, MOVIMIENTO2, MOVIMIENTO3, MOVIMIENTO4, TIPO1, TIPO2, SPRITE, ENTRENADOR, EQUIPO_CAJA)" +
+        " VALUES('" + assistant.getNombre() + "', " + assistant.getMote() +", " + assistant.getVitalidad() +", " + assistant.getAtaque() +", " + assistant.getDefensa() +", " + assistant.getAtaqueEspecial() +", " + assistant.getDefensaEspecial() +", " + assistant.getVelocidad() +", " + assistant.getEstamina() +", " + assistant.getNivel() +", " + assistant.getMovimientos().get(0) +", " + assistant.getMovimientos().get(1) +", " + assistant.getMovimientos().get(2) +", " + assistant.getMovimientos().get(3) +", " + UtilsDAO.pokemonTypeToString(assistant.getTipos().getFirst()) +", " + UtilsDAO.pokemonTypeToString(assistant.getTipos().getSecond()) +", " + UtilsDAO.estadoToString(assistant.getEstado()) +", " + assistant.getSprite() +", " + assistant.getEntrenador() +", " + assistant.getEquipoCaja() +")");
         return ((LinkedList<Pokemon>) getAll()).getLast();
     }
 
@@ -141,6 +141,28 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
         ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON");
         while (rs.next()){
             pokemons.add(resultToPokemon(rs));
+        }
+        return pokemons;    
+    }
+    
+    @Override
+    public List<Pokemon> getPokemonsEquipo(Entrenador entrenador) throws SQLException {
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ entrenador.getId());
+        while (rs.next()){
+        	if(rs.getString("equipo_caja").equals("EQUIPO"))
+        		pokemons.add(resultToPokemon(rs));
+        }
+        return pokemons;    
+    }
+    
+    @Override
+    public List<Pokemon> getPokemonsCaja(Entrenador entrenador) throws SQLException {
+        List<Pokemon> pokemons = new LinkedList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ entrenador.getId());
+        while (rs.next()){
+        	if(rs.getString("equipo_caja").equals("CAJA"))
+        		pokemons.add(resultToPokemon(rs));
         }
         return pokemons;    
     }

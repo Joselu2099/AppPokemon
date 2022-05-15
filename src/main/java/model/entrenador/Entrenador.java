@@ -19,8 +19,8 @@ public class Entrenador {
     private String nombre;
     private int pokedollars;
     private ArrayList<Pokemon> pokemons;
-    private List<Pokemon> cajaPokemon;
-    private List<Combate> combates;
+    private LinkedList<Pokemon> cajaPokemon;
+    private LinkedList<Combate> combates;
 
     public Entrenador() {
         this.id = 0;
@@ -58,7 +58,7 @@ public class Entrenador {
         this.combates = new LinkedList<>();
     }
 
-    public Entrenador(int id, String nombre, int pokedollars, ArrayList<Pokemon> pokemons, List<Pokemon> cajaPokemon, LinkedList<Combate> combates) {
+    public Entrenador(int id, String nombre, int pokedollars, ArrayList<Pokemon> pokemons, LinkedList<Pokemon> cajaPokemon, LinkedList<Combate> combates) {
         this.id = id;
         this.nombre = nombre;
         this.pokemons = pokemons;
@@ -103,7 +103,7 @@ public class Entrenador {
         return cajaPokemon;
     }
 
-    public void setCajaPokemon(List<Pokemon> cajaPokemon) {
+    public void setCajaPokemon(LinkedList<Pokemon> cajaPokemon) {
         this.cajaPokemon = cajaPokemon;
     }
 
@@ -111,23 +111,38 @@ public class Entrenador {
         return combates;
     }
 
-    public void setCombates(List<Combate> combates) {
+    public void setCombates(LinkedList<Combate> combates) {
         this.combates = combates;
     }
 
     public void addPokemon(Pokemon pokemon) {
-        if (pokemons.size() == 4) {
+        if (pokemons.size() >= 4) {
             cajaPokemon.add(pokemon);
-        } else pokemons.add(pokemon);
+            pokemon.setEquipoCaja("CAJA");
+        }else {
+        	pokemons.add(pokemon);
+            pokemon.setEquipoCaja("EQUIPO");
+        }
     }
 
-    public boolean sacarPokemon(Pokemon pokemon) {
+    public boolean sacarPokemonCaja(Pokemon pokemon) {
         if (cajaPokemon.contains(pokemon)) {
             if (pokemons.size() != 4) {
                 pokemons.add(pokemon);
                 cajaPokemon.remove(pokemon);
+                pokemon.setEquipoCaja("EQUIPO");
                 return true;
             }
+        }
+        return false;
+    }
+    
+    public boolean meterPokemonCaja(Pokemon pokemon) {
+        if (pokemons.contains(pokemon)) {
+        	cajaPokemon.add(pokemon);
+        	pokemons.remove(pokemon);
+            pokemon.setEquipoCaja("CAJA");
+            return true;
         }
         return false;
     }

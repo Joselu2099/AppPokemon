@@ -15,6 +15,7 @@ public class AppPokemon {
     private AppPokemon() {
         this.currentEntrenador = new Entrenador();
         this.currentCombate = new Combate();
+        EntrenadorRepository.getINSTANCE();
         PokemonRepository.getINSTANCE();
         MovimientosRepository.getINSTANCE();
     }
@@ -30,6 +31,14 @@ public class AppPokemon {
         DAOFactory.getINSTANCE().cerrarConexion();
     }
 
+    public Entrenador getCurrentEntrenador() {
+		return currentEntrenador;
+	}
+    
+    public Combate getCurrentCombate() {
+		return currentCombate;
+	}
+    
     public boolean isEntrenadorRegistrado(String nombre) {
     	return EntrenadorRepository.getINSTANCE().getEntrenador(nombre)!=null;
     }

@@ -73,12 +73,12 @@ public class UtilsDAO {
         return pokemons;
     }
     
-    public static List<Movimiento> idsToMovimientos(String ids){
-    	List<Integer> listIds = stringToList(ids); 
+    public static List<Movimiento> idsToMovimientos(Integer id1, Integer id2, Integer id3, Integer id4){
     	ArrayList<Movimiento> movimientos = new ArrayList<Movimiento>();
-    	for(Integer id: listIds) {
-    		movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id));
-    	}
+    	if(id1!=null) movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id1));
+    	if(id2!=null) movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id2));
+    	if(id3!=null) movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id3));
+    	if(id4!=null) movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id4));
     	return movimientos;
     }
     
