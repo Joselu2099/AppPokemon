@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 @SuppressWarnings("serial")
 public class DAOException extends Exception {

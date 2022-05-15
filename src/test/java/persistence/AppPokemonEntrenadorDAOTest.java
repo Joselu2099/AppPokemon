@@ -4,6 +4,9 @@ import junit.framework.TestCase;
 import model.entrenador.Entrenador;
 import org.junit.Assert;
 
+import dao.DAOFactory;
+import dao.EntrenadorDAO;
+
 import java.sql.SQLException;
 
 public class AppPokemonEntrenadorDAOTest extends TestCase {

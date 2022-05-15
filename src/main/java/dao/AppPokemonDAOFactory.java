@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 public final class AppPokemonDAOFactory extends DAOFactory {
 

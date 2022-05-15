@@ -1,10 +1,10 @@
 package controller;
 
+import dao.DAOFactory;
 import model.combate.*;
 import model.entrenador.*;
 import model.movimiento.*;
 import model.pokemon.*;
-import persistence.DAOFactory;
 
 public class AppPokemon {
 

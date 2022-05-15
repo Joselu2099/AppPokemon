@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 import model.combate.Turno;
 import java.sql.SQLException;

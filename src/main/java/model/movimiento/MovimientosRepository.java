@@ -1,11 +1,12 @@
 package model.movimiento;
 
-import persistence.DAOFactory;
-import persistence.MovimientoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import dao.DAOFactory;
+import dao.MovimientoDAO;
 
 
 public class MovimientosRepository {

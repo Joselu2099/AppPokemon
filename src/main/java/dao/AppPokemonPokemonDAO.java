@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 import model.movimiento.Movimiento;
 import model.pokemon.Pokemon;

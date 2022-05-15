@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 import model.movimiento.*;
 import java.sql.Connection;

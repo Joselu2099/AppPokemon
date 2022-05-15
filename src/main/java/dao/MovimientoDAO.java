@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 import model.movimiento.Movimiento;
 import java.sql.SQLException;

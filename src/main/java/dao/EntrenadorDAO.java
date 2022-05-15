@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 import model.entrenador.Entrenador;
 import java.sql.SQLException;
