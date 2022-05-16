@@ -14,6 +14,8 @@ public interface PokemonDAO {
     void updateProfile(Pokemon assistant) throws SQLException;
 
     Pokemon get(int id) throws SQLException;
+    
+    Pokemon getLast() throws SQLException;
 
     List<Pokemon> getAll() throws SQLException;
     

@@ -9,6 +9,7 @@ import eu.iamgio.pokedex.util.Pair;
 import model.combate.Combate;
 import model.movimiento.Movimiento;
 import model.pokemon.Pokemon;
+import model.pokemon.PokemonRepository;
 import model.utils.ModelUtils;
 
 public class Entrenador {
@@ -123,6 +124,7 @@ public class Entrenador {
         	pokemons.add(pokemon);
             pokemon.setEquipoCaja("EQUIPO");
         }
+        PokemonRepository.getINSTANCE().addPokemonToBD(pokemon);
     }
 
     public boolean sacarPokemonCaja(Pokemon pokemon) {

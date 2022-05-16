@@ -52,7 +52,7 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
     public Entrenador create(Entrenador assistant) throws SQLException {
         statement.executeUpdate("INSERT INTO ENTRENADOR(NOMBRE,POKEDOLLARS)" +
                 " VALUES('" + assistant.getNombre() + "', " + assistant.getPokedollars() +")");
-        return ((LinkedList<Entrenador>) getAll()).getLast();
+        return getLast();
     }
 
     @Override
@@ -80,7 +80,18 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
         if(entrenadores.size()>0) return entrenadores.get(0);
         return null;
     }
-
+    
+    @Override
+    public Entrenador getLast() throws SQLException {
+        ArrayList<Entrenador> entrenadores = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR ORDER BY ID_ENTRENADOR DESC LIMIT 1");
+        while (rs.next()){
+            entrenadores.add(resultToEntrenador(rs));
+        }
+        if(entrenadores.size()>0) return entrenadores.get(0);
+        return null;
+    }
+    
     @Override
     public List<Entrenador> getAll() throws SQLException {
         LinkedList<Entrenador> entrenadores = new LinkedList<>();
