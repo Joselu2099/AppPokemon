@@ -1,7 +1,11 @@
 package gui;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 import controller.AppPokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +23,7 @@ public class LoginController implements Initializable{
 	@FXML
 	private Button btnLogin;
 	
+	private MediaPlayer mediaPlayer;
 	
     @FXML
     private void login(ActionEvent event) {
@@ -43,12 +48,16 @@ public class LoginController implements Initializable{
     				ControladorGUI.setScene("pokemonChooser");
     		}
     	}else lblWarning.setText("El nombre del entrenador es incorrecto");
-    	
+    	mediaPlayer.stop();
     }
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		String path = getClass().getResource("/audio/login.mp3").getPath();
+		Media media = new Media(new File(path).toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.3);
+		mediaPlayer.play();
 	}
 }

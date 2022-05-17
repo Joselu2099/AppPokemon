@@ -83,7 +83,7 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
     	        +"', '" + assistant.getSprite()
     	        +"', " + assistant.getEntrenador().getId() 
     	        +", '" + assistant.getEquipoCaja() +"')";
-    	System.out.println(query);
+    	//System.out.println(query);
     	statement.executeUpdate(query);
         return getLast();
     }

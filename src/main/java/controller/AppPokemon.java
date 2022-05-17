@@ -70,7 +70,6 @@ public class AppPokemon {
 
     public void capturarPokemon(Pokemon pokemon, String mote) {
         pokemon.setMote(mote);
-        System.out.println(pokemon);
         capturarPokemon(pokemon);
     }
 

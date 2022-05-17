@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import controller.AppPokemon;
@@ -10,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.pokemon.Pokemon;
 
 public class AppPokemonController implements Initializable{
@@ -29,9 +32,12 @@ public class AppPokemonController implements Initializable{
 	@FXML
 	private Button btnCapturar;
 	
+	private MediaPlayer mediaPlayer;
+	
 	@FXML
     private void exit(ActionEvent event) {
         ControladorGUI.setScene("login");
+        mediaPlayer.stop();
 	}
 	
 	@FXML
@@ -42,10 +48,16 @@ public class AppPokemonController implements Initializable{
 	@FXML
 	private void capturar(ActionEvent event) {
 		ControladorGUI.setScene("capture");
+		mediaPlayer.stop();
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		String path = getClass().getResource("/audio/appPokemon.mp3").getPath();
+		Media media = new Media(new File(path).toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.3);
+		mediaPlayer.play();
 		int cont=0;
 		for(Pokemon pk: AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemons()) {
 			switch(cont) {

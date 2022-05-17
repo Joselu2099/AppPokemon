@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.pokemon.Pokemon;
 import model.pokemon.PokemonRepository;
 
@@ -35,6 +38,7 @@ public class PokemonChooserController implements Initializable{
 	
 	private ArrayList<Pokemon> pokes;
 	private int pokeElegido;
+	private MediaPlayer mediaPlayer;
 	
 	@FXML
     private void choosedOne() {
@@ -66,12 +70,18 @@ public class PokemonChooserController implements Initializable{
 			lblWarning.setText("No has elegido ningun pokemon");
 		}else {
 			AppPokemon.getINSTANCE().escogerPokemon(pokes.get(pokeElegido));
+			mediaPlayer.stop();
 	        ControladorGUI.setScene("appPokemon");
 		}
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		String path = getClass().getResource("/audio/elegirPokemon.mp3").getPath();
+		Media media = new Media(new File(path).toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.3);
+		mediaPlayer.play();
 		pokeElegido=-1;
 		pokes = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {

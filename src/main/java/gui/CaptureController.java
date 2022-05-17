@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.pokemon.*;
 import model.utils.ModelUtils;
 
@@ -28,14 +31,19 @@ public class CaptureController implements Initializable{
 	@FXML
 	private TextField txtMote;
 	
-	
+	private MediaPlayer mediaPlayer;
 	private Pokemon poke;
 	
 	@FXML
 	private void capturar() {
         if(ModelUtils.generarNumRandom(1, 3)>1) {
-        	System.out.println("CAPTURADO");
-			lblWarning.setText(" ");
+        	lblWarning.setText(" ");
+        	mediaPlayer.stop();
+    		String path = getClass().getResource("/audio/victoria.mp3").getPath();
+    		Media media = new Media(new File(path).toURI().toString());
+    		mediaPlayer = new MediaPlayer(media);
+    		mediaPlayer.setVolume(0.3);
+    		mediaPlayer.play();
 			pnMote.setVisible(true);
 		}else lblWarning.setText("No has conseguido capturarlo, vuelve a intentarlo :(");
 	}
@@ -50,6 +58,11 @@ public class CaptureController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		String path = getClass().getResource("/audio/capturar.mp3").getPath();
+		Media media = new Media(new File(path).toURI().toString());
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.3);
+		mediaPlayer.play();
 		poke = PokemonRepository.getINSTANCE().generarPokemonRandom(1);
 		pk.setImage(new Image(poke.getSprite()));
 	}
