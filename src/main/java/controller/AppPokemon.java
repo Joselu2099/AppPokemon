@@ -40,20 +40,27 @@ public class AppPokemon {
 	}
     
     public boolean isEntrenadorRegistrado(String nombre) {
-    	return EntrenadorRepository.getINSTANCE().getEntrenador(nombre)!=null;
+    	return (EntrenadorRepository.getINSTANCE().getEntrenador(nombre)!=null || EntrenadorRepository.getINSTANCE().existAltoMando(nombre));
     }
     
-    public void login(String nombre){
-    	if(isEntrenadorRegistrado(nombre)) 
+    public boolean login(String nombre){
+    	if(isEntrenadorRegistrado(nombre)) {
     		this.currentEntrenador = EntrenadorRepository.getINSTANCE().getEntrenador(nombre);
-    	else registrarEntrenador(nombre);
+    		return true;
+    	}
+    	return false;
     }
 
     public boolean registrarEntrenador(String nombre){
+    	if(isEntrenadorRegistrado(nombre)) return false;
     	this.currentEntrenador = new Entrenador(nombre);
         return EntrenadorRepository.getINSTANCE().addEntrenador(currentEntrenador);
     }
 
+    public void escogerPokemon(Pokemon pokemon) {
+    	this.currentEntrenador.addPokemon(pokemon);
+    }
+    
     public void capturarPokemon(Pokemon pokemon) {
         PokemonRepository.getINSTANCE().generarPokemonRandom(1);
         //TODO

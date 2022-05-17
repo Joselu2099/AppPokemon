@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.95" prefHeight="420.0" prefWidth="600.0" styleClass="root" stylesheets="@../images/loginStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+<Pane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.95" prefHeight="450.0" prefWidth="640.0" styleClass="root" stylesheets="@../images/loginStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
-      <ImageView fitHeight="469.0" fitWidth="792.0" layoutX="64.0" layoutY="-63.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="469.0" fitWidth="792.0" layoutX="85.0" layoutY="-65.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/logoAppPokemon.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnLogin" layoutX="274.0" layoutY="279.0" mnemonicParsing="false" onAction="#login" text="Login" />
-      <TextField fx:id="txtField" layoutX="195.0" layoutY="235.0" prefHeight="25.0" prefWidth="203.0" />
-      <Label layoutX="193.0" layoutY="210.0" prefHeight="19.0" prefWidth="211.0" text="Introduce tu nombre de entrenador" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+      <Button fx:id="btnLogin" layoutX="296.0" layoutY="278.0" mnemonicParsing="false" onAction="#login" text="Login" />
+      <TextField fx:id="txtField" layoutX="217.0" layoutY="234.0" prefHeight="25.0" prefWidth="203.0" />
+      <Label alignment="CENTER" layoutX="215.0" layoutY="209.0" prefHeight="19.0" prefWidth="211.0" text="Introduce tu nombre de entrenador" textFill="WHITE" textOverrun="CLIP">
          <font>
             <Font size="13.0" />
          </font>
@@ -26,7 +26,7 @@
             <DropShadow />
          </effect>
       </Label>
-      <Label fx:id="lblWarning" alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="310.0" prefHeight="33.0" prefWidth="426.0" textAlignment="CENTER" textFill="#eb0909" textOverrun="CLIP" wrapText="true">
+      <Label fx:id="lblWarning" alignment="CENTER" contentDisplay="CENTER" layoutX="106.0" layoutY="310.0" prefHeight="33.0" prefWidth="426.0" textAlignment="CENTER" textFill="#eb0909" textOverrun="CLIP" wrapText="true">
          <effect>
             <DropShadow />
          </effect></Label>

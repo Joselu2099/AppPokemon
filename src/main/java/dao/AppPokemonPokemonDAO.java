@@ -58,9 +58,16 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 
     @Override
     public Pokemon create(Pokemon assistant) throws SQLException {
-        statement.executeUpdate("INSERT INTO POKEMON(NOMBRE, MOTE, VITALIDAD, ATAQUE, DEFENSA, ATAQUE_ESP, DEFENSA_ESP, VELOCIDAD, ESTAMINA, NIVEL, MOVIMIENTO1, MOVIMIENTO2, MOVIMIENTO3, MOVIMIENTO4, TIPO1, TIPO2, SPRITE, ENTRENADOR, EQUIPO_CAJA)" +
-        " VALUES('" + assistant.getNombre() + "', " + assistant.getMote() +", " + assistant.getVitalidad() +", " + assistant.getAtaque() +", " + assistant.getDefensa() +", " + assistant.getAtaqueEspecial() +", " + assistant.getDefensaEspecial() +", " + assistant.getVelocidad() +", " + assistant.getEstamina() +", " + assistant.getNivel() +", " + assistant.getMovimientos().get(0) +", " + assistant.getMovimientos().get(1) +", " + assistant.getMovimientos().get(2) +", " + assistant.getMovimientos().get(3) +", " + UtilsDAO.pokemonTypeToString(assistant.getTipos().getFirst()) +", " + UtilsDAO.pokemonTypeToString(assistant.getTipos().getSecond()) +", " + UtilsDAO.estadoToString(assistant.getEstado()) +", " + assistant.getSprite() +", " + assistant.getEntrenador() +", " + assistant.getEquipoCaja() +")");
-        return ((LinkedList<Pokemon>) getAll()).getLast();
+    	System.out.println(assistant);
+    	String query = "INSERT INTO POKEMON(NOMBRE, MOTE, VITALIDAD, ATAQUE, DEFENSA, ATAQUE_ESP, DEFENSA_ESP, VELOCIDAD, ESTAMINA, NIVEL, MOVIMIENTO1, MOVIMIENTO2, MOVIMIENTO3, MOVIMIENTO4, TIPO1, TIPO2, SPRITE, ENTRENADOR, EQUIPO_CAJA)" +
+    	        " VALUES('" + assistant.getNombre() + "', " + assistant.getMote() +", " + assistant.getVitalidad() +", " + assistant.getAtaque() +", " + assistant.getDefensa() +", " + assistant.getAtaqueEspecial() +", " + assistant.getDefensaEspecial() +", " + assistant.getVelocidad() +", " + assistant.getEstamina() +", " + assistant.getNivel() +", ";
+    	int cont=0;
+    	for(Movimiento mv: assistant.getMovimientos()) {
+    		query+=assistant.getMovimientos().get(cont) +", ";
+    	}
+    	query+= UtilsDAO.pokemonTypeToString(assistant.getTipos().getFirst()) +", " + UtilsDAO.pokemonTypeToString(assistant.getTipos().getSecond()) +", " + UtilsDAO.estadoToString(assistant.getEstado()) +", " + assistant.getSprite() +", " + assistant.getEntrenador() +", " + assistant.getEquipoCaja() +")";
+        statement.executeUpdate(query);
+        return getLast();
     }
 
     @Override
@@ -128,6 +135,16 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
     public Pokemon get(int id) throws SQLException {
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ID_POKEMON="+id);
+        while (rs.next()){
+            pokemons.add(resultToPokemon(rs));
+        }
+        return pokemons.get(0);    
+    }
+    
+    @Override
+    public Pokemon getLast() throws SQLException {
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON ORDER BY ID_POKEMON DESC LIMIT 1");
         while (rs.next()){
             pokemons.add(resultToPokemon(rs));
         }

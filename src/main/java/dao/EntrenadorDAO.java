@@ -12,6 +12,8 @@ public interface EntrenadorDAO {
     void updateProfile(Entrenador assistant) throws SQLException;
 
     Entrenador get(int id) throws SQLException;
+    
+    Entrenador getLast() throws SQLException;
 
     List<Entrenador> getAll() throws SQLException;
 }

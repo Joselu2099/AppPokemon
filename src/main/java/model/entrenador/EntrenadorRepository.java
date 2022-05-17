@@ -38,6 +38,7 @@ public class EntrenadorRepository {
             	else entrenadores.put(e.getId(), e);
             });
         } catch (SQLException e) {
+        	System.err.println("Base de datos sin conexion :(");
             e.printStackTrace();
         }
     }
@@ -83,7 +84,11 @@ public class EntrenadorRepository {
         return new Entrenador(NombresEntrenador.fromId(ModelUtils.generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(nivelEquipo));
     }
 
-    public void generarAltosMando(){
-
+    public Map<String, Entrenador> getAltosMando() {
+		return altosMando;
+	}
+    
+    public boolean existAltoMando(String nombre) {
+    	return altosMando.containsKey(nombre);
     }
 }
