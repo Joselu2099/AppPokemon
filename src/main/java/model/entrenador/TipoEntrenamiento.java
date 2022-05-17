@@ -1,4 +1,4 @@
-package model;
+package model.entrenador;
 
 public enum TipoEntrenamiento {
 	PESADO,
