@@ -1,24 +1,23 @@
 package controller;
 
-import model.*;
-import persistence.DAOFactory;
+import dao.DAOFactory;
+import model.combate.*;
+import model.entrenador.*;
+import model.movimiento.*;
+import model.pokemon.*;
 
 public class AppPokemon {
 
     private static AppPokemon INSTANCE;
-
-    private DAOFactory factory;
     private Entrenador currentEntrenador;
+    private Combate currentCombate;
 
     private AppPokemon() {
-        //Cargar entrenador logueado registrado en BD
-        currentEntrenador = new Entrenador();
-        factory = DAOFactory.getINSTANCE();
+        this.currentEntrenador = new Entrenador();
+        this.currentCombate = new Combate();
+        EntrenadorRepository.getINSTANCE();
         PokemonRepository.getINSTANCE();
         MovimientosRepository.getINSTANCE();
-        //DAOFactory.getINSTANCE().cerrarStatment();
-        //DAOFactory.getINSTANCE().cerrarConexion();
-        //Hacer load de todos los repositorios
     }
 
     public static AppPokemon getINSTANCE() {
@@ -26,17 +25,33 @@ public class AppPokemon {
             INSTANCE = new AppPokemon();
         return INSTANCE;
     }
+    
+    public void closeConnections() {
+    	DAOFactory.getINSTANCE().cerrarStatment();
+        DAOFactory.getINSTANCE().cerrarConexion();
+    }
 
-    public boolean login(String nombre){
-        Entrenador e = EntrenadorRepository.getINSTANCE().getEntrenador(nombre);
-        if(e==null) return false;
-        currentEntrenador = e;
-        return true;
+    public Entrenador getCurrentEntrenador() {
+		return currentEntrenador;
+	}
+    
+    public Combate getCurrentCombate() {
+		return currentCombate;
+	}
+    
+    public boolean isEntrenadorRegistrado(String nombre) {
+    	return EntrenadorRepository.getINSTANCE().getEntrenador(nombre)!=null;
+    }
+    
+    public void login(String nombre){
+    	if(isEntrenadorRegistrado(nombre)) 
+    		this.currentEntrenador = EntrenadorRepository.getINSTANCE().getEntrenador(nombre);
+    	else registrarEntrenador(nombre);
     }
 
     public boolean registrarEntrenador(String nombre){
-        Entrenador entrenador = new Entrenador(nombre);
-        return EntrenadorRepository.getINSTANCE().addEntrenador(entrenador);
+    	this.currentEntrenador = new Entrenador(nombre);
+        return EntrenadorRepository.getINSTANCE().addEntrenador(currentEntrenador);
     }
 
     public void capturarPokemon(Pokemon pokemon) {
@@ -51,15 +66,15 @@ public class AppPokemon {
     }
 
     public void crearCombate(Entrenador rival){
-        Combate combate = new Combate(currentEntrenador, rival);
+        this.currentCombate = new Combate(currentEntrenador, rival);
     }
 
     public void crearCombateRandom(int nivelCombate){
-        Combate combate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(currentEntrenador.getNivelEquipo()));
+    	this.currentCombate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(currentEntrenador.getNivelEquipo()));
     }
 
-    public void empezarCombate(Combate co){
-        co.empezarCombate();
+    public void empezarCombate(){
+        this.currentCombate.empezarCombate();
         //TODO
     }
 
@@ -70,16 +85,11 @@ public class AppPokemon {
         }
         if (mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())) {
             MovimientoEstado mvE = (MovimientoEstado) mv;
-            if(rival.isInmune(mvE)){
-                msg = rival.getNombre() + " es inmune a " + mvE.getNombre();
-                return false;
-            }else{
-                rival.setEstado(mvE.getEstado());
-                return true;
-            }
+            return rival.aplicarEstado(mvE, msg);
         }
         if (mv.getClass().getSimpleName().equals(MovimientoMejora.class.getSimpleName())) {
             MovimientoMejora mvM = (MovimientoMejora) mv;
+            atacante.aplicarMejora(mvM, msg);
             return true;
         }
         return false;
@@ -94,23 +104,4 @@ public class AppPokemon {
         combate.terminarCombate();
         this.currentEntrenador.addCombate(combate);
     }
-
-    /*
-
-    public static void main(String[] args) {
-        try (Scanner sc = new Scanner(System.in)) {
-            System.out.print("Introduce un nombre de un pokemon: ");
-            String pokemon = sc.nextLine();
-            PokemonPokedex pk = PokemonPokedex.fromName(pokemon.toLowerCase());
-            Pair<PokemonType, PokemonType> types = pk.getTypes();
-            if (types.getSecond() != null)
-                System.out.println(pk.getName() + " es de tipo " + types.getFirst() + " y " + types.getSecond());
-            else
-                System.out.println(pk.getName() + " es de tipo " + types.getFirst());
-        } catch (PokedexException e) {
-            e.printStackTrace();
-        }
-    }
-
-     */
 }

@@ -1,8 +1,11 @@
 package persistence;
 
 import junit.framework.TestCase;
-import model.Entrenador;
+import model.entrenador.Entrenador;
 import org.junit.Assert;
+
+import dao.DAOFactory;
+import dao.EntrenadorDAO;
 
 import java.sql.SQLException;
 
