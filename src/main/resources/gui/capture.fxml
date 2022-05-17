@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="640.0" stylesheets="@../images/captureStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CaptureController">
+   <children>
+      <ImageView fx:id="pk" fitHeight="200.0" fitWidth="200.0" layoutX="213.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pokeball" fitHeight="108.0" fitWidth="123.0" layoutX="533.0" layoutY="342.0" onMouseClicked="#capturar" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pokeballGIF.gif" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblWarning" alignment="CENTER" contentDisplay="CENTER" layoutX="107.0" layoutY="14.0" prefHeight="33.0" prefWidth="426.0" textAlignment="CENTER" textFill="#eb0909" textOverrun="CLIP" wrapText="true">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Pane fx:id="pnMote" layoutX="194.0" layoutY="31.0" prefHeight="117.0" prefWidth="253.0" style="-fx-background-color: white;" visible="false">
+         <children>
+            <TextField fx:id="txtMote" layoutX="50.0" layoutY="45.0" />
+            <Label fx:id="lblMote" layoutX="12.0" layoutY="20.0" text="Capturado! Introduce un mote si lo deseas" />
+            <Button fx:id="btnAceptar" layoutX="96.0" layoutY="78.0" mnemonicParsing="false" onAction="#ponerMote" text="Aceptar" />
+         </children></Pane>
+   </children>
+</AnchorPane>
