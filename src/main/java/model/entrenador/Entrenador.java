@@ -157,8 +157,35 @@ public class Entrenador {
         return (int)(nivel/4);
     }
 
-    public void entrenar() {
-        //TODO
+    public void entrenar(Pokemon pokemon, TipoEntrenamiento tipo) {
+    	switch(tipo) {
+	    	case PESADO:
+	    		pokedollars -= 20*pokemon.getNivel();
+	    		pokemon.setDefensa(pokemon.getDefensa() + 5);
+	    		pokemon.setDefensaEspecial(pokemon.getDefensaEspecial() + 5);
+	    		pokemon.setVitalidad(pokemon.getVitalidad() + 5);
+	    		break;
+	    	case FURIOSO:
+	    		pokedollars -= 30*pokemon.getNivel();
+	    		pokemon.setAtaque(pokemon.getAtaque() + 5);
+	    		pokemon.setAtaqueEspecial(pokemon.getAtaqueEspecial() + 5);
+	    		pokemon.setVelocidad(pokemon.getVelocidad() + 5);
+	    		break;
+	    	case FUNCIONAL:
+	    		pokedollars -= 40*pokemon.getNivel();
+	    		pokemon.setVelocidad(pokemon.getVelocidad() + 5);
+	    		pokemon.setAtaque(pokemon.getAtaque() + 5);
+	    		pokemon.setDefensa(pokemon.getDefensa() + 5);
+	    		pokemon.setVitalidad(pokemon.getVitalidad() + 5);
+	    		break;
+	    	case ONIRICO:
+	    		pokedollars -= 40*pokemon.getNivel();
+	    		pokemon.setVelocidad(pokemon.getVelocidad() + 5);
+	    		pokemon.setAtaqueEspecial(pokemon.getAtaqueEspecial() + 5);
+	    		pokemon.setDefensaEspecial(pokemon.getDefensaEspecial() + 5);
+	    		pokemon.setVitalidad(pokemon.getVitalidad() + 5);
+	    		break;
+    	}
     }
 
     public void capturar(Pokemon pokemon) {
