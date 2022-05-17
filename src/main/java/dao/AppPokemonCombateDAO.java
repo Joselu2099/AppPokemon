@@ -1,4 +1,4 @@
-package persistence;
+package dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import model.Combate;
-import model.Pokemon;
+import model.combate.Combate;
+import model.pokemon.Pokemon;
 
 public class AppPokemonCombateDAO implements CombateDAO {
 	private static AppPokemonCombateDAO INSTANCE = null;
