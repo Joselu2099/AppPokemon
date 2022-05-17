@@ -117,12 +117,13 @@ public class Entrenador {
     }
 
     public void addPokemon(Pokemon pokemon) {
+    	pokemon.setEntrenador(this);
         if (pokemons.size() >= 4) {
-            cajaPokemon.add(pokemon);
             pokemon.setEquipoCaja("CAJA");
+            cajaPokemon.add(pokemon);
         }else {
-        	pokemons.add(pokemon);
             pokemon.setEquipoCaja("EQUIPO");
+        	pokemons.add(pokemon);
         }
         PokemonRepository.getINSTANCE().addPokemonToBD(pokemon);
     }
@@ -162,11 +163,7 @@ public class Entrenador {
     }
 
     public void capturar(Pokemon pokemon) {
-        if(pokemons.size()<4){
-            pokemons.add(pokemon);
-        }else{
-            cajaPokemon.add(pokemon);
-        }
+    	addPokemon(pokemon);
     }
 
     public void addCombate(Combate combate) {

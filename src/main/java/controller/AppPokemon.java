@@ -5,6 +5,7 @@ import model.combate.*;
 import model.entrenador.*;
 import model.movimiento.*;
 import model.pokemon.*;
+import model.utils.ModelUtils;
 
 public class AppPokemon {
 
@@ -54,7 +55,9 @@ public class AppPokemon {
     public boolean registrarEntrenador(String nombre){
     	if(isEntrenadorRegistrado(nombre)) return false;
     	this.currentEntrenador = new Entrenador(nombre);
-        return EntrenadorRepository.getINSTANCE().addEntrenador(currentEntrenador);
+    	this.currentEntrenador = EntrenadorRepository.getINSTANCE().addEntrenador(currentEntrenador);
+    	if(this.currentEntrenador==null) return false;
+    	return true;
     }
 
     public void escogerPokemon(Pokemon pokemon) {
@@ -62,13 +65,12 @@ public class AppPokemon {
     }
     
     public void capturarPokemon(Pokemon pokemon) {
-        PokemonRepository.getINSTANCE().generarPokemonRandom(1);
-        //TODO
-        currentEntrenador.capturar(pokemon);
+        this.currentEntrenador.capturar(pokemon);
     }
 
     public void capturarPokemon(Pokemon pokemon, String mote) {
         pokemon.setMote(mote);
+        System.out.println(pokemon);
         capturarPokemon(pokemon);
     }
 

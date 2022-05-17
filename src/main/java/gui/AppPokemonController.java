@@ -6,6 +6,7 @@ import controller.AppPokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +26,8 @@ public class AppPokemonController implements Initializable{
 	private ImageView pk3;
 	@FXML
 	private ImageView pk4;
+	@FXML
+	private Button btnCapturar;
 	
 	@FXML
     private void exit(ActionEvent event) {
@@ -34,6 +37,11 @@ public class AppPokemonController implements Initializable{
 	@FXML
 	private void save(ActionEvent event) {
 		//TODO
+	}
+	
+	@FXML
+	private void capturar(ActionEvent event) {
+		ControladorGUI.setScene("capture");
 	}
 	
 	@Override
