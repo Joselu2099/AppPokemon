@@ -8,6 +8,7 @@ module org.openjfx.AppPokemon {
     requires javafx.media;
 	requires java.sql;
 	requires pokedex.java.api;
+	requires org.apache.commons.io;
 
     opens gui to javafx.fxml;
     exports gui;

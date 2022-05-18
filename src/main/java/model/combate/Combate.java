@@ -105,6 +105,7 @@ public class Combate {
     public void siguienteTurno(Movimiento mvJugador, Movimiento mvRival) {
         turnos.getLast().setAccionRealizadaJugador(mvJugador);
         turnos.getLast().setAccionRealizadaRival(mvRival);
+        System.out.println(turnos.getLast());
         turnos.add(new Turno(turnos.getLast().getNumTurno()+1));
     }
 
@@ -113,23 +114,8 @@ public class Combate {
             pokemonsKOJugador.add(pokemon);
         else pokemonsKORival.add(pokemon);
     }
-
-    public void terminarCombate() {
-        if (pokemonsKOJugador.size() == 4) {
-            this.ganador = rival;
-            int cantidad = (int) jugador.getPokedollars()/3;
-            rival.addPokedollars(cantidad);
-            jugador.retirarPokedollars(cantidad);
-        }
-        if (pokemonsKORival.size() == 4) {
-            this.ganador = jugador;
-            int cantidad = (int) rival.getPokedollars()/3;
-            jugador.addPokedollars(cantidad);
-            rival.retirarPokedollars(cantidad);
-        }
-    }
     
-    public void retirarse(Entrenador entrenador){
+    public void terminarCombate(Entrenador entrenador){
         if (entrenador.getId()==jugador.getId()){
             this.ganador = rival;
             int cantidad= jugador.getPokedollars()/3;
@@ -156,4 +142,12 @@ public class Combate {
     			pk=pokemon;
     	});
     }
+
+	@Override
+	public String toString() {
+		return "Combate [id=" + id + ", jugador=" + jugador + ", rival=" + rival + ", ganador=" + ganador + ", turnos="
+				+ turnos + ", pokemonsKOJugador=" + pokemonsKOJugador + ", pokemonsKORival=" + pokemonsKORival + "]";
+	}
+    
+    
 }

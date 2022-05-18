@@ -10,4 +10,9 @@ public class MovimientoNull extends Movimiento {
     public int consumoEstamina() {
         return 0;
     }
+    
+    @Override
+    public String toString() {
+    	return "Movimiento nulo";
+    }
 }

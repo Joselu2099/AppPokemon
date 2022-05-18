@@ -1,9 +1,14 @@
 package gui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import javax.swing.JFileChooser;
+
 import controller.AppPokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +20,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import model.combate.Combate;
+import model.entrenador.Entrenador;
 import model.movimiento.Movimiento;
+import model.movimiento.MovimientoNull;
 import model.pokemon.Pokemon;
+import model.utils.ModelUtils;
 
 public class CombateController implements Initializable {
 	
@@ -47,55 +55,92 @@ public class CombateController implements Initializable {
 	
 	@FXML
 	private void ejectuarMv1(ActionEvent event) {
-		ejecuteMove(0);
+		ejecutarTurno(0);
 	}
 	
 	@FXML
 	private void ejectuarMv2(ActionEvent event) {
-		ejecuteMove(1);
+		ejecutarTurno(1);
 	}
 	
 	@FXML
 	private void ejectuarMv3(ActionEvent event) {
-		ejecuteMove(2);
+		ejecutarTurno(2);
 	}
 	
 	@FXML
 	private void ejectuarMv4(ActionEvent event) {
-		ejecuteMove(3);
+		ejecutarTurno(3);
 	}
 	
-	private void ejecuteMove(int numMove) {
-  		msgs = AppPokemon.getINSTANCE().ejecutarMovimiento(pokemonsJugador[numPokemonJugador], pokemonsRival[numPokemonRival], pokemonsJugador[numPokemonJugador].getMovimientos().get(numMove) , "");
-		System.out.println(msgs);
+	private Movimiento ejecuteMove(Pokemon atacante, Pokemon rival, int numMove) {
+  		msgs = AppPokemon.getINSTANCE().ejecutarMovimiento(atacante, rival, atacante.getMovimientos().get(numMove) , "");
   		txtArea.setText(msgs.get(0));
-		if(msgs.size()==2) {
-			pokemonsJugador[numPokemonJugador]=updatePokemonStats(pokemonsJugador[numPokemonJugador], msgs.get(1));
-			co.setPokemonJugadorUpdated(pokemonsJugador[numPokemonJugador]);
-		}
-		if(msgs.size()==3) {
-			pokemonsJugador[numPokemonJugador]=updatePokemonStats(pokemonsJugador[numPokemonJugador], msgs.get(1));
-			co.setPokemonJugadorUpdated(pokemonsJugador[numPokemonJugador]);
-			pokemonsRival[numPokemonRival]=updatePokemonStats(pokemonsRival[numPokemonRival], msgs.get(2));
-			co.setPokemonRivalUpdated(pokemonsRival[numPokemonRival]);
-		}
-		if(pokemonsJugador[numPokemonJugador].getVitalidad()<=0) {
-			numPokemonJugador++;
-			setPokemonJugador();
-		}
-		if(pokemonsRival[numPokemonRival].getVitalidad()<=0) {
-			numPokemonRival++;
-			setPokemonRival();
-		}
-		System.out.println("Pokes jugador: " +pokemonsJugador[numPokemonJugador]);
-		System.out.println("Pokes rival: " +pokemonsRival[numPokemonRival]);
+  		if(msgs.size()==1) return new MovimientoNull();
+  		if(atacante.equals(pokemonsJugador[numPokemonJugador])) {
+  			if(msgs.size()==2) {
+  				pokemonsJugador[numPokemonJugador]=updatePokemonStats(pokemonsJugador[numPokemonJugador], msgs.get(1));
+  				co.setPokemonJugadorUpdated(pokemonsJugador[numPokemonJugador]);
+  			}
+  			if(msgs.size()==3) {
+  				pokemonsJugador[numPokemonJugador]=updatePokemonStats(pokemonsJugador[numPokemonJugador], msgs.get(1));
+  				co.setPokemonJugadorUpdated(pokemonsJugador[numPokemonJugador]);
+  				pokemonsRival[numPokemonRival]=updatePokemonStats(pokemonsRival[numPokemonRival], msgs.get(2));
+  				co.setPokemonRivalUpdated(pokemonsRival[numPokemonRival]);
+  			}
+  		}else {
+  			if(msgs.size()==2) {
+  				pokemonsRival[numPokemonRival]=updatePokemonStats(pokemonsRival[numPokemonRival], msgs.get(1));
+  				co.setPokemonRivalUpdated(pokemonsRival[numPokemonRival]);
+  			}
+  			if(msgs.size()==3) {
+  				pokemonsRival[numPokemonRival]=updatePokemonStats(pokemonsRival[numPokemonRival], msgs.get(1));
+  				co.setPokemonRivalUpdated(pokemonsRival[numPokemonRival]);
+  				pokemonsJugador[numPokemonJugador]=updatePokemonStats(pokemonsJugador[numPokemonJugador], msgs.get(2));
+  				co.setPokemonJugadorUpdated(pokemonsJugador[numPokemonJugador]);
+  			}
+  		}
+  		return atacante.getMovimientos().get(numMove);
 	}
 	
 	@FXML
 	private void retirar(ActionEvent event) {
+		finalizarCombate(co.getRival());
+	}
+	
+	private void finalizarCombate(Entrenador ganador) {
 		mediaPlayer.stop();
 		txtArea.setText("Terminado combate");
-		//AppPokemon.getINSTANCE().finalizarCombate();
+		AppPokemon.getINSTANCE().finalizarCombate(co, ganador);
+		ControladorGUI.setScene("appPokemon");
+	}
+	
+	private void ejecutarTurno(int numMv) {
+		int numMvRival = ModelUtils.generarNumRandom(0,3);
+		if(pokemonsJugador[numPokemonJugador].getVelocidad()>pokemonsRival[numPokemonRival].getVelocidad()) {
+			ejecuteMove(pokemonsJugador[numPokemonJugador], pokemonsRival[numPokemonRival], numMv);
+			ejecuteMove(pokemonsRival[numPokemonRival], pokemonsJugador[numPokemonJugador], numMvRival);
+		}else {
+			ejecuteMove(pokemonsRival[numPokemonRival], pokemonsJugador[numPokemonJugador], numMvRival);
+			ejecuteMove(pokemonsJugador[numPokemonJugador], pokemonsRival[numPokemonRival], numMv);
+		}
+		if(pokemonsJugador[numPokemonJugador].getVitalidad()<=0) {
+			co.debilitarPokemon(co.getJugador(), pokemonsJugador[numPokemonJugador]);
+			if(co.getPokemonsKOJugador().size()>=4) finalizarCombate(co.getRival());
+			else{
+				numPokemonJugador++;
+				setPokemonJugador();
+			}
+		}
+		if(pokemonsRival[numPokemonRival].getVitalidad()<=0) {
+			co.debilitarPokemon(co.getRival(), pokemonsRival[numPokemonRival]);
+			if(co.getPokemonsKORival().size()>=4) finalizarCombate(co.getJugador());
+			else {
+				numPokemonRival++;
+				setPokemonRival();
+			}
+		}
+		co.siguienteTurno(pokemonsJugador[numPokemonJugador].getMovimientos().get(numMv), pokemonsRival[numPokemonRival].getMovimientos().get(numMvRival));
 	}
 	
 	private void setMovimientos() {
@@ -145,12 +190,14 @@ public class CombateController implements Initializable {
 	}
 	
 	private void setPokemonJugador() {
-		imgPk1.setImage(new Image(pokemonsJugador[numPokemonJugador].getSprite()));
+		Image pk = new Image(pokemonsJugador[numPokemonJugador].getSprite());
+		imgPk1.setImage(pk);
 		setMovimientos();	
 	}
 	
 	private void setPokemonRival() {
-		imgPk2.setImage(new Image(pokemonsRival[numPokemonJugador].getSprite()));
+		Image pk = new Image(pokemonsRival[numPokemonRival].getSprite());
+		imgPk2.setImage(pk);
 	}
 
 	@Override
@@ -165,11 +212,13 @@ public class CombateController implements Initializable {
 		mediaPlayer.play();
 		co = AppPokemon.getINSTANCE().crearCombateRandom();
 		
+		txtArea.setText(co.getRival().getNombre() +" te desafia!");
 		numPokemonJugador=0;
 		numPokemonRival=0;
 		pokemonsJugador=co.getJugador().getPokemons().toArray(pokemonsJugador);
 		pokemonsRival=co.getRival().getPokemons().toArray(pokemonsRival);
 		setPokemonJugador();
 		setPokemonRival();
+		co.empezarCombate();
 	}
 }

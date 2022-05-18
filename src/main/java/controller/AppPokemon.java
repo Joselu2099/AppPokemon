@@ -1,12 +1,13 @@
 package controller;
 
-
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
-
+import org.apache.commons.io.FilenameUtils;
 import dao.DAOFactory;
 import model.combate.*;
 import model.entrenador.*;
@@ -15,7 +16,6 @@ import model.pokemon.*;
 import model.utils.ModelUtils;
 
 public class AppPokemon {
-	public static final String PATH="./log/combate.log";
     private static AppPokemon INSTANCE;
     private Entrenador currentEntrenador;
     private Combate currentCombate;
@@ -99,17 +99,14 @@ public class AppPokemon {
     public ArrayList<String> ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){
         if (mv.getClass().getSimpleName().equals(MovimientoAtaque.class.getSimpleName())) {
             MovimientoAtaque mvA = (MovimientoAtaque) mv;
-            System.out.println(mvA);
             return atacante.atacar(rival, mvA, msg);
         }
         if (mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())) {
             MovimientoEstado mvE = (MovimientoEstado) mv;
-            System.out.println(mvE);
             return rival.aplicarEstado(atacante, mvE, msg);
         }
         if (mv.getClass().getSimpleName().equals(MovimientoMejora.class.getSimpleName())) {
             MovimientoMejora mvM = (MovimientoMejora) mv;
-            System.out.println(mvM);
             return atacante.aplicarMejora(mvM, msg);   
         }
         return new ArrayList<String>();
@@ -120,26 +117,60 @@ public class AppPokemon {
         pokemonRival.aumentarExperiencia((int)(pokemonRival.getNivel() + pokemonKO.getNivel()*10) / 4);
     }
 
-    public void finalizarCombate(){
-        currentCombate.terminarCombate();
+    public void finalizarCombate(Combate co, Entrenador ganador){
+    	currentCombate=co;
+        currentCombate.terminarCombate(ganador);
         this.currentEntrenador.addCombate(currentCombate);
+        exportarDatos();
     }
     
     public void exportarDatos() {
-        File fichero = new File(PATH);
-                
+    	String path = "";
     	try {
-    		FileWriter fw = new FileWriter(fichero);
+    		path = getClass().getResource("/logs/combate.log").getPath();
+    	}catch(NullPointerException n) {
+    		path = getClass().getResource("/logs").getPath();
+    	}
+    	String newPath = "";
+    	for (int i = 0; i < 54; i++) {
+			newPath+=path.charAt(i);
+		}
+    	newPath+="src/main/resources/logs/combate.log";
+        File file = new File(newPath);
+        if (!file.exists()) {
+            try {
+				file.createNewFile();
+			} catch (IOException e) {
+				System.err.println("Fallo al crear fichero");
+				e.printStackTrace();
+			}
+        }
+        
+    	try {
+    		FileWriter fw = new FileWriter(file);
     		BufferedWriter bw = new BufferedWriter(fw);
     		
+    		bw.write("Combate " + currentCombate.getId() + ":\n");
+    		bw.write("Jugador: " + currentCombate.getJugador().getNombre() +"\n");
+    		bw.write("Rival: " + currentCombate.getRival().getNombre() +"\n");
+    		bw.write("Ganador: " + currentCombate.getGanador().getNombre() +"\n");
     		for (Turno turno : currentCombate.getTurnos()) {
     			bw.write("Turno: " + turno.getNumTurno()+"\n");
     			bw.write("Entrenador: "+ turno.getAccionRealizadaJugador()+"\n");
     			bw.write("Rival: "+ turno.getAccionRealizadaRival()+"\n");
 			}
-    		bw.close();
-    		
-    		   		
+    		String pksDebilitados="";
+    		for(Pokemon pk: currentCombate.getPokemonsKOJugador()) {
+    			pksDebilitados+=pk.getNombre() + ", ";
+    		}
+    		bw.write("Pokemons Jugador debilitados: " + pksDebilitados + "\n");
+    		pksDebilitados="";
+    		for(Pokemon pk: currentCombate.getPokemonsKORival()) {
+    			pksDebilitados+=pk.getNombre() + ", ";
+    		}
+    		bw.write("Pokemons Rival debilitados: " + pksDebilitados + "\n");
+    		bw.write("\n");
+    		bw.close();		
     	} catch (IOException e) {
 			e.printStackTrace();
 		}

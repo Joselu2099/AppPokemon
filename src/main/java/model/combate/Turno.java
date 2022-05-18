@@ -66,4 +66,11 @@ public class Turno {
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();
     }
+    
+    @Override
+    public String toString() {
+    	return "Turno " + numTurno + ":\n"
+    			+ " " + "Accion Jugador: " + accionRealizadaJugador + "\n"
+    			+ " " + "Accion Rival: " + accionRealizadaRival + "\n";
+    }
 }

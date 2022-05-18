@@ -53,7 +53,7 @@ public abstract class Movimiento {
 
 	@Override
 	public String toString() {
-		return "Movimiento [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo;
+		return "Movimiento [nombre=" + nombre + ", tipo=" + tipo;
 	}
     
     
