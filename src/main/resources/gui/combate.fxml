@@ -6,14 +6,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane stylesheets="@../images/combateStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CombateController">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="640.0" stylesheets="@../images/combateStyle.css">
          <children>
             <ImageView fx:id="imgPk2" fitHeight="200.0" fitWidth="200.0" layoutX="378.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="imgPk1" fitHeight="200.0" fitWidth="200.0" layoutX="60.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" />
-            <TextArea fx:id="txtArea" editable="false" layoutX="24.0" layoutY="379.0" prefHeight="92.0" prefWidth="564.0" text="Prueba">
+            <TextArea fx:id="txtArea" editable="false" layoutX="24.0" layoutY="379.0" prefHeight="92.0" prefWidth="564.0">
                <font>
                   <Font size="17.0" />
                </font>
