@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 import dao.DAOFactory;
 import model.combate.*;
 import model.entrenador.*;
@@ -73,20 +75,27 @@ public class AppPokemon {
         capturarPokemon(pokemon);
     }
 
-    public void crearCombate(Entrenador rival){
-        this.currentCombate = new Combate(currentEntrenador, rival);
+    public Combate crearCombateRandom(){
+    	this.currentCombate = new Combate(currentEntrenador, 
+    			EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(ModelUtils.generarNumRandom(currentEntrenador.nivelMinimoEquipo(), 
+    																									currentEntrenador.nivelMaximoEquipo())));
+    	return currentCombate;
     }
 
-    public void crearCombateRandom(int nivelCombate){
-    	this.currentCombate = new Combate(currentEntrenador, EntrenadorRepository.getINSTANCE().generarEntrenadorRandom(currentEntrenador.getNivelEquipo()));
-    }
-
+	public ArrayList<Movimiento> getMovimientosPokemon(int numPk){
+		return currentEntrenador.getPokemons().get(numPk).getMovimientos();
+	}
+	
+	public String getSpritePokemon(Entrenador e, int numPk){
+		return e.getPokemons().get(numPk).getSprite();
+	}
+    
     public void empezarCombate(){
         this.currentCombate.empezarCombate();
         //TODO
     }
 
-    public boolean ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){
+    public ArrayList<String> ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){
         if (mv.getClass().getSimpleName().equals(MovimientoAtaque.class.getSimpleName())) {
             MovimientoAtaque mvA = (MovimientoAtaque) mv;
             return atacante.atacar(rival, mvA, msg);
@@ -97,10 +106,9 @@ public class AppPokemon {
         }
         if (mv.getClass().getSimpleName().equals(MovimientoMejora.class.getSimpleName())) {
             MovimientoMejora mvM = (MovimientoMejora) mv;
-            atacante.aplicarMejora(mvM, msg);
-            return true;
+            return atacante.aplicarMejora(mvM, msg);   
         }
-        return false;
+        return new ArrayList<String>();
     }
 
     public void debilitarPokemon(Combate co, Entrenador entrenadorKO, Pokemon pokemonKO, Pokemon pokemonRival){

@@ -54,6 +54,7 @@ public class CaptureController implements Initializable{
 			AppPokemon.getINSTANCE().capturarPokemon(poke,txtMote.getText());
 		}else AppPokemon.getINSTANCE().capturarPokemon(poke);
 		ControladorGUI.setScene("appPokemon");
+		mediaPlayer.stop();
 	}
 	
 	@Override

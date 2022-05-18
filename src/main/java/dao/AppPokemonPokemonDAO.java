@@ -48,7 +48,7 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 	            rs.getInt("estamina"),
 	            rs.getInt("nivel"),
 	            rs.getInt("experiencia"),
-	            (ArrayList<Movimiento>)UtilsDAO.idsToMovimientos(rs.getInt("movimiento1"), rs.getInt("movimiento2"), rs.getInt("movimiento3"), rs.getInt("movimiento4")),
+	            (ArrayList<Movimiento>) UtilsDAO.idsToMovimientos(rs.getInt("movimiento1"), rs.getInt("movimiento2"), rs.getInt("movimiento3"), rs.getInt("movimiento4")),
 	            rs.getInt("fertilidad"),
 	            tipos,
 	            UtilsDAO.stringToEstado(rs.getString("estado")),
@@ -185,8 +185,11 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ entrenador.getId());
         while (rs.next()){
-        	if(rs.getString("equipo_caja").equals("EQUIPO"))
-        		pokemons.add(resultToPokemon(rs));
+        	if(rs.getString("equipo_caja").equals("EQUIPO")) {
+        		Pokemon pk = resultToPokemon(rs);
+        		pk.setEntrenador(entrenador);
+        		pokemons.add(pk);
+        	}
         }
         return pokemons;    
     }
@@ -196,8 +199,11 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
         List<Pokemon> pokemons = new LinkedList<>();
         ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ entrenador.getId());
         while (rs.next()){
-        	if(rs.getString("equipo_caja").equals("CAJA"))
-        		pokemons.add(resultToPokemon(rs));
+        	if(rs.getString("equipo_caja").equals("CAJA")) {
+        		Pokemon pk = resultToPokemon(rs);
+        		pk.setEntrenador(entrenador);
+        		pokemons.add(pk);
+        	}
         }
         return pokemons;    
     }

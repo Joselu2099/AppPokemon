@@ -1,17 +1,18 @@
 package model.pokemon;
 
-import eu.iamgio.pokedex.Generation;
-import model.movimiento.Movimiento;
-import model.movimiento.MovimientosRepository;
-import model.utils.ModelUtils;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import dao.DAOFactory;
 import dao.PokemonDAO;
+import eu.iamgio.pokedex.Generation;
+import eu.iamgio.pokedex.pokemon.PokemonType;
+import model.entrenador.Entrenador;
+import model.movimiento.Movimiento;
+import model.movimiento.MovimientosRepository;
+import model.utils.ModelUtils;
 
 public class PokemonRepository {
 
@@ -23,7 +24,7 @@ public class PokemonRepository {
 
     private PokemonRepository() {
     	pokemonDAO = DAOFactory.getINSTANCE().getPokemonDAO();
-        pokemons = new HashMap<>();
+        pokemons = new HashMap<Integer, Pokemon>();
     }
 
     public static PokemonRepository getINSTANCE() {
@@ -59,18 +60,18 @@ public class PokemonRepository {
         if(pokemons.containsKey(id))
             return pokemons.get(id);
         Pokemon pk = ModelUtils.parsePokemon(id);
+        ArrayList<Movimiento> mvs = (ArrayList<Movimiento>) getMovimientoForPokemon(pk);
+        pk.aprenderMovimiento(mvs.get(ModelUtils.generarNumRandom(0, mvs.size()-1)));
         pokemons.put(pk.getId(), pk);
-        ArrayList<Movimiento> mvs = MovimientosRepository.getINSTANCE().getMovimientosOfType(pk.getTipos().getFirst(), pk.getTipos().getSecond());
-        pk.aprenderAtaque(mvs.get(ModelUtils.generarNumRandom(0, mvs.size()-1)));
         return pk;
     }
 
     public Pokemon getPokemonBase(String nombre) {
         Pokemon pk = ModelUtils.parsePokemon(nombre.toLowerCase());
         if(pokemons.containsValue(pk)) return pk;
+        ArrayList<Movimiento> mvs = (ArrayList<Movimiento>) getMovimientoForPokemon(pk);
+        pk.aprenderMovimiento(mvs.get(ModelUtils.generarNumRandom(0, mvs.size()-1)));
         pokemons.put(pk.getId(), pk);
-        ArrayList<Movimiento> mvs = MovimientosRepository.getINSTANCE().getMovimientosOfType(pk.getTipos().getFirst(), pk.getTipos().getSecond());
-        pk.aprenderAtaque(mvs.get(ModelUtils.generarNumRandom(0, mvs.size())));
         return pk;
     }
     
@@ -94,11 +95,21 @@ public class PokemonRepository {
         return pk;
     }
 
-    public ArrayList<Pokemon> generarEquipoPokemon(int nivel){
+    public ArrayList<Pokemon> generarEquipoPokemon(Entrenador e, int nivel){
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            pokemons.add(generarPokemonRandom(nivel));
+        	Pokemon poke = generarPokemonRandom(nivel);
+        	poke.setEntrenador(e);
+            pokemons.add(poke);
         }
         return pokemons;
+    }
+    
+    public List<Movimiento> getMovimientoForPokemon(Pokemon pk){
+    	return MovimientosRepository.getINSTANCE().getMovimientosOfType(pk.getTipos().getFirst(), pk.getTipos().getSecond());
+    }
+    
+    public List<Movimiento> getMovimientoForType(PokemonType tipo1, PokemonType tipo2){
+    	return MovimientosRepository.getINSTANCE().getMovimientosOfType(tipo1, tipo2);
     }
 }

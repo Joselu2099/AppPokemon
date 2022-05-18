@@ -17,6 +17,8 @@ public class ControladorGUI extends Application {
 	public static final int LOGIN_HEIGHT = 450;
 	public static final int APP_WIDTH = 1280;
 	public static final int APP_HEIGHT = 720;
+	public static final int COMBATE_WIDTH = 640;
+	public static final int COMBATE_HEIGHT = 600;
 	
 	private static ControladorGUI INSTANCE;
     private static Scene scene;
@@ -61,6 +63,9 @@ public class ControladorGUI extends Application {
 	        		break;
 	        	case "capture":
 	        		scene = new Scene(loadFXML("capture"), LOGIN_WIDTH, LOGIN_HEIGHT);
+	        		break;
+	        	case "combate":
+	        		scene = new Scene(loadFXML("combate"), COMBATE_WIDTH, COMBATE_HEIGHT);
 	        		break;
 	        }
 	        stage.setScene(scene);

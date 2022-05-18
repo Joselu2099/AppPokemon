@@ -150,14 +150,6 @@ public class Entrenador {
         return false;
     }
 
-    public int getNivelEquipo(){
-        int nivel=0;
-        for(Pokemon pk: pokemons){
-            nivel+=pk.getNivel();
-        }
-        return (int)(nivel/4);
-    }
-
     public void entrenar(Pokemon pokemon, TipoEntrenamiento tipo) {
     	switch(tipo) {
 	    	case PESADO:
@@ -263,6 +255,24 @@ public class Entrenador {
             return true;
         }
         return false;
+    }
+    
+    public int nivelMaximoEquipo() {
+    	int max=0;
+    	for(Pokemon pk: pokemons) {
+    		if(pk.getNivel()>max)
+    			max=pk.getNivel();
+    	}
+    	return max;
+    }
+    
+    public int nivelMinimoEquipo() {
+    	int min=0;
+    	for(Pokemon pk: pokemons) {
+    		if(pk.getNivel()<min)
+    			min=pk.getNivel();
+    	}
+    	return min;
     }
 
     @Override

@@ -93,6 +93,7 @@
                   <Pane prefHeight="695.0" prefWidth="458.0">
                      <children>
                         <Button fx:id="btnCapturar" alignment="CENTER" layoutX="136.0" layoutY="165.0" mnemonicParsing="false" onAction="#capturar" prefHeight="49.0" prefWidth="173.0" text="Capturar" textAlignment="CENTER" />
+                        <Button fx:id="btnCombatir" alignment="CENTER" layoutX="136.0" layoutY="262.0" mnemonicParsing="false" onAction="#combatir" prefHeight="49.0" prefWidth="173.0" text="Combatir" textAlignment="CENTER" />
                      </children></Pane>
                   <Pane prefHeight="695.0" prefWidth="430.0">
                      <children>

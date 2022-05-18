@@ -27,6 +27,7 @@ public class TablaTipos {
     };
 
     public static double getEfectividad(PokemonType tipoAtacante, PokemonType tipoRival){
+    	if(getIndex(tipoAtacante)==-1 || getIndex(tipoRival)==-1) return 1;
         return efectividadesPokemon[getIndex(tipoAtacante)][getIndex(tipoRival)];
     }
 

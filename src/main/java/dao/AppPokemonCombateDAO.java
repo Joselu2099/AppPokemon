@@ -6,10 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import model.combate.Combate;
-import model.pokemon.Pokemon;
 
 public class AppPokemonCombateDAO implements CombateDAO {
 	private static AppPokemonCombateDAO INSTANCE = null;
@@ -33,23 +30,6 @@ public class AppPokemonCombateDAO implements CombateDAO {
     }
 
     private Combate resultToCombate(ResultSet rs) throws SQLException{
-        /*
-        System.out.println(rs.getMetaData().getColumnName(1) + " - " + rs.getMetaData().getColumnType(1) + "\n" +
-                rs.getMetaData().getColumnName(2) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(3) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(4) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(5) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(6) + " - " + rs.getMetaData().getColumnType(2) + "\n" +
-                rs.getMetaData().getColumnName(7) + " - " + rs.getMetaData().getColumnType(2));
-
-        System.out.println(rs.getInt("id_combate") + "\n" +
-                rs.getString("jugador") + "\n" +
-                rs.getInt("rival") + "\n" +
-                rs.getString("ganador") + "\n" +
-                rs.getString("turnos") + "\n" +
-                rs.getString("pokemon_ko_jugador") + "\n" +
-                rs.getString("pokemon_ko_rival"));
-        */
         //TODO
        /* Combate  ent = new Combate(rs.getString("jugador"),
                 rs.getString("rival"));*/

@@ -39,8 +39,8 @@ public class Pokemon {
 
     public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos, String sprite) {
         this.id = id;
-        this.nombre = nombre;
-        this.mote = nombre;
+        this.nombre = nombre.toUpperCase();
+        this.mote = nombre.toUpperCase();
         this.vitalidad = vitalidad;
         this.ataque = ataque;
         this.defensa = defensa;
@@ -56,14 +56,14 @@ public class Pokemon {
         this.tipos = tipos;
         this.setEstado(Estado.SIN_ESTADO);
         this.sprite = sprite;
-        this.entrenador = null;
+        this.entrenador = new Entrenador();
         this.equipoCaja = "";
     }
 
     public Pokemon(int id, String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, ArrayList<Movimiento> movimientos, int fertilidad, Pair<PokemonType, PokemonType> tipos, Estado estado, String sprite, String equipoCaja) {
         this.id = id;
-        this.nombre = nombre;
-        this.mote = mote;
+        this.nombre = nombre.toUpperCase();
+        this.mote = mote.toUpperCase();
         this.vitalidad = vitalidad;
         this.ataque = ataque;
         this.defensa = defensa;
@@ -79,8 +79,8 @@ public class Pokemon {
         this.tipos = tipos;
         this.estado = estado;
         this.sprite = sprite;
-        this.entrenador = null;
-        this.equipoCaja = equipoCaja;
+        this.entrenador = new Entrenador();
+        this.equipoCaja = equipoCaja.toUpperCase();
     }
 
     public Pokemon(Pokemon pokemon) {
@@ -102,6 +102,8 @@ public class Pokemon {
         this.tipos = pokemon.getTipos();
         this.estado = pokemon.getEstado();
         this.sprite = pokemon.getSprite();
+        this.entrenador = pokemon.getEntrenador();
+        this.equipoCaja = pokemon.getEquipoCaja();
     }
 
     public Pokemon(String nombre) {
@@ -291,12 +293,19 @@ public class Pokemon {
         }
     }
 
-    public boolean atacar(Pokemon rival, MovimientoAtaque mvA, String msg){
+    public ArrayList<String> parseString(Pokemon rival, String msg){
+    	ArrayList<String> valoresActualizados = new ArrayList<String>();
+    	valoresActualizados.add(rival.parseString());
+    	valoresActualizados.add(msg);
+    	return valoresActualizados;
+    }
+    
+    public ArrayList<String> atacar(Pokemon rival, MovimientoAtaque mvA, String msg){
         if(this.getEstamina()-mvA.consumoEstamina() >= 0) {
                 int potenciaTotal = 0;
                 if(rival.isInmune(mvA)){
                     msg = rival.getNombre() + " es inmune a " + mvA.getNombre();
-                    return false;
+                    return parseString(rival, msg);
                 }
                 potenciaTotal = (int) (this.getAtaque() * mvA.getPotencia() - rival.getDefensa());
                 if(this.isTipo(mvA.getTipo()))
@@ -319,24 +328,24 @@ public class Pokemon {
                         break;
                 }
                 rival.setVitalidad(rival.getVitalidad()-potenciaTotal);
-                return true;
+                return parseString(rival, msg);
         }else{
             msg = this.getNombre() + "no tiene suficiente estamina para hacer " + mvA.getNombre();
-            return false;
+            return parseString(rival, msg);
         }
     }
 
-    public boolean aplicarEstado(MovimientoEstado mvE, String msg){
+    public ArrayList<String> aplicarEstado(MovimientoEstado mvE, String msg){
         if(this.isInmune(mvE)){
             msg = this.getNombre() + " es inmune a " + mvE.getNombre();
-            return false;
+            return parseString(null, msg);
         }
         this.estado=mvE.getEstado();
         msg = this.getNombre() + " ha sido " + mvE.getEstado();
-        return true;
+        return parseString(null, msg);
     }
     
-    public void aplicarMejora(MovimientoMejora mvM, String msg){
+    public ArrayList<String> aplicarMejora(MovimientoMejora mvM, String msg){
         if(mvM.getMejora()>0)
             msg = this.getNombre() + " aumenta su";
         else msg = this.getNombre() + " disminuye su";
@@ -369,13 +378,14 @@ public class Pokemon {
             default:
                 break;
         }
+        return parseString(null, msg);
     }
 
     public void descansar(){
         this.estamina=estaminaBase;
     }
 
-    public boolean aprenderAtaque(Movimiento mv) {
+    public boolean aprenderMovimiento(Movimiento mv) {
         if (movimientos.size() < 4){
             movimientos.add(mv);
             return true;
@@ -417,27 +427,41 @@ public class Pokemon {
         return Objects.hash(id, nombre, mote, vitalidad, ataque, defensa, ataqueEspecial, defensaEspecial, velocidad, estamina, nivel, experiencia, movimientos, fertilidad, tipos, estado);
     }
 
-    @Override
-    public String toString() {
-        return "Pokemon{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", mote='" + mote + '\'' +
-                ", vitalidad=" + vitalidad +
-                ", ataque=" + ataque +
-                ", defensa=" + defensa +
-                ", ataqueEspecial=" + ataqueEspecial +
-                ", defensaEspecial=" + defensaEspecial +
-                ", velocidad=" + velocidad +
-                ", estamina=" + estamina +
-                ", nivel=" + nivel +
-                ", experiencia=" + experiencia +
-                ", movimientos=" + movimientos +
-                ", fertilidad=" + fertilidad +
-                ", tipo1=" + tipos.getFirst() +
-                ", tipo2=" + tipos.getSecond() +
-                ", estado=" + estado +
-                ", sprite='" + sprite + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Pokemon [id=" + id + ", nombre=" + nombre + ", mote=" + mote + ", vitalidad=" + vitalidad + ", ataque="
+				+ ataque + ", defensa=" + defensa + ", ataqueEspecial=" + ataqueEspecial + ", defensaEspecial="
+				+ defensaEspecial + ", velocidad=" + velocidad + ", estaminaBase=" + estaminaBase + ", estamina="
+				+ estamina + ", nivel=" + nivel + ", experiencia=" + experiencia + ", movimiento1=" + movimientos.get(0) + ", movimiento2=" + movimientos.get(1) + ", movimiento3=" + movimientos.get(2) + ", movimiento4=" + movimientos.get(3)
+				+ ", fertilidad=" + fertilidad + ", tipo1=" + tipos.getFirst() + ", tipo2=" + tipos.getSecond() + ", estado=" + estado + ", sprite=" + sprite
+				+ ", entrenador=" + entrenador + ", equipoCaja=" + equipoCaja + "]";
+	}
+
+	public String parseString() {
+		return id 
+				+ ","+ nombre 
+				+ "," + mote 
+				+ "," + vitalidad 
+				+ "," + ataque 
+				+ "," + defensa 
+				+ "," + ataqueEspecial 
+				+ "," + defensaEspecial 
+				+ "," + velocidad 
+				+ "," + estaminaBase 
+				+ "," + estamina 
+				+ "," + nivel 
+				+ "," + experiencia 
+				+ "," + movimientos.get(0) 
+				+ "," + movimientos.get(1) 
+				+ "," + movimientos.get(2) 
+				+ "," + movimientos.get(3)
+				+ "," + fertilidad 
+				+ "," + tipos.getFirst() 
+				+ "," + tipos.getSecond() 
+				+ "," + estado 
+				+ "," + sprite
+				+ "," + entrenador 
+				+ "," + equipoCaja;
+	}
+    
 }

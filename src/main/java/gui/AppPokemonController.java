@@ -31,6 +31,8 @@ public class AppPokemonController implements Initializable{
 	private ImageView pk4;
 	@FXML
 	private Button btnCapturar;
+	@FXML
+	private Button btnCombatir;
 	
 	private MediaPlayer mediaPlayer;
 	
@@ -50,6 +52,13 @@ public class AppPokemonController implements Initializable{
 		ControladorGUI.setScene("capture");
 		mediaPlayer.stop();
 	}
+	
+	@FXML
+	private void combatir(ActionEvent event) {
+		ControladorGUI.setScene("combate");
+		mediaPlayer.stop();
+	}
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

@@ -6,15 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="640.0" stylesheets="@../images/combateStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane stylesheets="@../images/combateStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CombateController">
    <children>
-      <ImageView fx:id="imgPk2" fitHeight="200.0" fitWidth="200.0" layoutX="378.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="imgPk1" fitHeight="200.0" fitWidth="200.0" layoutX="63.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
-      <TextArea fx:id="txtArea" editable="false" layoutX="24.0" layoutY="371.0" prefHeight="92.0" prefWidth="564.0" text="Prueba">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </TextArea>
-      <Button fx:id="btnRetirada" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#retirar" text="Retirada" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="640.0" stylesheets="@../images/combateStyle.css">
+         <children>
+            <ImageView fx:id="imgPk2" fitHeight="200.0" fitWidth="200.0" layoutX="378.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgPk1" fitHeight="200.0" fitWidth="200.0" layoutX="60.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" />
+            <TextArea fx:id="txtArea" editable="false" layoutX="24.0" layoutY="379.0" prefHeight="92.0" prefWidth="564.0" text="Prueba">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TextArea>
+            <Button fx:id="btnRetirada" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#retirar" text="Retirada" />
+            <Button fx:id="mv1" layoutY="479.0" mnemonicParsing="false" onAction="#ejectuarMv1" prefHeight="60.0" prefWidth="320.0" text="Movimiento1" />
+            <Button fx:id="mv2" layoutX="320.0" layoutY="479.0" mnemonicParsing="false" onAction="#ejectuarMv2" prefHeight="60.0" prefWidth="320.0" text="Movimiento2" />
+            <Button fx:id="mv3" layoutY="539.0" mnemonicParsing="false" onAction="#ejectuarMv3" prefHeight="60.0" prefWidth="320.0" text="Movimiento3" />
+            <Button fx:id="mv4" layoutX="320.0" layoutY="539.0" mnemonicParsing="false" onAction="#ejectuarMv4" prefHeight="60.0" prefWidth="320.0" text="Movimiento4" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

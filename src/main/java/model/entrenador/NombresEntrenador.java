@@ -1,5 +1,7 @@
 package model.entrenador;
 
+import model.utils.ModelUtils;
+
 public enum NombresEntrenador {
     ANTONIO(1, "Antonio"),
     JOSEMANU(2, "Jose Manuel"),
@@ -39,6 +41,10 @@ public enum NombresEntrenador {
                 return ne.getName();
             }
         }
-        throw new IllegalArgumentException();
+        return "Montañero canoso";
+    }
+    
+    public static String generarNombreRandom() {
+    	return fromId(ModelUtils.generarNumRandom(0, NUM_NOMBRES));
     }
 }

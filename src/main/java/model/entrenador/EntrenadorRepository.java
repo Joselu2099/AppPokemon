@@ -1,7 +1,6 @@
 package model.entrenador;
 
 import model.pokemon.PokemonRepository;
-import model.utils.ModelUtils;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -81,7 +80,9 @@ public class EntrenadorRepository {
     }
 
     public Entrenador generarEntrenadorRandom(int nivelEquipo){
-        return new Entrenador(NombresEntrenador.fromId(ModelUtils.generarNumRandom(1,NombresEntrenador.NUM_NOMBRES)), PokemonRepository.getINSTANCE().generarEquipoPokemon(nivelEquipo));
+    	Entrenador random = new Entrenador(NombresEntrenador.generarNombreRandom());
+    	random.setPokemons(PokemonRepository.getINSTANCE().generarEquipoPokemon(random, nivelEquipo));
+        return random;
     }
 
     public Map<String, Entrenador> getAltosMando() {
