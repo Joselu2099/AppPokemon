@@ -1,5 +1,8 @@
 package controller;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import dao.DAOFactory;
@@ -119,5 +122,19 @@ public class AppPokemon {
     public void finalizarCombate(){
         currentCombate.terminarCombate();
         this.currentEntrenador.addCombate(currentCombate);
+    }
+    
+    public void exportarDatos() {
+        	
+    	FileWriter fichero = null;
+    	try {
+    		fichero = new FileWriter("datos.txt");
+    		fichero.write(currentCombate.getId()+"|"+currentCombate.getJugador()+"|"+currentCombate.getRival()+"|"+currentCombate.getGanador()+"|"+currentCombate.getTurnos()+"|"+currentCombate.getPokemonsKOJugador()+"|"+currentCombate.getPokemonsKORival());
+    		fichero.close();    		
+    	} catch (Exception e) {
+			// TODO: handle exception
+    		System.out.println("No se ha podido grabar");
+		}
+    	
     }
 }
