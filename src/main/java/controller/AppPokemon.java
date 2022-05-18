@@ -2,7 +2,9 @@ package controller;
 
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import dao.DAOFactory;
@@ -13,7 +15,7 @@ import model.pokemon.*;
 import model.utils.ModelUtils;
 
 public class AppPokemon {
-
+	public static final String PATH="./log/combate.log";
     private static AppPokemon INSTANCE;
     private Entrenador currentEntrenador;
     private Combate currentCombate;
@@ -125,15 +127,22 @@ public class AppPokemon {
     }
     
     public void exportarDatos() {
-        	
-    	FileWriter fichero = null;
+        File fichero = new File(PATH);
+                
     	try {
-    		fichero = new FileWriter("datos.txt");
-    		fichero.write(currentCombate.getId()+"|"+currentCombate.getJugador()+"|"+currentCombate.getRival()+"|"+currentCombate.getGanador()+"|"+currentCombate.getTurnos()+"|"+currentCombate.getPokemonsKOJugador()+"|"+currentCombate.getPokemonsKORival());
-    		fichero.close();    		
-    	} catch (Exception e) {
-			// TODO: handle exception
-    		System.out.println("No se ha podido grabar");
+    		FileWriter fw = new FileWriter(fichero);
+    		BufferedWriter bw = new BufferedWriter(fw);
+    		
+    		for (Turno turno : currentCombate.getTurnos()) {
+    			bw.write("Turno: " + turno.getNumTurno()+"\n");
+    			bw.write("Entrenador: "+ turno.getAccionRealizadaJugador()+"\n");
+    			bw.write("Rival: "+ turno.getAccionRealizadaRival()+"\n");
+			}
+    		bw.close();
+    		
+    		   		
+    	} catch (IOException e) {
+			e.printStackTrace();
 		}
     	
     }
