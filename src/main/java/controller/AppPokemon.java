@@ -1,5 +1,10 @@
 package controller;
 
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import dao.DAOFactory;
@@ -10,7 +15,7 @@ import model.pokemon.*;
 import model.utils.ModelUtils;
 
 public class AppPokemon {
-
+	public static final String PATH="./log/combate.log";
     private static AppPokemon INSTANCE;
     private Entrenador currentEntrenador;
     private Combate currentCombate;
@@ -118,5 +123,26 @@ public class AppPokemon {
     public void finalizarCombate(){
         currentCombate.terminarCombate();
         this.currentEntrenador.addCombate(currentCombate);
+    }
+    
+    public void exportarDatos() {
+        File fichero = new File(PATH);
+                
+    	try {
+    		FileWriter fw = new FileWriter(fichero);
+    		BufferedWriter bw = new BufferedWriter(fw);
+    		
+    		for (Turno turno : currentCombate.getTurnos()) {
+    			bw.write("Turno: " + turno.getNumTurno()+"\n");
+    			bw.write("Entrenador: "+ turno.getAccionRealizadaJugador()+"\n");
+    			bw.write("Rival: "+ turno.getAccionRealizadaRival()+"\n");
+			}
+    		bw.close();
+    		
+    		   		
+    	} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
     }
 }
