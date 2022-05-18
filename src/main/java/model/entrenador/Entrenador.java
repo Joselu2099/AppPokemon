@@ -267,7 +267,7 @@ public class Entrenador {
     }
     
     public int nivelMinimoEquipo() {
-    	int min=0;
+    	int min=100;
     	for(Pokemon pk: pokemons) {
     		if(pk.getNivel()<min)
     			min=pk.getNivel();

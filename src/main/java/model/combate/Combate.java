@@ -142,4 +142,18 @@ public class Combate {
             rival.retirarPokedollars(cantidad);
         }
     }
+    
+    public void setPokemonJugadorUpdated(Pokemon pokemon) {
+    	jugador.getPokemons().forEach(pk -> {
+    		if(pk.getId()==pokemon.getId())
+    			pk=pokemon;
+    	});
+    }
+    
+    public void setPokemonRivalUpdated(Pokemon pokemon) {
+    	rival.getPokemons().forEach(pk -> {
+    		if(pk.getId()==pokemon.getId())
+    			pk=pokemon;
+    	});
+    }
 }

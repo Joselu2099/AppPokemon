@@ -50,4 +50,11 @@ public abstract class Movimiento {
     }
 
     public abstract int consumoEstamina();
+
+	@Override
+	public String toString() {
+		return "Movimiento [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo;
+	}
+    
+    
 }

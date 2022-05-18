@@ -2,6 +2,7 @@ package launcher;
 
 import controller.AppPokemon;
 import gui.ControladorGUI;
+import model.entrenador.EntrenadorRepository;
 
 
 public class Launcher {

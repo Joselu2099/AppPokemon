@@ -85,10 +85,6 @@ public class AppPokemon {
 	public ArrayList<Movimiento> getMovimientosPokemon(int numPk){
 		return currentEntrenador.getPokemons().get(numPk).getMovimientos();
 	}
-	
-	public String getSpritePokemon(Entrenador e, int numPk){
-		return e.getPokemons().get(numPk).getSprite();
-	}
     
     public void empezarCombate(){
         this.currentCombate.empezarCombate();
@@ -98,14 +94,17 @@ public class AppPokemon {
     public ArrayList<String> ejecutarMovimiento(Pokemon atacante, Pokemon rival, Movimiento mv, String msg){
         if (mv.getClass().getSimpleName().equals(MovimientoAtaque.class.getSimpleName())) {
             MovimientoAtaque mvA = (MovimientoAtaque) mv;
+            System.out.println(mvA);
             return atacante.atacar(rival, mvA, msg);
         }
         if (mv.getClass().getSimpleName().equals(MovimientoEstado.class.getSimpleName())) {
             MovimientoEstado mvE = (MovimientoEstado) mv;
-            return rival.aplicarEstado(mvE, msg);
+            System.out.println(mvE);
+            return rival.aplicarEstado(atacante, mvE, msg);
         }
         if (mv.getClass().getSimpleName().equals(MovimientoMejora.class.getSimpleName())) {
             MovimientoMejora mvM = (MovimientoMejora) mv;
+            System.out.println(mvM);
             return atacante.aplicarMejora(mvM, msg);   
         }
         return new ArrayList<String>();

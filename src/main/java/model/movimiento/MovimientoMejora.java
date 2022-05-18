@@ -53,5 +53,10 @@ public class MovimientoMejora extends Movimiento {
     public int consumoEstamina() {
         return getNumTurnos()*10;
     }
+    
+    @Override
+	public String toString() {
+		return super.toString() + ", mejora=" + mejora + ", tipoMejora=" + tipoMejora+", consumoEstamina=" + consumoEstamina()+"]";
+	}
 
 }

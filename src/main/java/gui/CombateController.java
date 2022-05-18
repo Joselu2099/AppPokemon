@@ -16,6 +16,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import model.combate.Combate;
 import model.movimiento.Movimiento;
+import model.pokemon.Pokemon;
 
 public class CombateController implements Initializable {
 	
@@ -38,33 +39,56 @@ public class CombateController implements Initializable {
 	
 	private MediaPlayer mediaPlayer;
 	private Combate co;
-	private ArrayList<Movimiento> movimientosJugador;
-	private ArrayList<Movimiento> movimientosRival;
+	private Pokemon[] pokemonsJugador;
+	private Pokemon[] pokemonsRival;
 	private int numPokemonJugador;
 	private int numPokemonRival;
-	private String msg;
+	ArrayList<String> msgs;
 	
 	@FXML
 	private void ejectuarMv1(ActionEvent event) {
-		System.out.println(co.getRival().getPokemons().get(numPokemonRival) + "\n " + movimientosJugador.get(numPokemonJugador));
-		AppPokemon.getINSTANCE().ejecutarMovimiento(co.getJugador().getPokemons().get(numPokemonJugador), co.getRival().getPokemons().get(numPokemonRival), movimientosJugador.get(0) , msg);
-		txtArea.setText(msg);
-		System.out.println(co.getRival().getPokemons().get(numPokemonRival));
+		ejecuteMove(0);
 	}
 	
 	@FXML
 	private void ejectuarMv2(ActionEvent event) {
-		
+		ejecuteMove(1);
 	}
 	
 	@FXML
 	private void ejectuarMv3(ActionEvent event) {
-		
+		ejecuteMove(2);
 	}
 	
 	@FXML
 	private void ejectuarMv4(ActionEvent event) {
-		
+		ejecuteMove(3);
+	}
+	
+	private void ejecuteMove(int numMove) {
+  		msgs = AppPokemon.getINSTANCE().ejecutarMovimiento(pokemonsJugador[numPokemonJugador], pokemonsRival[numPokemonRival], pokemonsJugador[numPokemonJugador].getMovimientos().get(numMove) , "");
+		System.out.println(msgs);
+  		txtArea.setText(msgs.get(0));
+		if(msgs.size()==2) {
+			pokemonsJugador[numPokemonJugador]=updatePokemonStats(pokemonsJugador[numPokemonJugador], msgs.get(1));
+			co.setPokemonJugadorUpdated(pokemonsJugador[numPokemonJugador]);
+		}
+		if(msgs.size()==3) {
+			pokemonsJugador[numPokemonJugador]=updatePokemonStats(pokemonsJugador[numPokemonJugador], msgs.get(1));
+			co.setPokemonJugadorUpdated(pokemonsJugador[numPokemonJugador]);
+			pokemonsRival[numPokemonRival]=updatePokemonStats(pokemonsRival[numPokemonRival], msgs.get(2));
+			co.setPokemonRivalUpdated(pokemonsRival[numPokemonRival]);
+		}
+		if(pokemonsJugador[numPokemonJugador].getVitalidad()<=0) {
+			numPokemonJugador++;
+			setPokemonJugador();
+		}
+		if(pokemonsRival[numPokemonRival].getVitalidad()<=0) {
+			numPokemonRival++;
+			setPokemonRival();
+		}
+		System.out.println("Pokes jugador: " +pokemonsJugador[numPokemonJugador]);
+		System.out.println("Pokes rival: " +pokemonsRival[numPokemonRival]);
 	}
 	
 	@FXML
@@ -79,37 +103,61 @@ public class CombateController implements Initializable {
 		mv2.setText("Movimiento no aprendido");
 		mv3.setText("Movimiento no aprendido");
 		mv4.setText("Movimiento no aprendido");
+		mv1.setDisable(true);
+		mv2.setDisable(true);
+		mv3.setDisable(true);
+		mv4.setDisable(true);
 		int i=0;
-		for(Movimiento mv: movimientosJugador) {
+		for(Movimiento mv: pokemonsJugador[numPokemonJugador].getMovimientos()) {
 			switch(i) {
 				case 0:
 					mv1.setText(mv.getNombre());
+					mv1.setDisable(false);
 					break;
 				case 1:
 					mv2.setText(mv.getNombre());
+					mv2.setDisable(false);
 					break;
 				case 2:
 					mv3.setText(mv.getNombre());
+					mv3.setDisable(false);
 					break;
 				case 3:
 					mv4.setText(mv.getNombre());
+					mv4.setDisable(false);
 					break;
 			}
 			i++;
 		}
 	}
 	
-	private void setPokemonJugador(int num) {
-		imgPk1.setImage(new Image(AppPokemon.getINSTANCE().getSpritePokemon(co.getJugador(), num)));
+	public Pokemon updatePokemonStats(Pokemon poke, String msg) {
+		ArrayList<String> atributos = (ArrayList<String>)UtilsGUI.splitString(msg);
+		poke.setVitalidad(Integer.parseInt(atributos.get(1)));
+		poke.setAtaque(Integer.parseInt(atributos.get(2)));
+		poke.setDefensa(Integer.parseInt(atributos.get(3)));
+		poke.setAtaqueEspecial(Integer.parseInt(atributos.get(4)));
+		poke.setDefensaEspecial(Integer.parseInt(atributos.get(5)));
+		poke.setVelocidad(Integer.parseInt(atributos.get(6)));
+		poke.setEstamina(Integer.parseInt(atributos.get(7)));
+		poke.setEstado(UtilsGUI.stringToEstado(atributos.get(8)));
+		return poke;
+	}
+	
+	private void setPokemonJugador() {
+		imgPk1.setImage(new Image(pokemonsJugador[numPokemonJugador].getSprite()));
 		setMovimientos();	
 	}
 	
-	private void setPokemonRival(int num) {
-		imgPk2.setImage(new Image(AppPokemon.getINSTANCE().getSpritePokemon(co.getRival(), num)));
+	private void setPokemonRival() {
+		imgPk2.setImage(new Image(pokemonsRival[numPokemonJugador].getSprite()));
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		pokemonsJugador=new Pokemon[4];
+		pokemonsRival=new Pokemon[4];
+		msgs=new ArrayList<String>();
 		String path = getClass().getResource("/audio/combate.mp3").getPath();
 		Media media = new Media(new File(path).toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
@@ -119,9 +167,9 @@ public class CombateController implements Initializable {
 		
 		numPokemonJugador=0;
 		numPokemonRival=0;
-		movimientosJugador=co.getJugador().getPokemons().get(numPokemonJugador).getMovimientos();
-		movimientosRival=co.getRival().getPokemons().get(numPokemonJugador).getMovimientos();
-		setPokemonJugador(numPokemonJugador);
-		setPokemonRival(numPokemonRival);
+		pokemonsJugador=co.getJugador().getPokemons().toArray(pokemonsJugador);
+		pokemonsRival=co.getRival().getPokemons().toArray(pokemonsRival);
+		setPokemonJugador();
+		setPokemonRival();
 	}
 }

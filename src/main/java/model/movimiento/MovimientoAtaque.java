@@ -33,4 +33,10 @@ public class MovimientoAtaque extends Movimiento {
         return potencia/2;
     }
 
+	@Override
+	public String toString() {
+		return super.toString() + ", potencia=" + potencia + ", consumoEstamina=" + consumoEstamina()+"]";
+	}
+
+    
 }

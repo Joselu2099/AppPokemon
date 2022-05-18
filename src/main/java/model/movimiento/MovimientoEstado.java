@@ -14,12 +14,12 @@ public class MovimientoEstado extends Movimiento {
 
     public MovimientoEstado(String nombre, PokemonType tipo, Estado estado) {
         super(nombre, tipo);
-        this.estado = Estado.SIN_ESTADO;
+        this.estado = estado;
     }
 
     public MovimientoEstado(int id, String nombre, PokemonType tipo, Estado estado) {
         super(id, nombre, tipo);
-        this.estado = Estado.SIN_ESTADO;
+        this.estado = estado;
     }
 
     
@@ -43,4 +43,8 @@ public class MovimientoEstado extends Movimiento {
         return getNumTurnos()*10;
     }
 
+    @Override
+	public String toString() {
+		return super.toString() + ", estado=" + estado+", consumoEstamina=" + consumoEstamina()+"]";
+	}
 }

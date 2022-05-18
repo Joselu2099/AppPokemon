@@ -36,9 +36,10 @@ public class AppPokemonMovimientoDAO implements MovimientoDAO{
         String  tipoMejora = rs.getString("tipo_mejora");
         if(potencia!=null && estado==null && tipoMejora==null)
 			return new MovimientoAtaque(rs.getInt("id_movimiento"), rs.getString("nombre"), UtilsDAO.stringToPokemonType(rs.getString("tipo")), potencia);
-        if(estado!=null && tipoMejora==null) 
+        if(estado!=null && tipoMejora==null) {
         	return new MovimientoEstado(rs.getInt("id_movimiento"), rs.getString("nombre"), UtilsDAO.stringToPokemonType(rs.getString("tipo")), UtilsDAO.stringToEstado(estado));
-        if(tipoMejora!=null)
+        }
+        	if(tipoMejora!=null)
         	return new MovimientoMejora(rs.getInt("id_movimiento"), rs.getString("nombre"), UtilsDAO.stringToPokemonType(rs.getString("tipo")), rs.getInt("mejora"), UtilsDAO.stringToTipoMejora(tipoMejora));
         return new MovimientoNull();
     }
