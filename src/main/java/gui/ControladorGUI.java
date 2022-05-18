@@ -59,6 +59,9 @@ public class ControladorGUI extends Application {
 	        	case "appPokemon":
 	        		scene = new Scene(loadFXML("appPokemon"), APP_WIDTH, APP_HEIGHT);
 	        		break;
+	        	case "capture":
+	        		scene = new Scene(loadFXML("capture"), LOGIN_WIDTH, LOGIN_HEIGHT);
+	        		break;
 	        }
 	        stage.setScene(scene);
     	} catch (IOException e) {

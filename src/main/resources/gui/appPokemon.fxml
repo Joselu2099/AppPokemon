@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -89,7 +90,10 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane prefHeight="695.0" prefWidth="458.0" />
+                  <Pane prefHeight="695.0" prefWidth="458.0">
+                     <children>
+                        <Button fx:id="btnCapturar" alignment="CENTER" layoutX="136.0" layoutY="165.0" mnemonicParsing="false" onAction="#capturar" prefHeight="49.0" prefWidth="173.0" text="Capturar" textAlignment="CENTER" />
+                     </children></Pane>
                   <Pane prefHeight="695.0" prefWidth="430.0">
                      <children>
                         <Label layoutX="129.0" layoutY="82.0" text="ENTRENADOR" textFill="WHITE">

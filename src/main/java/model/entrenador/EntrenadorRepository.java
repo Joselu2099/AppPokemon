@@ -65,15 +65,15 @@ public class EntrenadorRepository {
     	return null;
     }
 
-    public boolean addEntrenador(Entrenador entrenador){
+    public Entrenador addEntrenador(Entrenador entrenador){
         try {
-            entrenadorDAO.create(entrenador);
+            entrenador = entrenadorDAO.create(entrenador);
             entrenadores.put(entrenador.getId(), entrenador);
-            return true;
+            return entrenador;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     public void addEntrenadores(ArrayList<Entrenador> entrenadoresIn){

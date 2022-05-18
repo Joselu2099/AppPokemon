@@ -58,15 +58,33 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 
     @Override
     public Pokemon create(Pokemon assistant) throws SQLException {
-    	System.out.println(assistant);
-    	String query = "INSERT INTO POKEMON(NOMBRE, MOTE, VITALIDAD, ATAQUE, DEFENSA, ATAQUE_ESP, DEFENSA_ESP, VELOCIDAD, ESTAMINA, NIVEL, MOVIMIENTO1, MOVIMIENTO2, MOVIMIENTO3, MOVIMIENTO4, TIPO1, TIPO2, SPRITE, ENTRENADOR, EQUIPO_CAJA)" +
-    	        " VALUES('" + assistant.getNombre() + "', " + assistant.getMote() +", " + assistant.getVitalidad() +", " + assistant.getAtaque() +", " + assistant.getDefensa() +", " + assistant.getAtaqueEspecial() +", " + assistant.getDefensaEspecial() +", " + assistant.getVelocidad() +", " + assistant.getEstamina() +", " + assistant.getNivel() +", ";
-    	int cont=0;
-    	for(Movimiento mv: assistant.getMovimientos()) {
-    		query+=assistant.getMovimientos().get(cont) +", ";
-    	}
-    	query+= UtilsDAO.pokemonTypeToString(assistant.getTipos().getFirst()) +", " + UtilsDAO.pokemonTypeToString(assistant.getTipos().getSecond()) +", " + UtilsDAO.estadoToString(assistant.getEstado()) +", " + assistant.getSprite() +", " + assistant.getEntrenador() +", " + assistant.getEquipoCaja() +")";
-        statement.executeUpdate(query);
+    	String camposInserted = "";
+    	String mvsInserted = "";
+    	for (int i = 0; i < assistant.getMovimientos().size(); ) {
+			mvsInserted+=", "+assistant.getMovimientos().get(i).getId();
+			i++;
+			camposInserted+=", MOVIMIENTO" + i;
+		}
+    	String query = "INSERT INTO POKEMON(NOMBRE, MOTE, VITALIDAD, ATAQUE, DEFENSA, ATAQUE_ESP, DEFENSA_ESP, VELOCIDAD, ESTAMINA, NIVEL" + camposInserted +", TIPO1, TIPO2, ESTADO, SPRITE, ENTRENADOR, EQUIPO_CAJA)" +
+    	        " VALUES('" + assistant.getNombre() 
+    	        + "', '" + assistant.getMote() 
+    	        +"', " + assistant.getVitalidad() 
+    	        +", " + assistant.getAtaque() 
+    	        +", " + assistant.getDefensa() 
+    	        +", " + assistant.getAtaqueEspecial() 
+    	        +", " + assistant.getDefensaEspecial() 
+    	        +", " + assistant.getVelocidad() 
+    	        +", " + assistant.getEstamina() 
+    	        +", " + assistant.getNivel() 
+    	        + mvsInserted 
+    	        + ", '"+UtilsDAO.pokemonTypeToString(assistant.getTipos().getFirst()) 
+    	        +"', '" + UtilsDAO.pokemonTypeToString(assistant.getTipos().getSecond())
+    	        +"', '" + UtilsDAO.estadoToString(assistant.getEstado()) 
+    	        +"', '" + assistant.getSprite()
+    	        +"', " + assistant.getEntrenador().getId() 
+    	        +", '" + assistant.getEquipoCaja() +"')";
+    	//System.out.println(query);
+    	statement.executeUpdate(query);
         return getLast();
     }
 

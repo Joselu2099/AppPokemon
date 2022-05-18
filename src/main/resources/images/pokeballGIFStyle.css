@@ -1,0 +1,4 @@
+.root {
+    -fx-background-image: url('pokeballGIF.gif');
+	-fx-background-position: center center;
+}
