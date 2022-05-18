@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="640.0" stylesheets="@../images/combateStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imgPk2" fitHeight="200.0" fitWidth="200.0" layoutX="378.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgPk1" fitHeight="200.0" fitWidth="200.0" layoutX="63.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <TextArea fx:id="txtArea" editable="false" layoutX="24.0" layoutY="371.0" prefHeight="92.0" prefWidth="564.0" text="Prueba">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </TextArea>
+      <Button fx:id="btnRetirada" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#retirar" text="Retirada" />
+   </children>
+</AnchorPane>

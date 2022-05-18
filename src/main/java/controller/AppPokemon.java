@@ -107,8 +107,8 @@ public class AppPokemon {
         pokemonRival.aumentarExperiencia((int)(pokemonRival.getNivel() + pokemonKO.getNivel()*10) / 4);
     }
 
-    public void finalizarCombate(Combate combate){
-        combate.terminarCombate();
-        this.currentEntrenador.addCombate(combate);
+    public void finalizarCombate(){
+        currentCombate.terminarCombate();
+        this.currentEntrenador.addCombate(currentCombate);
     }
 }
