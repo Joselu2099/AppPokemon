@@ -1,12 +1,17 @@
 package model.entrenador;
 
+import model.combate.Combate;
+import model.combate.Turno;
 import model.pokemon.PokemonRepository;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import dao.CombateDAO;
 import dao.DAOFactory;
 import dao.EntrenadorDAO;
+import dao.TurnoDAO;
 
 public class EntrenadorRepository {
 
@@ -91,5 +96,21 @@ public class EntrenadorRepository {
     
     public boolean existAltoMando(String nombre) {
     	return altosMando.containsKey(nombre);
+    }
+    
+    public void updateEntrenador(Entrenador entrenador) {
+    	TurnoDAO turnoDAO = DAOFactory.getINSTANCE().getTurnoDAO();
+    	CombateDAO combateDAO = DAOFactory.getINSTANCE().getCombateDAO();
+    	try {
+    		for(Combate co:entrenador.getCombates()) {
+    			for(Turno t:co.getTurnos()) {
+    				turnoDAO.create(t);
+    			}
+    			combateDAO.create(co);
+    		}
+			entrenadorDAO.updateProfile(entrenador);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
 }

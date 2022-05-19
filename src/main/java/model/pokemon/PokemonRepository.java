@@ -99,7 +99,6 @@ public class PokemonRepository {
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
         	Pokemon poke = generarPokemonRandom(nivel);
-        	poke.setEntrenador(e);
         	for (int j = 0; j < 3; j++) {
         		ArrayList<Movimiento> mvs = (ArrayList<Movimiento>) getMovimientoForPokemon(poke);
         		poke.aprenderMovimiento(mvs.get(ModelUtils.generarNumRandom(0, mvs.size()-1)));

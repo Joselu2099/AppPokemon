@@ -2,12 +2,10 @@ package controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import org.apache.commons.io.FilenameUtils;
+import java.util.LinkedList;
 import dao.DAOFactory;
 import model.combate.*;
 import model.entrenador.*;
@@ -23,9 +21,9 @@ public class AppPokemon {
     private AppPokemon() {
         this.currentEntrenador = new Entrenador();
         this.currentCombate = new Combate();
-        EntrenadorRepository.getINSTANCE();
-        PokemonRepository.getINSTANCE();
         MovimientosRepository.getINSTANCE();
+        PokemonRepository.getINSTANCE();
+        EntrenadorRepository.getINSTANCE();
     }
 
     public static AppPokemon getINSTANCE() {
@@ -118,12 +116,11 @@ public class AppPokemon {
     }
 
     public void finalizarCombate(Combate co, Entrenador ganador){
-    	currentCombate=co;
-        currentCombate.terminarCombate(ganador);
+    	co.terminarCombate(ganador);
+    	this.currentCombate=co;
         this.currentEntrenador.addCombate(currentCombate);
         //TODO
         //EntrenadorRepository.getINSTANCE().updateEntrenador(currentEntrenador);
-        exportarDatos();
     }
     
     public void exportarDatos() {
@@ -152,28 +149,31 @@ public class AppPokemon {
     		FileWriter fw = new FileWriter(file);
     		BufferedWriter bw = new BufferedWriter(fw);
     		
-    		bw.write("\n");
-    		bw.append("Combate " + currentCombate.getId() + ":\n");
-    		bw.append("Jugador: " + currentCombate.getJugador().getNombre() +"\n");
-    		bw.append("Rival: " + currentCombate.getRival().getNombre() +"\n");
-    		bw.append("Ganador: " + currentCombate.getGanador().getNombre() +"\n");
-    		for (Turno turno : currentCombate.getTurnos()) {
-    			bw.append("Turno: " + turno.getNumTurno()+"\n");
-    			bw.append("Entrenador: "+ turno.getAccionRealizadaJugador()+"\n");
-    			bw.append("Rival: "+ turno.getAccionRealizadaRival()+"\n");
-			}
-    		String pksDebilitados="";
-    		for(Pokemon pk: currentCombate.getPokemonsKOJugador()) {
-    			pksDebilitados+=pk.getNombre() + ", ";
+    		for(Combate co: currentEntrenador.getCombates()) {
+    			bw.write("\n");
+        		bw.append("Combate " + co.getId() + ":\n");
+        		bw.append("Jugador: " + co.getJugador().getNombre() +"\n");
+        		bw.append("Rival: " + co.getRival().getNombre() +"\n");
+        		bw.append("Ganador: " + co.getGanador().getNombre() +"\n");
+        		for (Turno turno : co.getTurnos()) {
+        			bw.append("Turno: " + turno.getNumTurno()+"\n");
+        			bw.append("Entrenador: "+ turno.getAccionRealizadaJugador()+"\n");
+        			bw.append("Rival: "+ turno.getAccionRealizadaRival()+"\n");
+    			}
+        		String pksDebilitados="";
+        		for(Pokemon pk: co.getPokemonsKOJugador()) {
+        			pksDebilitados+=pk.getNombre() + ", ";
+        		}
+        		bw.append("Pokemons Jugador debilitados: " + pksDebilitados + "\n");
+        		pksDebilitados="";
+        		for(Pokemon pk: co.getPokemonsKORival()) {
+        			pksDebilitados+=pk.getNombre() + ", ";
+        		}
+        		bw.append("Pokemons Rival debilitados: " + pksDebilitados + "\n");
+        		bw.append("\n");	
     		}
-    		bw.append("Pokemons Jugador debilitados: " + pksDebilitados + "\n");
-    		pksDebilitados="";
-    		for(Pokemon pk: currentCombate.getPokemonsKORival()) {
-    			pksDebilitados+=pk.getNombre() + ", ";
-    		}
-    		bw.append("Pokemons Rival debilitados: " + pksDebilitados + "\n");
-    		bw.append("\n");
-    		bw.close();		
+    		bw.close();
+    			
     	} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,5 @@
 package dao;
 
-import model.entrenador.Entrenador;
 import model.movimiento.Movimiento;
 import model.pokemon.Pokemon;
 import java.sql.Connection;
@@ -52,8 +51,7 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 	            rs.getInt("fertilidad"),
 	            tipos,
 	            UtilsDAO.stringToEstado(rs.getString("estado")),
-	            rs.getString("sprite"),
-	            rs.getString("equipo_caja"));
+	            rs.getString("sprite"));
     }
 
     @Override
@@ -181,28 +179,24 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
     }
     
     @Override
-    public List<Pokemon> getPokemonsEquipo(Entrenador entrenador) throws SQLException {
+    public List<Pokemon> getPokemonsEquipo(int idEntrenador) throws SQLException {
         ArrayList<Pokemon> pokemons = new ArrayList<>();
-        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ entrenador.getId());
+        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ idEntrenador);
         while (rs.next()){
         	if(rs.getString("equipo_caja").equals("EQUIPO")) {
-        		Pokemon pk = resultToPokemon(rs);
-        		pk.setEntrenador(entrenador);
-        		pokemons.add(pk);
+        		pokemons.add(resultToPokemon(rs));
         	}
         }
         return pokemons;    
     }
     
     @Override
-    public List<Pokemon> getPokemonsCaja(Entrenador entrenador) throws SQLException {
+    public List<Pokemon> getPokemonsCaja(int idEntrenador) throws SQLException {
         List<Pokemon> pokemons = new LinkedList<>();
-        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ entrenador.getId());
+        ResultSet rs = statement.executeQuery("SELECT * FROM POKEMON WHERE ENTRENADOR="+ idEntrenador);
         while (rs.next()){
         	if(rs.getString("equipo_caja").equals("CAJA")) {
-        		Pokemon pk = resultToPokemon(rs);
-        		pk.setEntrenador(entrenador);
-        		pokemons.add(pk);
+        		pokemons.add(resultToPokemon(rs));
         	}
         }
         return pokemons;    

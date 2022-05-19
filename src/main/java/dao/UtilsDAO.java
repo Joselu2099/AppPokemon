@@ -1,5 +1,6 @@
 package dao;
 
+import model.combate.Combate;
 import model.combate.Turno;
 import model.entrenador.Entrenador;
 import model.entrenador.EntrenadorRepository;
@@ -88,6 +89,36 @@ public class UtilsDAO {
 			e.printStackTrace();
 		}
     	return new LinkedList<Turno>();
+    }
+    
+    public static List<Combate> combatesFromEntrenador(int idEntrenador){
+    	CombateDAO combateDAO = DAOFactory.getINSTANCE().getCombateDAO();
+    	try {
+			return combateDAO.getCombatesFromEntrenador(idEntrenador);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return new LinkedList<>();
+    }
+    
+    public static List<Pokemon> pokemonsCajaFromEntrenador(int idEntrenador) {
+    	PokemonDAO pokemonDAO = DAOFactory.getINSTANCE().getPokemonDAO();
+    	try {
+			return pokemonDAO.getPokemonsCaja(idEntrenador);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return new LinkedList<>();
+    }
+    
+    public static List<Pokemon> pokemonsEquipoFromEntrenador(int idEntrenador) {
+    	PokemonDAO pokemonDAO = DAOFactory.getINSTANCE().getPokemonDAO();
+    	try {
+			return pokemonDAO.getPokemonsEquipo(idEntrenador);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return new ArrayList<>();
     }
     
     public static List<Movimiento> idsToMovimientos(int id1, int id2, int id3, int id4){

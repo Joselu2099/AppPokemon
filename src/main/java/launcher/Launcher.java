@@ -10,6 +10,8 @@ public class Launcher {
         AppPokemon.getINSTANCE();
         
     	ControladorGUI.getINSTANCE().launchController();
+    	
+    	AppPokemon.getINSTANCE().exportarDatos();
        
     	AppPokemon.getINSTANCE().closeConnections();
     }

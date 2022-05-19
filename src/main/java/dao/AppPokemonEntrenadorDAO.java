@@ -1,7 +1,6 @@
 package dao;
 
 import model.entrenador.*;
-import model.pokemon.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,10 +14,8 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
     private static AppPokemonEntrenadorDAO INSTANCE = null;
     private final Connection connection;
     private Statement statement;
-    private PokemonDAO pokemonDAO;
 
     private AppPokemonEntrenadorDAO() {
-    	this.pokemonDAO = DAOFactory.getINSTANCE().getPokemonDAO();
         this.connection = DAOFactory.getINSTANCE().getConnection();
         try {
             this.statement = connection.createStatement();
@@ -35,17 +32,12 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
     }
 
     private Entrenador resultToEntrenador(ResultSet rs) throws SQLException{
-    	Entrenador e = new Entrenador(rs.getInt("id_entrenador"),
+    	return new Entrenador(rs.getInt("id_entrenador"),
                 rs.getString("nombre"),
-                rs.getInt("pokedollars"));
-    	e.setPokemons((ArrayList<Pokemon>)pokemonDAO.getPokemonsEquipo(e));
-    	e.setCajaPokemon(((LinkedList<Pokemon>)pokemonDAO.getPokemonsCaja(e)));
-    	//TODO
-    	e.setCombates(new LinkedList<>());
-    	
-    	for(Pokemon p: e.getPokemons()) p.setEntrenador(e);
-    	for(Pokemon p: e.getCajaPokemon()) p.setEntrenador(e);
-    	return e;
+                rs.getInt("pokedollars"), 
+    			UtilsDAO.pokemonsEquipoFromEntrenador(rs.getInt("id_entrenador")),
+    			UtilsDAO.pokemonsCajaFromEntrenador(rs.getInt("id_entrenador")),
+    			UtilsDAO.combatesFromEntrenador(rs.getInt("id_entrenador")));
     }
 
     @Override
@@ -62,9 +54,6 @@ public final class AppPokemonEntrenadorDAO implements EntrenadorDAO {
 
     @Override
     public void updateProfile(Entrenador assistant) throws SQLException {
-        statement.executeUpdate("UPDATE ENTRENADOR" +
-                " SET NOMBRE='" + assistant.getNombre() +"'"+
-                " WHERE ID_ENTRENADOR = " + assistant.getId());
         statement.executeUpdate("UPDATE ENTRENADOR" +
                 " SET POKEDOLLARS=" + assistant.getPokedollars() +
                 " WHERE ID_ENTRENADOR = " + assistant.getId());

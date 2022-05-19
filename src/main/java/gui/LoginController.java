@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import model.entrenador.EntrenadorRepository;
 import controller.AppPokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,15 +29,7 @@ public class LoginController implements Initializable{
     private void login(ActionEvent event) {
     	if(txtField.getText().length()!=0) {
     		if(AppPokemon.getINSTANCE().isEntrenadorRegistrado(txtField.getText())) {
-    			if(txtField.getText().equals("Knekro") || 
-        				txtField.getText().equals("Knekro".toLowerCase()) || 
-        				txtField.getText().equals("Knekro".toUpperCase()) ||
-        				txtField.getText().equals("Red") || 
-        				txtField.getText().equals("Red".toLowerCase()) || 
-        				txtField.getText().equals("Red".toUpperCase()) || 
-        				txtField.getText().equals("Blue") || 
-        				txtField.getText().equals("Blue".toLowerCase()) || 
-        				txtField.getText().equals("Blue".toUpperCase())) {
+    			if(EntrenadorRepository.getINSTANCE().existAltoMando(txtField.getText())) {
         			lblWarning.setText("Ese nombre pertenece a uno de los Altos Mando, prueba otro :)");
     			}else {
         			if(AppPokemon.getINSTANCE().login(txtField.getText()))

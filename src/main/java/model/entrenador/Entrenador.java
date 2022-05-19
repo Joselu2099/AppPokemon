@@ -59,13 +59,13 @@ public class Entrenador {
         this.combates = new LinkedList<>();
     }
 
-    public Entrenador(int id, String nombre, int pokedollars, ArrayList<Pokemon> pokemons, LinkedList<Pokemon> cajaPokemon, LinkedList<Combate> combates) {
+    public Entrenador(int id, String nombre, int pokedollars, List<Pokemon> pokemons, List<Pokemon> cajaPokemon, List<Combate> combates) {
         this.id = id;
         this.nombre = nombre;
-        this.pokemons = pokemons;
         this.pokedollars = pokedollars;
-        this.cajaPokemon = cajaPokemon;
-        this.combates = combates;
+        this.pokemons = (ArrayList<Pokemon>) pokemons;
+        this.cajaPokemon = (LinkedList<Pokemon>) cajaPokemon;
+        this.combates = (LinkedList<Combate>)combates;
     }
 
     public int getId() {
@@ -112,17 +112,14 @@ public class Entrenador {
         return combates;
     }
 
-    public void setCombates(LinkedList<Combate> combates) {
-        this.combates = combates;
+    public void setCombates(List<Combate> combates) {
+        this.combates = (LinkedList<Combate>)combates;
     }
 
     public void addPokemon(Pokemon pokemon) {
-    	pokemon.setEntrenador(this);
         if (pokemons.size() >= 4) {
-            pokemon.setEquipoCaja("CAJA");
             cajaPokemon.add(pokemon);
         }else {
-            pokemon.setEquipoCaja("EQUIPO");
         	pokemons.add(pokemon);
         }
         PokemonRepository.getINSTANCE().addPokemonToBD(pokemon);
@@ -133,7 +130,6 @@ public class Entrenador {
             if (pokemons.size() != 4) {
                 pokemons.add(pokemon);
                 cajaPokemon.remove(pokemon);
-                pokemon.setEquipoCaja("EQUIPO");
                 return true;
             }
         }
@@ -144,7 +140,6 @@ public class Entrenador {
         if (pokemons.contains(pokemon)) {
         	cajaPokemon.add(pokemon);
         	pokemons.remove(pokemon);
-            pokemon.setEquipoCaja("CAJA");
             return true;
         }
         return false;

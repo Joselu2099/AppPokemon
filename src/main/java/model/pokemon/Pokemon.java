@@ -3,6 +3,7 @@ package model.pokemon;
 import eu.iamgio.pokedex.pokemon.PokemonType;
 import eu.iamgio.pokedex.util.Pair;
 import model.entrenador.Entrenador;
+import model.entrenador.EntrenadorRepository;
 import model.movimiento.*;
 import model.utils.ModelUtils;
 import java.util.ArrayList;
@@ -33,8 +34,6 @@ public class Pokemon {
     private Pair<PokemonType, PokemonType> tipos;
     private Estado estado;
     private String sprite;
-    private Entrenador entrenador;
-    private String equipoCaja;
     
 
     public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos, String sprite) {
@@ -56,11 +55,9 @@ public class Pokemon {
         this.tipos = tipos;
         this.setEstado(Estado.SIN_ESTADO);
         this.sprite = sprite;
-        this.entrenador = new Entrenador();
-        this.equipoCaja = "";
     }
 
-    public Pokemon(int id, String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, ArrayList<Movimiento> movimientos, int fertilidad, Pair<PokemonType, PokemonType> tipos, Estado estado, String sprite, String equipoCaja) {
+    public Pokemon(int id, String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int estamina, int nivel, int experiencia, ArrayList<Movimiento> movimientos, int fertilidad, Pair<PokemonType, PokemonType> tipos, Estado estado, String sprite) {
         this.id = id;
         this.nombre = nombre.toUpperCase();
         this.mote = mote.toUpperCase();
@@ -79,8 +76,6 @@ public class Pokemon {
         this.tipos = tipos;
         this.estado = estado;
         this.sprite = sprite;
-        this.entrenador = new Entrenador();
-        this.equipoCaja = equipoCaja.toUpperCase();
     }
 
     public Pokemon(Pokemon pokemon) {
@@ -102,8 +97,6 @@ public class Pokemon {
         this.tipos = pokemon.getTipos();
         this.estado = pokemon.getEstado();
         this.sprite = pokemon.getSprite();
-        this.entrenador = pokemon.getEntrenador();
-        this.equipoCaja = pokemon.getEquipoCaja();
     }
 
     public Pokemon(String nombre) {
@@ -258,22 +251,19 @@ public class Pokemon {
     public void setSprite(String sprite) {
         this.sprite = sprite;
     }
-
+    
+    public Entrenador getEntrenador(){
+    	for(Entrenador e: EntrenadorRepository.getINSTANCE().getEntrenadores()) {
+    		if(e.getPokemons().contains(this) || e.getCajaPokemon().contains(this)) return e;
+    	}
+    	return new Entrenador();
+    }
+    
     public String getEquipoCaja() {
-		return equipoCaja;
-	}
-
-	public void setEquipoCaja(String equipoCaja) {
-		this.equipoCaja = equipoCaja;
-	}
-
-	public Entrenador getEntrenador() {
-		return entrenador;
-	}
-	
-	public void setEntrenador(Entrenador entrenador) {
-		this.entrenador = entrenador;
-	}
+    	if(getEntrenador().getPokemons().contains(this)) return "EQUIPO";
+    	if(getEntrenador().getCajaPokemon().contains(this)) return "CAJA";
+    	return "NINGUNO";
+    }
 
 	public void subirNivel(){
         this.nivel++;
@@ -455,8 +445,7 @@ public class Pokemon {
 				+ ataque + ", defensa=" + defensa + ", ataqueEspecial=" + ataqueEspecial + ", defensaEspecial="
 				+ defensaEspecial + ", velocidad=" + velocidad + ", estaminaBase=" + estaminaBase + ", estamina="
 				+ estamina + ", nivel=" + nivel + ", experiencia=" + experiencia + ", movimientos=" + movimientos
-				+ ", fertilidad=" + fertilidad + ", tipo1=" + tipos.getFirst() + ", tipo2=" + tipos.getSecond() + ", estado=" + estado + ", sprite=" + sprite
-				+ ", equipoCaja=" + equipoCaja + "]";
+				+ ", fertilidad=" + fertilidad + ", tipo1=" + tipos.getFirst() + ", tipo2=" + tipos.getSecond() + ", estado=" + estado + ", sprite=" + sprite + "]";
 	}
 
 	public String parseString() {

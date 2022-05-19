@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import model.combate.Combate;
 
@@ -61,6 +62,16 @@ public class AppPokemonCombateDAO implements CombateDAO {
         return combates.get(0);		
 	}
 
+	@Override
+	public List<Combate> getCombatesFromEntrenador(int idEntrenador) throws SQLException{
+		LinkedList<Combate> combates = new LinkedList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM COMBATE WHERE JUGADOR="+idEntrenador);
+        while (rs.next()){
+        	combates.add(resultToCombate(rs));
+        }
+        return combates;
+	}
+	
 	@Override
 	public List<Combate> getAll() throws SQLException {
 		 ArrayList<Combate> combates = new ArrayList<>();

@@ -10,6 +10,8 @@ public interface CombateDAO {
     void delete(Combate assistant) throws SQLException;
 
     Combate get(int id) throws SQLException;
+    
+    List<Combate> getCombatesFromEntrenador(int idEntrenador) throws SQLException;
 
     List<Combate> getAll() throws SQLException;
 }

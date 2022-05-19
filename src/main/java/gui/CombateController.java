@@ -111,6 +111,7 @@ public class CombateController implements Initializable {
 	private void finalizarCombate(Entrenador ganador) {
 		mediaPlayer.stop();
 		txtArea.setText("Terminado combate");
+		if(co==null) System.out.println("COMBATE NULO");
 		AppPokemon.getINSTANCE().finalizarCombate(co, ganador);
 		ControladorGUI.setScene("appPokemon");
 	}

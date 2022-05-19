@@ -1,8 +1,6 @@
 package dao;
 
-import model.entrenador.Entrenador;
 import model.pokemon.Pokemon;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,7 +17,7 @@ public interface PokemonDAO {
 
     List<Pokemon> getAll() throws SQLException;
     
-    List<Pokemon> getPokemonsEquipo(Entrenador entrenador) throws SQLException;
+    List<Pokemon> getPokemonsEquipo(int idEntrenador) throws SQLException;
     
-    List<Pokemon> getPokemonsCaja(Entrenador entrenador) throws SQLException;
+    List<Pokemon> getPokemonsCaja(int idEntrenador) throws SQLException;
 }
