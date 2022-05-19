@@ -2,6 +2,8 @@ package model.combate;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+
 import model.entrenador.Entrenador;
 import model.movimiento.Movimiento;
 import model.pokemon.Pokemon;
@@ -36,8 +38,21 @@ public class Combate {
         this.pokemonsKOJugador = new ArrayList<>();
         this.pokemonsKORival = new ArrayList<>();
     }
+    
+    
 
-    public int getId() {
+    public Combate(int id, Entrenador jugador, Entrenador rival, Entrenador ganador, List<Turno> turnos,
+			List<Pokemon> pokemonsKOJugador, List<Pokemon> pokemonsKORival) {
+		this.id = id;
+		this.jugador = jugador;
+		this.rival = rival;
+		this.ganador = ganador;
+		this.turnos = (LinkedList<Turno>) turnos;
+		this.pokemonsKOJugador = (ArrayList<Pokemon>)pokemonsKOJugador;
+		this.pokemonsKORival = (ArrayList<Pokemon>)pokemonsKORival;
+	}
+
+	public int getId() {
         return this.id;
     }
 

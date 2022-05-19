@@ -23,14 +23,12 @@ public final class AppPokemonDAOFactory extends DAOFactory {
 
     @Override
     public CombateDAO getCombateDAO() {
-    	//TODO
-        return null;
+    	return AppPokemonCombateDAO.getInstance();
     }
 
     @Override
     public TurnoDAO getTurnoDAO() {
-    	//TODO
-        return null;
+    	return AppPokemonTurnoDAO.getInstance();
     }
 
 

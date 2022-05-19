@@ -1,5 +1,8 @@
 package dao;
 
+import model.combate.Turno;
+import model.entrenador.Entrenador;
+import model.entrenador.EntrenadorRepository;
 import model.movimiento.*;
 import model.pokemon.*;
 import java.sql.ResultSet;
@@ -7,10 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import eu.iamgio.pokedex.pokemon.PokemonType;
 
 public class UtilsDAO {
@@ -73,6 +76,20 @@ public class UtilsDAO {
         return pokemons;
     }
     
+    public static String pokemonsToString(List<Pokemon> pokemons) {
+        return listToString(pokemons.stream().map(pk -> pk.getId()).collect(Collectors.toList()));
+    }
+    
+    public static List<Turno> turnosFromCombate(int idCombate){
+    	TurnoDAO turnoDAO = DAOFactory.getINSTANCE().getTurnoDAO();
+    	try {
+			return turnoDAO.getTurnosFromCombate(idCombate);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return new LinkedList<Turno>();
+    }
+    
     public static List<Movimiento> idsToMovimientos(int id1, int id2, int id3, int id4){
     	ArrayList<Movimiento> movimientos = new ArrayList<Movimiento>();
     	if(id1!=0) movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id1));
@@ -81,6 +98,17 @@ public class UtilsDAO {
     	if(id4!=0) movimientos.add(MovimientosRepository.getINSTANCE().getMovimiento(id4));
     	return movimientos;
     }
+    
+    public static Movimiento idToMovimiento(int id) {
+		if(id!=0) return MovimientosRepository.getINSTANCE().getMovimiento(id);
+		return new MovimientoNull();
+	}
+    
+    public static Entrenador idToEntrenador(int id) {
+    	if(id!=0) return EntrenadorRepository.getINSTANCE().getEntrenador(id);
+    	return new Entrenador();
+    }
+    	
     
     public static PokemonType stringToPokemonType(String str) {
     	if(str==null) return PokemonType.UNKNOWN;
@@ -178,5 +206,4 @@ public class UtilsDAO {
     public static String tipoMejoraToString(TipoMejora tipoMejora) {
     	return tipoMejora.toString();
     }
- 
 }

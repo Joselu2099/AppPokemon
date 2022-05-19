@@ -8,12 +8,14 @@ public class Turno {
     private int numTurno;
     private Movimiento accionRealizadaJugador;
     private Movimiento accionRealizadaRival;
+    private Combate combate;
 
     public Turno() {
         this.id = 0;
         this.numTurno = 0;
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();
+        this.combate = new Combate();
     }
 
     public Turno(int numTurno) {
@@ -21,12 +23,23 @@ public class Turno {
         this.numTurno = numTurno;
         this.accionRealizadaJugador = new MovimientoNull();
         this.accionRealizadaRival = new MovimientoNull();
+        this.combate = new Combate();
     }
-
-    public Turno(int numTurno, Movimiento accionRealizadaJugador, Movimiento accionRealizadaRival) {
-        this.numTurno = numTurno;
+    
+    public Turno(int id , int numTurno, Movimiento accionRealizadaJugador, Movimiento accionRealizadaRival) {
+        this.id = id;
+    	this.numTurno = numTurno;
         this.accionRealizadaJugador = accionRealizadaJugador;
         this.accionRealizadaRival = accionRealizadaRival;
+        this.combate = new Combate();
+    }
+
+    public Turno(int id , int numTurno, Movimiento accionRealizadaJugador, Movimiento accionRealizadaRival, Combate combate) {
+        this.id = id;
+    	this.numTurno = numTurno;
+        this.accionRealizadaJugador = accionRealizadaJugador;
+        this.accionRealizadaRival = accionRealizadaRival;
+        this.combate = combate;
     }
 
     public int getId() {
@@ -37,6 +50,14 @@ public class Turno {
         this.id = id;
     }
 
+    public Combate getCombate() {
+		return combate;
+	}
+    
+    public void setCombate(Combate combate) {
+		this.combate = combate;
+	}
+    
     public int getNumTurno() {
         return this.numTurno;
     }
