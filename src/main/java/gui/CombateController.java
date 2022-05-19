@@ -1,14 +1,9 @@
 package gui;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.swing.JFileChooser;
-
 import controller.AppPokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -177,6 +172,7 @@ public class CombateController implements Initializable {
 		}
 	}
 	
+	@SuppressWarnings("exports")
 	public Pokemon updatePokemonStats(Pokemon poke, String msg) {
 		ArrayList<String> atributos = (ArrayList<String>)UtilsGUI.splitString(msg);
 		poke.setVitalidad(Integer.parseInt(atributos.get(1)));

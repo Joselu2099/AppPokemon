@@ -37,9 +37,18 @@ public class EntrenadorRepository {
     private void loadRepository() {
         try {
             entrenadorDAO.getAll().forEach(e -> {
-            	if(e.getNombre().equals("Knekro") || e.getNombre().equals("Red") || e.getNombre().equals("Blue"))
-            		altosMando.put(e.getNombre(), e);
-            	else entrenadores.put(e.getId(), e);
+            	if(e.getNombre().equals("Knekro") || 
+            			e.getNombre().equals("Knekro".toLowerCase()) || 
+            			e.getNombre().equals("Knekro".toUpperCase()) ||
+            			e.getNombre().equals("Red") || 
+            			e.getNombre().equals("Red".toLowerCase()) || 
+            			e.getNombre().equals("Red".toUpperCase()) || 
+            			e.getNombre().equals("Blue") || 
+            			e.getNombre().equals("Blue".toLowerCase()) || 
+            			e.getNombre().equals("Blue".toUpperCase())) {
+            	
+            		altosMando.put(e.getNombre().toUpperCase(), e);
+            	}else entrenadores.put(e.getId(), e);
             });
         } catch (SQLException e) {
         	System.err.println("Base de datos sin conexion :(");
@@ -95,7 +104,7 @@ public class EntrenadorRepository {
 	}
     
     public boolean existAltoMando(String nombre) {
-    	return altosMando.containsKey(nombre);
+    	return altosMando.containsKey(nombre.toUpperCase());
     }
     
     public void updateEntrenador(Entrenador entrenador) {
@@ -103,10 +112,10 @@ public class EntrenadorRepository {
     	CombateDAO combateDAO = DAOFactory.getINSTANCE().getCombateDAO();
     	try {
     		for(Combate co:entrenador.getCombates()) {
+    			combateDAO.create(co);
     			for(Turno t:co.getTurnos()) {
     				turnoDAO.create(t);
     			}
-    			combateDAO.create(co);
     		}
 			entrenadorDAO.updateProfile(entrenador);
 		} catch (SQLException e) {

@@ -28,16 +28,16 @@ public class LoginController implements Initializable{
     @FXML
     private void login(ActionEvent event) {
     	if(txtField.getText().length()!=0) {
-    		if(AppPokemon.getINSTANCE().isEntrenadorRegistrado(txtField.getText())) {
-    			if(EntrenadorRepository.getINSTANCE().existAltoMando(txtField.getText())) {
-        			lblWarning.setText("Ese nombre pertenece a uno de los Altos Mando, prueba otro :)");
-    			}else {
-        			if(AppPokemon.getINSTANCE().login(txtField.getText()))
-        				ControladorGUI.setScene("appPokemon");
-        		}
+    		if(EntrenadorRepository.getINSTANCE().existAltoMando(txtField.getText())) {
+    			lblWarning.setText("Ese nombre pertenece a uno de los Altos Mando, prueba otro :)");
     		}else {
-    			if(AppPokemon.getINSTANCE().registrarEntrenador(txtField.getText()))
-    				ControladorGUI.setScene("pokemonChooser");
+    			if(AppPokemon.getINSTANCE().isEntrenadorRegistrado(txtField.getText())) {
+    				if(AppPokemon.getINSTANCE().login(txtField.getText()))
+        				ControladorGUI.setScene("appPokemon");
+    			}else {
+    				if(AppPokemon.getINSTANCE().registrarEntrenador(txtField.getText()))
+        				ControladorGUI.setScene("pokemonChooser");
+    			}
     		}
     	}else lblWarning.setText("El nombre del entrenador es incorrecto");
     	mediaPlayer.stop();

@@ -18,9 +18,7 @@ public class AppPokemonMovimientoDAO implements MovimientoDAO{
         this.connection = DAOFactory.getINSTANCE().getConnection();
         try {
             this.statement = connection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } catch (SQLException | NullPointerException e) {}
     }
 
     // Aplicamos el patron Singleton.

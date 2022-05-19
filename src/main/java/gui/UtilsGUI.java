@@ -22,6 +22,7 @@ public class UtilsGUI {
         return s == null ? new ArrayList<>() : Arrays.stream(s.split(",")).collect(Collectors.toList());
     }
 	
+	@SuppressWarnings("exports")
 	public static Estado stringToEstado(String str) {
     	switch(str.toUpperCase()) {
 	    	case "PARALIZADO":

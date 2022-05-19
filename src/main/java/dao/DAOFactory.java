@@ -25,7 +25,7 @@ public abstract class DAOFactory {
             statement = connection.createStatement();
             System.out.println("Conexion establecida");
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("Conexion no establecida");
         }
     }
 

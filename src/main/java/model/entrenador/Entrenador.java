@@ -124,20 +124,18 @@ public class Entrenador {
         }
         PokemonRepository.getINSTANCE().addPokemonToBD(pokemon);
     }
-
-    public boolean sacarPokemonCaja(Pokemon pokemon) {
-        if (cajaPokemon.contains(pokemon)) {
-            if (pokemons.size() != 4) {
-                pokemons.add(pokemon);
-                cajaPokemon.remove(pokemon);
-                return true;
-            }
+    
+    public boolean moverCajaToEquipo(Pokemon pokemon) {
+    	if (cajaPokemon.contains(pokemon) && pokemons.size()<4) {
+        	pokemons.add(pokemon);
+        	cajaPokemon.remove(pokemon);
+            return true;
         }
         return false;
     }
     
-    public boolean meterPokemonCaja(Pokemon pokemon) {
-        if (pokemons.contains(pokemon)) {
+    public boolean moverEquipoToCaja(Pokemon pokemon) {
+    	if (pokemons.contains(pokemon)) {
         	cajaPokemon.add(pokemon);
         	pokemons.remove(pokemon);
             return true;
@@ -145,6 +143,22 @@ public class Entrenador {
         return false;
     }
 
+    public Pokemon getPokemonEquipo(String mote) {
+    	for(Pokemon pk: pokemons) {
+    		if(pk.getMote().equals(mote))
+    			return pk;
+    	}
+    	return null;
+    }
+    
+    public Pokemon getPokemonCaja(String mote) {
+    	for(Pokemon pk: cajaPokemon) {
+    		if(pk.getMote().equals(mote))
+    			return pk;
+    	}
+    	return null;
+    }
+    
     public void entrenar(Pokemon pokemon, TipoEntrenamiento tipo) {
     	switch(tipo) {
 	    	case PESADO:

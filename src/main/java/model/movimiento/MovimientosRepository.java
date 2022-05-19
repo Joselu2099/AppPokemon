@@ -33,7 +33,6 @@ public class MovimientosRepository {
             movimientoDAO.getAll().forEach(mv -> movimientosID.put(mv.getId(), mv));
         } catch (SQLException e) {
         	System.err.println("Base de datos sin conexion :(");
-            e.printStackTrace();
         }
     }
 

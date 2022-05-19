@@ -37,11 +37,17 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -88,20 +94,75 @@
                               <Font name="Rockwell" size="24.0" />
                            </font>
                         </Label>
+                        <Button fx:id="btnAbrirCaja" layoutX="163.0" layoutY="536.0" mnemonicParsing="false" onAction="#abrirCaja" prefHeight="42.0" prefWidth="98.0" text="Abrir Caja" />
                      </children>
                   </Pane>
                   <Pane prefHeight="695.0" prefWidth="458.0">
                      <children>
                         <Button fx:id="btnCapturar" alignment="CENTER" layoutX="136.0" layoutY="165.0" mnemonicParsing="false" onAction="#capturar" prefHeight="49.0" prefWidth="173.0" text="Capturar" textAlignment="CENTER" />
                         <Button fx:id="btnCombatir" alignment="CENTER" layoutX="136.0" layoutY="262.0" mnemonicParsing="false" onAction="#combatir" prefHeight="49.0" prefWidth="173.0" text="Combatir" textAlignment="CENTER" />
+                        <Label fx:id="lblWarning" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="229.0" prefHeight="33.0" prefWidth="426.0" textAlignment="CENTER" textFill="#eb0909" textOverrun="CLIP" wrapText="true">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
                      </children></Pane>
                   <Pane prefHeight="695.0" prefWidth="430.0">
                      <children>
-                        <Label layoutX="129.0" layoutY="82.0" text="ENTRENADOR" textFill="WHITE">
+                        <Label fx:id="lblEntrenador" layoutX="129.0" layoutY="82.0" text="ENTRENADOR" textFill="WHITE">
                            <font>
                               <Font name="Rockwell" size="24.0" />
                            </font>
                         </Label>
+                        <Label fx:id="lblTitNombre" alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="145.0" prefHeight="25.0" prefWidth="173.0" text="NOMBRE" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Rockwell" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblTitPokedollars" alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="258.0" prefHeight="25.0" prefWidth="173.0" text="POKEDOLLARS" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Rockwell" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblNombre" alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="187.0" prefHeight="25.0" prefWidth="173.0" text="NOMBRE" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Rockwell" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblPokedollars" alignment="CENTER" contentDisplay="CENTER" layoutX="123.0" layoutY="293.0" prefHeight="25.0" prefWidth="173.0" text="POKEDOLLARS" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Rockwell" size="18.0" />
+                           </font>
+                        </Label>
+                        <Pane fx:id="pnCaja" prefHeight="695.0" prefWidth="417.0" visible="false">
+                           <children>
+                              <Button fx:id="btnCerrarCaja" layoutX="160.0" layoutY="531.0" mnemonicParsing="false" onAction="#cerrarCaja" prefHeight="42.0" prefWidth="98.0" text="Cerrar Caja" />
+                              <ScrollPane layoutX="9.0" layoutY="67.0" prefHeight="446.0" prefWidth="399.0">
+                                 <content>
+                                    <GridPane fx:id="gridPane" prefHeight="447.0" prefWidth="398.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
+                              <Button fx:id="btnCambiar" layoutX="179.0" layoutY="630.0" mnemonicParsing="false" onAction="#cambiar" text="Cambiar" />
+                              <TextField fx:id="selectorPoke" layoutX="14.0" layoutY="630.0" />
+                              <TextField fx:id="selectorCaja" layoutX="254.0" layoutY="630.0" />
+                              <Label layoutX="6.0" layoutY="602.0" text="Escribir mote pokemon equipo" />
+                              <Label layoutX="255.0" layoutY="602.0" text="Escribir mote pokemon caja" />
+                           </children>
+                        </Pane>
                      </children>
                   </Pane>
                </children>
