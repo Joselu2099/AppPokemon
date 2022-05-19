@@ -152,26 +152,27 @@ public class AppPokemon {
     		FileWriter fw = new FileWriter(file);
     		BufferedWriter bw = new BufferedWriter(fw);
     		
-    		bw.write("Combate " + currentCombate.getId() + ":\n");
-    		bw.write("Jugador: " + currentCombate.getJugador().getNombre() +"\n");
-    		bw.write("Rival: " + currentCombate.getRival().getNombre() +"\n");
-    		bw.write("Ganador: " + currentCombate.getGanador().getNombre() +"\n");
+    		bw.write("\n");
+    		bw.append("Combate " + currentCombate.getId() + ":\n");
+    		bw.append("Jugador: " + currentCombate.getJugador().getNombre() +"\n");
+    		bw.append("Rival: " + currentCombate.getRival().getNombre() +"\n");
+    		bw.append("Ganador: " + currentCombate.getGanador().getNombre() +"\n");
     		for (Turno turno : currentCombate.getTurnos()) {
-    			bw.write("Turno: " + turno.getNumTurno()+"\n");
-    			bw.write("Entrenador: "+ turno.getAccionRealizadaJugador()+"\n");
-    			bw.write("Rival: "+ turno.getAccionRealizadaRival()+"\n");
+    			bw.append("Turno: " + turno.getNumTurno()+"\n");
+    			bw.append("Entrenador: "+ turno.getAccionRealizadaJugador()+"\n");
+    			bw.append("Rival: "+ turno.getAccionRealizadaRival()+"\n");
 			}
     		String pksDebilitados="";
     		for(Pokemon pk: currentCombate.getPokemonsKOJugador()) {
     			pksDebilitados+=pk.getNombre() + ", ";
     		}
-    		bw.write("Pokemons Jugador debilitados: " + pksDebilitados + "\n");
+    		bw.append("Pokemons Jugador debilitados: " + pksDebilitados + "\n");
     		pksDebilitados="";
     		for(Pokemon pk: currentCombate.getPokemonsKORival()) {
     			pksDebilitados+=pk.getNombre() + ", ";
     		}
-    		bw.write("Pokemons Rival debilitados: " + pksDebilitados + "\n");
-    		bw.write("\n");
+    		bw.append("Pokemons Rival debilitados: " + pksDebilitados + "\n");
+    		bw.append("\n");
     		bw.close();		
     	} catch (IOException e) {
 			e.printStackTrace();
