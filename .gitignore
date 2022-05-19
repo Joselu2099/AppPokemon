@@ -3,3 +3,4 @@
 /bin/
 *.bak
 /target/
+src/main/resources/logs/combate.log

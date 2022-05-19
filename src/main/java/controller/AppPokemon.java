@@ -121,6 +121,8 @@ public class AppPokemon {
     	currentCombate=co;
         currentCombate.terminarCombate(ganador);
         this.currentEntrenador.addCombate(currentCombate);
+        //TODO
+        //EntrenadorRepository.getINSTANCE().updateEntrenador(currentEntrenador);
         exportarDatos();
     }
     
