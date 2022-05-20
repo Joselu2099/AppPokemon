@@ -56,7 +56,7 @@ public class MovimientoMejora extends Movimiento {
     
     @Override
 	public String toString() {
-		return super.toString() + ", mejora=" + mejora + ", tipoMejora=" + tipoMejora+", consumoEstamina=" + consumoEstamina()+"]";
+		return super.toString() + ", Mejora el " + tipoMejora + " en " + mejora+", consumoEstamina=" + consumoEstamina();
 	}
 
 }

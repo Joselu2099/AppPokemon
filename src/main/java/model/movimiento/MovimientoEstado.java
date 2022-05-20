@@ -45,6 +45,6 @@ public class MovimientoEstado extends Movimiento {
 
     @Override
 	public String toString() {
-		return super.toString() + ", estado=" + estado+", consumoEstamina=" + consumoEstamina()+"]";
+		return super.toString() + ", Deja al rival " + estado+", consumoEstamina=" + consumoEstamina();
 	}
 }

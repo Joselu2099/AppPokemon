@@ -135,9 +135,10 @@ public class UtilsDAO {
 		return new MovimientoNull();
 	}
     
-    public static Entrenador idToEntrenador(int id) {
+    public static Entrenador idToEntrenador(int id, String nombre) {
     	if(id!=0) return EntrenadorRepository.getINSTANCE().getEntrenador(id);
-    	return new Entrenador();
+    	if(id==0 && !nombre.isBlank()) return EntrenadorRepository.getINSTANCE().getEntrenador(nombre);
+    	return new Entrenador(nombre);
     }
     	
     

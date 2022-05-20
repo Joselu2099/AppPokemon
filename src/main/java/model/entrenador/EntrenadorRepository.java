@@ -95,7 +95,7 @@ public class EntrenadorRepository {
 
     public Entrenador generarEntrenadorRandom(int nivelEquipo){
     	Entrenador random = new Entrenador(NombresEntrenador.generarNombreRandom());
-    	random.setPokemons(PokemonRepository.getINSTANCE().generarEquipoPokemon(random, nivelEquipo));
+    	random.setPokemons(PokemonRepository.getINSTANCE().generarEquipoPokemon(nivelEquipo));
         return random;
     }
 
@@ -107,19 +107,20 @@ public class EntrenadorRepository {
     	return altosMando.containsKey(nombre.toUpperCase());
     }
     
-    public void updateEntrenador(Entrenador entrenador) {
+    public boolean updateEntrenador(Entrenador entrenador) {
     	TurnoDAO turnoDAO = DAOFactory.getINSTANCE().getTurnoDAO();
     	CombateDAO combateDAO = DAOFactory.getINSTANCE().getCombateDAO();
     	try {
     		for(Combate co:entrenador.getCombates()) {
-    			combateDAO.create(co);
+    			co = combateDAO.create(co);
     			for(Turno t:co.getTurnos()) {
-    				turnoDAO.create(t);
+    				t=turnoDAO.create(t);
     			}
     		}
 			entrenadorDAO.updateProfile(entrenador);
+			return true;
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return false;
 		}
     }
 }

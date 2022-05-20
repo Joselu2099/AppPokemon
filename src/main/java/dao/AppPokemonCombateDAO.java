@@ -32,19 +32,20 @@ public class AppPokemonCombateDAO implements CombateDAO {
 
     private Combate resultToCombate(ResultSet rs) throws SQLException{
         return new Combate(rs.getInt("id_combate"),
-        		UtilsDAO.idToEntrenador(rs.getInt("jugador")),
-        		UtilsDAO.idToEntrenador(rs.getInt("rival")),
-        		UtilsDAO.idToEntrenador(rs.getInt("ganador")),
+        		UtilsDAO.idToEntrenador(rs.getInt("jugador"),""),
+        		UtilsDAO.idToEntrenador(-1,rs.getString("rival")),
+        		UtilsDAO.idToEntrenador(0,rs.getString("ganador")),
         		UtilsDAO.turnosFromCombate(rs.getInt("combate")),
         		UtilsDAO.idsToPokemons(rs.getString("pokemon_ko_jugador")),
         		UtilsDAO.idsToPokemons(rs.getString("pokemon_ko_rival")));
     }
 	 
 	@Override
-	public void create(Combate assistant) throws SQLException {
+	public Combate create(Combate assistant) throws SQLException {
 		 statement.executeUpdate("INSERT INTO COMBATE(JUGADOR,RIVAL,GANADOR,POKEMON_KO_JUGADOR,POKEMON_KO_RIVAL)" +
-	                " VALUES(" + assistant.getJugador().getId() + ", " + assistant.getRival().getId() +", " + assistant.getGanador().getId()
+	                " VALUES(" + assistant.getJugador().getId() + ", " + assistant.getRival().getNombre() +", " + assistant.getGanador().getNombre()
 	                +", '"+ UtilsDAO.pokemonsToString(assistant.getPokemonsKOJugador()) +"', '" + UtilsDAO.pokemonsToString(assistant.getPokemonsKORival()) +"')");
+		 return getLast();
 	}
 
 	@Override
@@ -80,6 +81,17 @@ public class AppPokemonCombateDAO implements CombateDAO {
 	    	 combates.add(resultToCombate(rs));
 	     }
 	     return combates;		
+	}
+
+	@Override
+	public Combate getLast() throws SQLException {
+		ArrayList<Combate> combates = new ArrayList<>();
+        ResultSet rs = statement.executeQuery("SELECT * FROM ENTRENADOR ORDER BY ID_ENTRENADOR DESC LIMIT 1");
+        while (rs.next()){
+        	combates.add(resultToCombate(rs));
+        }
+        if(combates.size()>0) return combates.get(0);
+        return null;
 	}
 
 }

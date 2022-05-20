@@ -106,8 +106,8 @@ public class CombateController implements Initializable {
 	private void finalizarCombate(Entrenador ganador) {
 		mediaPlayer.stop();
 		txtArea.setText("Terminado combate");
-		if(co==null) System.out.println("COMBATE NULO");
-		AppPokemon.getINSTANCE().finalizarCombate(co, ganador);
+		co.terminarCombate(ganador);
+		AppPokemon.getINSTANCE().finalizarCombate(co);
 		ControladorGUI.setScene("appPokemon");
 	}
 	
@@ -115,28 +115,39 @@ public class CombateController implements Initializable {
 		int numMvRival = ModelUtils.generarNumRandom(0,3);
 		if(pokemonsJugador[numPokemonJugador].getVelocidad()>pokemonsRival[numPokemonRival].getVelocidad()) {
 			ejecuteMove(pokemonsJugador[numPokemonJugador], pokemonsRival[numPokemonRival], numMv);
+			checkIfDebilitado(co.getRival());
 			ejecuteMove(pokemonsRival[numPokemonRival], pokemonsJugador[numPokemonJugador], numMvRival);
+			checkIfDebilitado(co.getJugador());
 		}else {
 			ejecuteMove(pokemonsRival[numPokemonRival], pokemonsJugador[numPokemonJugador], numMvRival);
+			checkIfDebilitado(co.getJugador());
 			ejecuteMove(pokemonsJugador[numPokemonJugador], pokemonsRival[numPokemonRival], numMv);
-		}
-		if(pokemonsJugador[numPokemonJugador].getVitalidad()<=0) {
-			co.debilitarPokemon(co.getJugador(), pokemonsJugador[numPokemonJugador]);
-			if(co.getPokemonsKOJugador().size()>=4) finalizarCombate(co.getRival());
-			else{
-				numPokemonJugador++;
-				setPokemonJugador();
-			}
-		}
-		if(pokemonsRival[numPokemonRival].getVitalidad()<=0) {
-			co.debilitarPokemon(co.getRival(), pokemonsRival[numPokemonRival]);
-			if(co.getPokemonsKORival().size()>=4) finalizarCombate(co.getJugador());
-			else {
-				numPokemonRival++;
-				setPokemonRival();
-			}
+			checkIfDebilitado(co.getRival());
 		}
 		co.siguienteTurno(pokemonsJugador[numPokemonJugador].getMovimientos().get(numMv), pokemonsRival[numPokemonRival].getMovimientos().get(numMvRival));
+	}
+	
+	public void checkIfDebilitado(@SuppressWarnings("exports") Entrenador entrenador) {
+		if(!co.getGanador().equals(co.getJugador()) && !co.getGanador().equals(co.getRival())) {
+			if(pokemonsJugador[numPokemonJugador].getVitalidad()<=0) {
+				System.out.println(pokemonsJugador[numPokemonJugador].getNombre() + " DEBILITADO");
+				co.debilitarPokemon(co.getJugador(), pokemonsJugador[numPokemonJugador]);
+				if(co.getPokemonsKOJugador().size()>=4) finalizarCombate(co.getRival());
+				else{
+					numPokemonJugador++;
+					setPokemonJugador();
+				}
+			}
+			if(pokemonsRival[numPokemonRival].getVitalidad()<=0) {
+				System.out.println(pokemonsRival[numPokemonRival].getNombre() + " DEBILITADO");
+				co.debilitarPokemon(co.getRival(), pokemonsRival[numPokemonRival]);
+				if(co.getPokemonsKORival().size()>=4) finalizarCombate(co.getJugador());
+				else {
+					numPokemonRival++;
+					setPokemonRival();
+				}
+			}
+		}
 	}
 	
 	private void setMovimientos() {

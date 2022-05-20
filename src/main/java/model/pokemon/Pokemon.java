@@ -255,7 +255,7 @@ public class Pokemon {
     	for(Entrenador e: EntrenadorRepository.getINSTANCE().getEntrenadores()) {
     		if(e.getPokemons().contains(this) || e.getCajaPokemon().contains(this)) return e;
     	}
-    	return new Entrenador();
+    	return new Entrenador("NPC");
     }
     
     public String getEquipoCaja() {

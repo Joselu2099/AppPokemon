@@ -32,7 +32,9 @@ public class AppPokemon {
     }
     
     public void save() {
-        EntrenadorRepository.getINSTANCE().updateEntrenador(currentEntrenador);
+        if(EntrenadorRepository.getINSTANCE().updateEntrenador(currentEntrenador))
+        	System.out.println(currentEntrenador.getNombre() + " ACTUALIZADO!");
+        else System.err.println(currentEntrenador.getNombre() +" NO SE HA ACTUALIZADO CORRECTAMENTE");
     }
     
     public void closeConnections() {
@@ -117,10 +119,9 @@ public class AppPokemon {
         pokemonRival.aumentarExperiencia((int)(pokemonRival.getNivel() + pokemonKO.getNivel()*10) / 4);
     }
 
-    public void finalizarCombate(Combate co, Entrenador ganador){
-    	co.terminarCombate(ganador);
+    public void finalizarCombate(Combate co){
     	this.currentCombate=co;
-        this.currentEntrenador.addCombate(currentCombate);
+        this.currentEntrenador.addCombate(co);
     }
     
     public void exportarDatos() {
@@ -153,12 +154,12 @@ public class AppPokemon {
         			}
             		String pksDebilitados="";
             		for(Pokemon pk: co.getPokemonsKOJugador()) {
-            			pksDebilitados+=pk.getNombre() + ", ";
+            			pksDebilitados+=pk.getNombre() + " ";
             		}
             		bw.append("Pokemons Jugador debilitados: " + pksDebilitados + "\n");
             		pksDebilitados="";
             		for(Pokemon pk: co.getPokemonsKORival()) {
-            			pksDebilitados+=pk.getNombre() + ", ";
+            			pksDebilitados+=pk.getNombre() + " ";
             		}
             		bw.append("Pokemons Rival debilitados: " + pksDebilitados + "\n");
             		bw.append("\n");	

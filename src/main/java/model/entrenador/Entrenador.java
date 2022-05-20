@@ -289,7 +289,7 @@ public class Entrenador {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entrenador that = (Entrenador) o;
-        return id == that.id && pokedollars == that.pokedollars && nombre.equals(that.nombre) && Objects.equals(pokemons, that.pokemons) && Objects.equals(cajaPokemon, that.cajaPokemon);
+        return id == that.id && pokedollars == that.pokedollars && nombre.equals(that.nombre);
     }
 
     @Override

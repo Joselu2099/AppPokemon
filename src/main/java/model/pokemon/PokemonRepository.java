@@ -9,7 +9,6 @@ import dao.DAOFactory;
 import dao.PokemonDAO;
 import eu.iamgio.pokedex.Generation;
 import eu.iamgio.pokedex.pokemon.PokemonType;
-import model.entrenador.Entrenador;
 import model.movimiento.Movimiento;
 import model.movimiento.MovimientosRepository;
 import model.utils.ModelUtils;
@@ -95,7 +94,7 @@ public class PokemonRepository {
         return pk;
     }
 
-    public ArrayList<Pokemon> generarEquipoPokemon(Entrenador e, int nivel){
+    public ArrayList<Pokemon> generarEquipoPokemon(int nivel){
         ArrayList<Pokemon> pokemons = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
         	Pokemon poke = generarPokemonRandom(nivel);

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface CombateDAO {
-    void create(Combate assistant) throws SQLException;
+	Combate create(Combate assistant) throws SQLException;
 
     void delete(Combate assistant) throws SQLException;
 
@@ -13,5 +13,7 @@ public interface CombateDAO {
     
     List<Combate> getCombatesFromEntrenador(int idEntrenador) throws SQLException;
 
+    Combate getLast() throws SQLException;
+    
     List<Combate> getAll() throws SQLException;
 }
