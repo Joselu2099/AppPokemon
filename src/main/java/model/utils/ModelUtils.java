@@ -1,5 +1,6 @@
 package model.utils;
 
+import controller.AppPokemon;
 import eu.iamgio.pokedex.pokemon.*;
 import eu.iamgio.pokedex.util.Pair;
 import model.pokemon.Pokemon;
@@ -15,6 +16,7 @@ public class ModelUtils {
         Pair<PokemonType, PokemonType> tipos = new Pair<PokemonType, PokemonType>(type1, type2);
         return new Pokemon(pk.getId()
                 , pk.getName()
+                , pk.getName() + "_" + AppPokemon.getINSTANCE().getCurrentEntrenador().getNombre()
                 , pk.getStat(Stat.Type.HP).getBaseStat()
                 , pk.getStat(Stat.Type.ATTACK).getBaseStat()
                 , pk.getStat(Stat.Type.DEFENSE).getBaseStat()
@@ -34,6 +36,7 @@ public class ModelUtils {
         Pair<PokemonType, PokemonType> tipos = new Pair<PokemonType, PokemonType>(type1, type2);
         return new Pokemon(pk.getId()
                 , pk.getName()
+                , pk.getName() + "_" + AppPokemon.getINSTANCE().getCurrentEntrenador().getNombre()
                 , pk.getStat(Stat.Type.HP).getBaseStat()
                 , pk.getStat(Stat.Type.ATTACK).getBaseStat()
                 , pk.getStat(Stat.Type.DEFENSE).getBaseStat()

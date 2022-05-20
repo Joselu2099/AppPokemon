@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import model.pokemon.*;
 import model.utils.ModelUtils;
 
@@ -50,11 +51,25 @@ public class CaptureController implements Initializable{
 	
 	@FXML
 	private void ponerMote(ActionEvent event) {
+		lblMote.setTextFill(Color.web("#000000"));
 		if(!txtMote.getText().isEmpty()) {
-			AppPokemon.getINSTANCE().capturarPokemon(poke,txtMote.getText());
-		}else AppPokemon.getINSTANCE().capturarPokemon(poke);
-		ControladorGUI.setScene("appPokemon");
-		mediaPlayer.stop();
+			if(AppPokemon.getINSTANCE().isMoteCogido(txtMote.getText()+"_"+AppPokemon.getINSTANCE().getCurrentEntrenador().getNombre())) {
+				lblMote.setText("Ese mote ya esta elegido, elige otro");
+				lblMote.setTextFill(Color.web("#FF0000"));
+			}else{
+				AppPokemon.getINSTANCE().capturarPokemon(poke,txtMote.getText());
+				ControladorGUI.setScene("appPokemon");
+				mediaPlayer.stop();
+			}
+		}else{
+			
+			if(AppPokemon.getINSTANCE().isMoteCogido(poke.getMote())) {
+				lblMote.setText("Debes ponerle un mote para registrar al pokemon");
+				lblMote.setTextFill(Color.web("#FF0000"));
+				ControladorGUI.setScene("appPokemon");
+				mediaPlayer.stop();
+			}else AppPokemon.getINSTANCE().capturarPokemon(poke);
+		}
 	}
 	
 	@Override

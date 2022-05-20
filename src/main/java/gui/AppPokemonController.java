@@ -65,6 +65,8 @@ public class AppPokemonController implements Initializable{
 	private TextField selectorCaja;
 	@FXML
 	private Button btnCambiar;
+	@FXML
+	private Label lblWarningCaja;
 	
 	
 	@FXML
@@ -102,6 +104,10 @@ public class AppPokemonController implements Initializable{
 		lblTitPokedollars.setVisible(false);
 		lblPokedollars.setVisible(false);
 		pnCaja.setVisible(true);
+		cargarCaja();
+	}
+	
+	private void cargarCaja() {
 		int columnIndex=0;
 		int rowIndex=0;
 		for(Pokemon pk: AppPokemon.getINSTANCE().getCurrentEntrenador().getCajaPokemon()) {
@@ -122,9 +128,18 @@ public class AppPokemonController implements Initializable{
 				&& !selectorCaja.getText().isBlank() 
 				&& AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemonEquipo(selectorPoke.getText())!=null 
 				&& AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemonEquipo(selectorCaja.getText())!=null) {
-			AppPokemon.getINSTANCE().getCurrentEntrenador().moverEquipoToCaja(AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemonEquipo(selectorPoke.getText()));
-			AppPokemon.getINSTANCE().getCurrentEntrenador().moverCajaToEquipo(AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemonEquipo(selectorCaja.getText()));
-			
+			Pokemon equipo = AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemonEquipo(selectorPoke.getText()+"_"+AppPokemon.getINSTANCE().getCurrentEntrenador().getNombre());
+			Pokemon caja = AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemonEquipo(selectorCaja.getText()+"_"+AppPokemon.getINSTANCE().getCurrentEntrenador().getNombre());
+			AppPokemon.getINSTANCE().getCurrentEntrenador().moverEquipoToCaja(equipo);
+			AppPokemon.getINSTANCE().getCurrentEntrenador().moverCajaToEquipo(caja);
+			for (int i = 0; i < AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemons().size()-1; i++) {
+				if(equipo.equals(AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemons().get(i))){
+					cambiarImagenPokemon(i, caja);
+				}
+			}
+			cargarCaja();
+		}else {
+			lblWarningCaja.setText("Uno de los dos motes es incorrecto");
 		}
 	}
 	
@@ -138,6 +153,23 @@ public class AppPokemonController implements Initializable{
 		lblPokedollars.setVisible(true);
 	}
 	
+	private void cambiarImagenPokemon(int index, Pokemon poke) {
+		switch(index) {
+		case 0:
+			pk1.setImage(new Image(poke.getSprite()));
+			break;
+		case 1:
+			pk2.setImage(new Image(poke.getSprite()));
+			break;
+		case 2:
+			pk3.setImage(new Image(poke.getSprite()));
+			break;
+		case 3:
+			pk4.setImage(new Image(poke.getSprite()));
+			break;
+	}
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		String path = getClass().getResource("/audio/appPokemon.mp3").getPath();
@@ -149,20 +181,7 @@ public class AppPokemonController implements Initializable{
 		lblPokedollars.setText(String.valueOf(AppPokemon.getINSTANCE().getCurrentEntrenador().getPokedollars()));
 		int cont=0;
 		for(Pokemon pk: AppPokemon.getINSTANCE().getCurrentEntrenador().getPokemons()) {
-			switch(cont) {
-				case 0:
-					pk1.setImage(new Image(pk.getSprite()));
-					break;
-				case 1:
-					pk2.setImage(new Image(pk.getSprite()));
-					break;
-				case 2:
-					pk3.setImage(new Image(pk.getSprite()));
-					break;
-				case 3:
-					pk4.setImage(new Image(pk.getSprite()));
-					break;
-			}
+			cambiarImagenPokemon(cont, pk);
 			cont++;
 		}
 	}

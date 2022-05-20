@@ -8,7 +8,6 @@ import model.movimiento.*;
 import model.utils.ModelUtils;
 import java.util.ArrayList;
 import java.util.Objects;
-
 import static model.utils.ModelUtils.parsePokemon;
 
 public class Pokemon {
@@ -36,10 +35,10 @@ public class Pokemon {
     private String sprite;
     
 
-    public Pokemon(int id, String nombre, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos, String sprite) {
+    public Pokemon(int id, String nombre, String mote, int vitalidad, int ataque, int defensa, int ataqueEspecial, int defensaEspecial, int velocidad, int experiencia, Pair<PokemonType, PokemonType> tipos, String sprite) {
         this.id = id;
         this.nombre = nombre.toUpperCase();
-        this.mote = nombre.toUpperCase();
+        this.mote = mote.toUpperCase();
         this.vitalidad = vitalidad;
         this.ataque = ataque;
         this.defensa = defensa;

@@ -32,7 +32,6 @@ public class AppPokemon {
     }
     
     public void save() {
-    	//TODO
         EntrenadorRepository.getINSTANCE().updateEntrenador(currentEntrenador);
     }
     
@@ -48,6 +47,10 @@ public class AppPokemon {
     public Combate getCurrentCombate() {
 		return currentCombate;
 	}
+    
+    public boolean isMoteCogido(String mote) {
+    	return (currentEntrenador.getPokemonEquipo(mote.toUpperCase())!=null || currentEntrenador.getPokemonCaja(mote.toUpperCase())!=null);
+    }
     
     public boolean isEntrenadorRegistrado(String nombre) {
     	return EntrenadorRepository.getINSTANCE().getEntrenador(nombre.toUpperCase())!=null;
@@ -78,7 +81,7 @@ public class AppPokemon {
     }
 
     public void capturarPokemon(Pokemon pokemon, String mote) {
-        pokemon.setMote(mote.toUpperCase());
+        pokemon.setMote(mote.toUpperCase()+"_"+currentEntrenador.getNombre());
         capturarPokemon(pokemon);
     }
 

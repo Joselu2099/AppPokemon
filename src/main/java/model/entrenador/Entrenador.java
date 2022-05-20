@@ -145,7 +145,7 @@ public class Entrenador {
 
     public Pokemon getPokemonEquipo(String mote) {
     	for(Pokemon pk: pokemons) {
-    		if(pk.getMote().equals(mote))
+    		if(pk.getMote().equals(mote.toUpperCase()))
     			return pk;
     	}
     	return null;
@@ -153,7 +153,7 @@ public class Entrenador {
     
     public Pokemon getPokemonCaja(String mote) {
     	for(Pokemon pk: cajaPokemon) {
-    		if(pk.getMote().equals(mote))
+    		if(pk.getMote().equals(mote.toUpperCase()))
     			return pk;
     	}
     	return null;

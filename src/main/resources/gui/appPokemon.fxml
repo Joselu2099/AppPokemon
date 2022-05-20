@@ -161,6 +161,11 @@
                               <TextField fx:id="selectorCaja" layoutX="254.0" layoutY="630.0" />
                               <Label layoutX="6.0" layoutY="602.0" text="Escribir mote pokemon equipo" />
                               <Label layoutX="255.0" layoutY="602.0" text="Escribir mote pokemon caja" />
+                              <Label fx:id="lblWarningCaja" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="655.0" prefHeight="33.0" prefWidth="399.0" textAlignment="CENTER" textFill="#eb0909" textOverrun="CLIP" wrapText="true">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Label>
                            </children>
                         </Pane>
                      </children>
