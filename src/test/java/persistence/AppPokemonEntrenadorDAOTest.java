@@ -3,7 +3,6 @@ package persistence;
 import junit.framework.TestCase;
 import model.entrenador.Entrenador;
 import org.junit.Assert;
-
 import dao.DAOFactory;
 import dao.EntrenadorDAO;
 
@@ -12,24 +11,24 @@ import java.sql.SQLException;
 public class AppPokemonEntrenadorDAOTest extends TestCase {
 
     private EntrenadorDAO entrenadorDAO = DAOFactory.getINSTANCE().getEntrenadorDAO();
-    private Entrenador paco;
+    private Entrenador paco = new Entrenador("Paco");
+    private int idPaco;
 
     public void testCreate() {
-        paco = new Entrenador("Paco");
         int idInicialPaco = paco.getId();
         try {
             paco = entrenadorDAO.create(paco);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Assert.assertNotEquals(idInicialPaco, paco.getId());
-        testUpdateProfile(paco);
+        idPaco = paco.getId();
+        Assert.assertNotEquals(idInicialPaco, idPaco);
     }
-
-    public void testDelete(Entrenador entrenador) {
+    
+    public void testDelete() {
         boolean isBorrado = false;
         try {
-            entrenadorDAO.delete(entrenador);
+            entrenadorDAO.delete(paco);
             isBorrado = true;
         } catch (SQLException e) {
             isBorrado = false;
@@ -37,27 +36,4 @@ public class AppPokemonEntrenadorDAOTest extends TestCase {
         assertTrue(isBorrado);
     }
 
-    public void testUpdateProfile(Entrenador entrenador) {
-        entrenador.setPokedollars(1555);
-        try {
-            entrenadorDAO.updateProfile(entrenador);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        assertEquals(1555, testGet(entrenador.getId()).getPokedollars());
-    }
-
-    public Entrenador testGet(int id) {
-        Entrenador e = null;
-        try {
-            e = entrenadorDAO.get(id);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        assertNotNull(e);
-        return e;
-    }
-
-    public void testGetAll() {
-    }
 }
