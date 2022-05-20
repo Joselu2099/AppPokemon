@@ -98,7 +98,7 @@ public class AppPokemonPokemonDAO implements PokemonDAO{
 	        " SET NOMBRE='" + assistant.getNombre() +"'"+
 	        " WHERE ID_POKEMON = " + assistant.getId());
 	    statement.executeUpdate("UPDATE POKEMON" +
-	        " SET MOTE=" + assistant.getMote() +
+	        " SET MOTE='" + assistant.getMote() +"'"+
 	        " WHERE ID_POKEMON = " + assistant.getId());
 	    statement.executeUpdate("UPDATE POKEMON" +
 	        " SET VITALIDAD=" + assistant.getVitalidad() +
